@@ -1,16 +1,26 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class TowerHealth : MonoBehaviour
+public class TowerHealth : HealthBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float maxHealth = 200;
+    private float currentHealth;
+
+    private float damageResist;
+
+    public override void TakeDamage(float damageAmount)
     {
-        
+        currentHealth -= damageAmount / damageResist;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void RecoverHealth(float recoveryAmount)
     {
-        
+        currentHealth += recoveryAmount;
+    }
+    public override void Die()
+    {
+        currentHealth = maxHealth;
+        GameObject currentGameObject = this.gameObject;
+        ObjectPool.pool.Destroy(ref currentGameObject);
     }
 }
