@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Tile : MonoBehaviour
 {
@@ -12,11 +13,6 @@ public class Tile : MonoBehaviour
     void Update()
     {
         
-    }
-
-    private void OnMouseEnter()
-    {
-        Debug.Log("Over");
     }
 
     public void Initialize(GameObject preset)
