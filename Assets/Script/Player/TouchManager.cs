@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -37,6 +39,14 @@ public class TouchManager : MonoBehaviour
             // Checks if the finger is still touching the screen
             foreach(Touch touch in Touch.activeTouches)
             {
+
+                // Detect if over UI
+                if (EventSystem.current.IsPointerOverGameObject(touch.touchId) && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
+                {
+                    OverUI(GetUIElementUnderTouch(touchPos));
+                    return;
+                }
+
                 if (touch.isInProgress)
                 {
                     touchInProgress = true;
@@ -49,11 +59,36 @@ public class TouchManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && isTouching)
             {
+                // If over a tile, drag tower to it
                 if (hit.transform.GetComponent<Tile>())
                 {
                     Debug.Log("over tile " + hit.transform.name);
                 }
             }
+        }
+    }
+
+    GameObject GetUIElementUnderTouch(Vector2 screePos)
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current) {position = screePos};
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, raycastResults);
+        if (raycastResults.Count > 0)
+        {
+            return raycastResults[0].gameObject;
+        }
+
+        return null;
+    }
+
+    void OverUI(GameObject UI)
+    {
+        Debug.Log(UI.name);
+
+        // Detect if over tower icon
+        if (UI.GetComponent<TowerButton>())
+        {
+            UI.GetComponent<TowerButton>().CreateTower();
         }
     }
 }
