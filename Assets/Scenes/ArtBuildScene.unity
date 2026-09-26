@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 1004688883}
   - component: {fileID: 1004688884}
   - component: {fileID: 1004688885}
+  - component: {fileID: 1004688886}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -303,9 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArtBuildScroll
   masterList: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   lockedY: 0
-  cameraMoveSpeed: 5
-  rb: {fileID: 1004688885}
-  heldTimer: 0
+  cameraMoveSpeed: 1.5
 --- !u!54 &1004688885
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -333,6 +332,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &1004688886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004688879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d83cfbd696fabc418ffc15bdbbb26b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraClamp
+  upperRightBorder: {x: 11, y: 5, z: 0}
+  lowerLeftBorder: {x: -11, y: -5, z: 0}
 --- !u!1 &1273591494
 GameObject:
   m_ObjectHideFlags: 0
