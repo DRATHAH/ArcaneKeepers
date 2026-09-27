@@ -23,27 +23,29 @@ public class ObjectPool : MonoBehaviour
     }
 
     //Func for creating new objects
-    public void Create(ref GameObject gameObject, Vector3 spawnPoint)
+    public void Create(GameObject objectType, Vector3 spawnPoint)
     {
-        GameObject localGM = gameObject;
+        string localObject = objectType.name;
         
         //Check if the object is in the object pools
-        if (pooledObjects.Find(x => localGM))
+        if (pooledObjects.Find(x => x.name == objectType.name))
         {
             // Find where the object is in the pooledObjects list
-            int selectedPooledObject = pooledObjects.FindIndex(x => localGM);
+            int selectedPooledObject = pooledObjects.FindIndex(x => x.name == objectType.name);
             pooledObjects[selectedPooledObject].SetActive(true); //Set the object active
+            pooledObjects[selectedPooledObject].transform.position = spawnPoint;
             pooledObjects.RemoveAt(selectedPooledObject); //Remove it from the list
         }
         else
         {
             //If there are no objects available in the pool create a new one.
-            Instantiate(gameObject, spawnPoint, Quaternion.identity);
+            GameObject newbie = Instantiate(objectType, spawnPoint, Quaternion.identity);
+            newbie.name = objectType.name;
         }
     }
 
     //Func for destroying objects
-    public virtual void Destroy(ref GameObject gameObject)
+    public virtual void Destroy(GameObject gameObject)
     {
         pooledObjects.Add(gameObject); //Add object to pool
         gameObject.SetActive(false); //Disable object

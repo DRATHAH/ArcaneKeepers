@@ -17,7 +17,7 @@ public class TowerProjectile : MonoBehaviour
         if (destroy)
         {
             destroy = false;
-            ObjectPool.pool.Destroy(ref Projectile);
+            ObjectPool.pool.Destroy(Projectile);
         }
     }
 }

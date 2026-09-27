@@ -11,7 +11,14 @@ public class RangerTower : TowerBase
     private float farCooldown;
     private float closeCooldown;
 
+    [SerializeField] private GameObject weakProjectilePrefab;
     [SerializeField] private GameObject strongProjectilePrefab;
+
+    private void OnEnable()
+    {
+        farCooldown = maxFCooldown;
+        closeCooldown = maxCCooldown;
+    }
 
     void Update()
     {
@@ -26,13 +33,13 @@ public class RangerTower : TowerBase
     }
 
 
-    //While close to home charge a strong single-target projectile (More damage than up close)
+    //While close to home charge a strong single-target projectile that does relatively more damage to armored targets
     public override void AbilityClose()
     {
         if(closeCooldown <= 0)
         {
             closeCooldown = maxCCooldown;
-            ObjectPool.pool.Create(ref strongProjectilePrefab, transform.position);
+            ObjectPool.pool.Create(strongProjectilePrefab, transform.position);
         }
         else
         {
@@ -40,15 +47,18 @@ public class RangerTower : TowerBase
         }
     }
 
-    //While far from home shoot weaker projectiles with slightly more defense
+    //While far from home shoot weaker projectiles with higher DPS against un-armored targets
     public override void AbilityFar()
     {
-        //DamageResist ++
-
         //Fast Attack
-        if(farCooldown <= 0)
+        if (farCooldown <= 0)
         {
-            //Shoot Fast Attack Projectile
+            farCooldown = maxFCooldown;
+            ObjectPool.pool.Create(weakProjectilePrefab, transform.position);
+        }
+        else
+        {
+            farCooldown -= Time.deltaTime;
         }
     }
 }
