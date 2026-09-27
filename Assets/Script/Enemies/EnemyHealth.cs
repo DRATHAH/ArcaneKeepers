@@ -6,11 +6,11 @@ public class EnemyHealth : HealthBase
 {
     [Header("Health Variables")]
     [SerializeField] private float maxHealth = 250;
-    [SerializeField] private float currentHealth;
+    private float currentHealth;
 
     [Header("Armor Variables")]
     [SerializeField] private float maxArmorHealth = 0;
-    [SerializeField] private float currentArmorHealth;
+    private float currentArmorHealth;
 
     void OnEnable()
     {

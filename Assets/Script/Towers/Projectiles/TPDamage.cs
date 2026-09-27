@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TPDamage : DamageBase
 {
+    [Tooltip("How much damage a projectile does.")]
     [SerializeField] private float damageAmount;
 
     [Tooltip("Number of enemies this projectile can hit before disappearing.")]
@@ -11,6 +12,7 @@ public class TPDamage : DamageBase
 
     private List<GameObject> objectsHit = new List<GameObject>();
 
+    [Tooltip("Does this projectile pierce enemy armor?")]
     [SerializeField] private bool armorPiercing = false;
 
     private void OnEnable()

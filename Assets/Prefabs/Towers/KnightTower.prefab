@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallTower
   swapLimit: 3
-  regenRate: 5
+  regenRate: 50
   damageResists:
   - 0
   - 2
@@ -125,7 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerHealth
   maxHealth: 1500
-  currentHealth: 0
   damageResist: 0
 --- !u!61 &5375393738007212206
 BoxCollider2D:

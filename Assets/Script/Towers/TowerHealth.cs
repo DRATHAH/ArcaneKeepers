@@ -3,16 +3,39 @@ using UnityEngine;
 
 public class TowerHealth : HealthBase
 {
+    [Tooltip("How much health the tower can have.")]
     [SerializeField] private float maxHealth = 200;
-    [SerializeField]private float currentHealth;
+    private float currentHealth;
 
-    [HideInInspector] public float damageResist;
+    [Tooltip("Damage resistance modifier.")]
+    public float damageResist;
+
+    [HideInInspector] public bool isAttacked = false;
+    private float attackedTimer = 0.2f;
+    private float maxAttackedTimer = 0.2f;
+
+    private void Update()
+    {
+        if(attackedTimer > 0)
+        {
+            attackedTimer -= Time.deltaTime;
+        }
+        else
+        {
+            if(isAttacked != false)
+            {
+                isAttacked = false;
+            }
+        }
+    }
 
     public override void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount / damageResist;
+        isAttacked = true;
+        attackedTimer = maxAttackedTimer;
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -31,6 +54,7 @@ public class TowerHealth : HealthBase
     }
     public override void Die()
     {
+        isAttacked = false;
         currentHealth = maxHealth;
         GameObject currentGameObject = this.gameObject;
         ObjectPool.pool.Destroy(currentGameObject);

@@ -5,13 +5,19 @@ public class RangerTower : TowerBase
     [Tooltip("Dividing Line for Ability Transistion")]
     [SerializeField] private float swapLimit = 4f;
 
+    [Tooltip("How long the waiting period for shots for far ability should be.")]
     [SerializeField] private float maxFCooldown;
+
+    [Tooltip("How long the waiting period for shots for the close ability should be.")]
     [SerializeField] private float maxCCooldown;
 
     private float farCooldown;
     private float closeCooldown;
 
+    [Tooltip("Prefab for the far ability projectile.")]
     [SerializeField] private GameObject weakProjectilePrefab;
+
+    [Tooltip("Prefab for the close ability projectile.")]
     [SerializeField] private GameObject strongProjectilePrefab;
 
     private void OnEnable()
