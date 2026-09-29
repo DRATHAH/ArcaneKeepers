@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4821375762121360294}
   - component: {fileID: 4118237290638323801}
   - component: {fileID: 2059193530043033756}
+  - component: {fileID: 507032523565395887}
   m_Layer: 0
   m_Name: ArcherTower
   m_TagString: Untagged
@@ -107,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerHealth
   maxHealth: 200
+  currentHealth: 0
   damageResist: 0
   isAttacked: 0
 --- !u!114 &2059193530043033756
@@ -126,3 +128,24 @@ MonoBehaviour:
   maxCCooldown: 10
   weakProjectilePrefab: {fileID: 1286918116579938344, guid: a913c4a2b3bfd7c4b8226bc279710635, type: 3}
   strongProjectilePrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
+--- !u!65 &507032523565395887
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601683227217436569}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
