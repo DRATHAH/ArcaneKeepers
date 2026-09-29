@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class Tile : MonoBehaviour
 {
+    public GameObject tileObject;
+    public Transform anchorPos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,8 +18,10 @@ public class Tile : MonoBehaviour
         
     }
 
+    // If we want an obstacle here, call this function
     public void Initialize(GameObject preset)
     {
-        // If we want an obstacle here, call this function
+        tileObject = Instantiate(preset, anchorPos.position, anchorPos.rotation);
+        tileObject.transform.SetParent(anchorPos);
     }
 }

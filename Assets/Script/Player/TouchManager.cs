@@ -7,6 +7,23 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class TouchManager : MonoBehaviour
 {
+    #region Singleton
+    public static TouchManager instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of Touch Manager found!");
+            return;
+        }
+
+        instance = this;
+    }
+    #endregion
+
+    public Tile hoveringTile;
+
     InputActionMap actions;
     bool isTouching = false;
 
@@ -63,6 +80,11 @@ public class TouchManager : MonoBehaviour
                 if (hit.transform.GetComponent<Tile>())
                 {
                     Debug.Log("over tile " + hit.transform.name);
+                    hoveringTile = hit.transform.GetComponent<Tile>();
+                }
+                else
+                {
+                    hoveringTile = null;
                 }
             }
         }
@@ -83,8 +105,6 @@ public class TouchManager : MonoBehaviour
 
     void OverUI(GameObject UI)
     {
-        Debug.Log(UI.name);
-
         // Detect if over tower icon
         if (UI.GetComponent<TowerButton>())
         {

@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class TowerButton : MonoBehaviour
 {
+    public GameObject towerPlacerPrefab;
     public Tower tower;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,6 +26,9 @@ public class TowerButton : MonoBehaviour
     public void CreateTower()
     {
         Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();
-        Debug.Log("Tower");
+        GameObject towerPlacer = Instantiate(towerPlacerPrefab, touchPos, Quaternion.identity);
+        TowerPlacer placer = towerPlacer.GetComponent<TowerPlacer>();
+        placer.Initialize(tower);
+        towerPlacer.transform.SetParent(transform.root, true);
     }
 }

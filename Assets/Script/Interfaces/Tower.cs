@@ -6,4 +6,5 @@ public class Tower : ScriptableObject
 {
     public string towerName = "";
     public GameObject towerPrefab;
+    public Sprite towerIcon;
 }
