@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 public class StraightShot : MonoBehaviour
 {
-    Rigidbody2D rb;
+    Rigidbody rb;
 
     [Tooltip("How fast the projectile moves.")]
     [SerializeField] private float projectileSpeed = 1;
@@ -18,7 +18,7 @@ public class StraightShot : MonoBehaviour
         lifeTime = maxLifeTime;
         if(rb == null)
         {
-            rb = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody>();
         }
         rb.linearVelocity = new Vector2(projectileSpeed, 0);
     }

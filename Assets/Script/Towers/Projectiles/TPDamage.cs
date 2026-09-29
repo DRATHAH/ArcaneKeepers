@@ -8,7 +8,8 @@ public class TPDamage : DamageBase
     [SerializeField] private float damageAmount;
 
     [Tooltip("Number of enemies this projectile can hit before disappearing.")]
-    [SerializeField] private int hitCount = 1;
+    [SerializeField] private int maxhitCount = 1;
+    private int hitCount;
 
     private List<GameObject> objectsHit = new List<GameObject>();
 
@@ -17,13 +18,14 @@ public class TPDamage : DamageBase
 
     private void OnEnable()
     {
+        hitCount = maxhitCount;
         objectsHit.Clear();
     }
 
 
-    private void OnTriggerEnter2D(Collider2D hit)
+    private void OnTriggerEnter(Collider hit)
     {
-        if(hit.tag == "Enemy" && !objectsHit.Find(x => hit.gameObject))
+        if(hit.tag == "Enemy" && !objectsHit.Find(x => x.name == hit.gameObject.name))
         {
             Attack(damageAmount, armorPiercing, hit.gameObject);
             hitCount--;

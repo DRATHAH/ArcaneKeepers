@@ -6,7 +6,7 @@ public class EnemyHealth : HealthBase
 {
     [Header("Health Variables")]
     [SerializeField] private float maxHealth = 250;
-    private float currentHealth;
+    [HideInInspector] public float currentHealth;
 
     [Header("Armor Variables")]
     [SerializeField] private float maxArmorHealth = 0;

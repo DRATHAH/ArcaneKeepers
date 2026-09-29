@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RangerTower : TowerBase
+public class WizardTower : TowerBase
 {
     [Tooltip("Dividing Line for Ability Transistion")]
     [SerializeField] private float swapLimit = 4f;
@@ -15,10 +15,12 @@ public class RangerTower : TowerBase
     private float closeCooldown;
 
     [Tooltip("Prefab for the far ability projectile.")]
-    [SerializeField] private GameObject weakProjectilePrefab;
+    [SerializeField] private GameObject farProjectile;
 
     [Tooltip("Prefab for the close ability projectile.")]
-    [SerializeField] private GameObject strongProjectilePrefab;
+    [SerializeField] private GameObject closeProjectile;
+
+    [SerializeField] private float maxMapLength;
 
     private void OnEnable()
     {
@@ -31,7 +33,7 @@ public class RangerTower : TowerBase
         if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
         {
             //Debug.Log("Avast");
-            if(hit.collider.tag == "Enemy")
+            if (hit.collider.tag == "Enemy")
             {
                 if (transform.position.x < swapLimit)
                 {
@@ -56,10 +58,10 @@ public class RangerTower : TowerBase
     //While close to home charge a strong single-target projectile that does relatively more damage to armored targets
     public override void AbilityClose()
     {
-        if(closeCooldown <= 0)
+        if (closeCooldown <= 0)
         {
             closeCooldown = maxCCooldown;
-            ObjectPool.pool.Create(strongProjectilePrefab, transform.position);
+            ObjectPool.pool.Create(closeProjectile, transform.position);
         }
         else
         {
@@ -74,7 +76,9 @@ public class RangerTower : TowerBase
         if (farCooldown <= 0)
         {
             farCooldown = maxFCooldown;
-            ObjectPool.pool.Create(weakProjectilePrefab, transform.position);
+            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1));
+            ObjectPool.pool.Create(farProjectile, transform.position);
+            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z - 1));
         }
         else
         {
@@ -85,7 +89,7 @@ public class RangerTower : TowerBase
 
     private void ReduceCooldown(ref float cooldown)
     {
-        if(cooldown > 0)
+        if (cooldown > 0)
         {
             cooldown -= Time.deltaTime;
         }
