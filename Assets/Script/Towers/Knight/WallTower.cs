@@ -42,7 +42,10 @@ public class WallTower : TowerBase
             towerHealth.damageResist = damageResists[0];
         }
 
-        towerHealth.RecoverHealth(regenRate * Time.deltaTime);
+        if(towerHealth.attackedTimer <= 0)
+        {
+            towerHealth.RecoverHealth(regenRate * Time.deltaTime);
+        }
 
     }
 

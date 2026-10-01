@@ -300,6 +300,67 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &628020780
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4483944384165000995, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_Name
+      value: KnightTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 7749043369650434887, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: regenRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926067926141929282, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
 --- !u!1 &1532039578
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +404,7 @@ MonoBehaviour:
   spawnPoints:
   - {x: 8, y: 0, z: 0}
   - {x: 8, y: 0, z: 1}
-  - {x: 8, y: 0, z: -1}
+  - {x: 8.2, y: 0, z: 1}
   - {x: 8, y: 0, z: 2}
   - {x: 8, y: 0, z: -2}
   - {x: 8, y: 0, z: 0}
@@ -377,8 +438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
   currentWave: 0
-  incrementTimerBase: 10
-  maxGracePeriod: 10
+  incrementTimerBase: 5
+  maxGracePeriod: 5
   enemiesSpawned: []
   incrementHealthMeter: 0
   incrementPercent: 0.5
@@ -451,9 +512,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1618864902372097007, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
+      propertyPath: damageResist
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1667525022207391877, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 3.92
       objectReference: {fileID: 0}
     - target: {fileID: 1667525022207391877, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -513,3 +578,4 @@ SceneRoots:
   - {fileID: 43916104}
   - {fileID: 3517197021091807596}
   - {fileID: 1532039580}
+  - {fileID: 628020780}

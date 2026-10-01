@@ -6,13 +6,16 @@ public class EnemyMovement : MonoBehaviour
 {
     Rigidbody rb;
 
-    private enum Status
+    [HideInInspector] public enum Status
     {
         ALIVE,
-        DEAD
+        STOPPED
     };
 
-    private Status livingStatus;
+    public Status livingStatus;
+
+    [SerializeField] private float maxMoveDelay = 0.5f;
+    [SerializeField] private float moveDelay;
 
     [Tooltip("How fast the enemy moves. Negative number moves left, positive number moves right")]
     [SerializeField] private float moveSpeed;
@@ -29,23 +32,37 @@ public class EnemyMovement : MonoBehaviour
         {
             throw new ArgumentException("Unable to find Enemy Health Component!", nameof(EnemyMovement));
         }
+
         rb = GetComponent<Rigidbody>();
         CalcMovement();
     }
 
     private void Update()
     {
-        if(enemyHealth != null)
+        if(moveDelay > 0)
         {
-            if(enemyHealth.currentHealth > 0 && livingStatus != Status.ALIVE)
+            moveDelay -= Time.deltaTime;
+        }
+
+        if (enemyHealth != null)
+        {
+            if(enemyHealth.currentHealth > 0 && moveDelay <= 0)
             {
-                livingStatus = Status.ALIVE;
+                if(livingStatus != Status.ALIVE)
+                {
+                    livingStatus = Status.ALIVE;
+                }
             }
-            else if(enemyHealth.currentHealth <= 0 && livingStatus != Status.DEAD)
+            else
             {
-                livingStatus = Status.DEAD;
+                if(livingStatus != Status.STOPPED)
+                {
+                    livingStatus = Status.STOPPED;
+                }
             }
         }
+
+        CalcMovement();
     }
 
     void CalcMovement()
@@ -58,5 +75,10 @@ public class EnemyMovement : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
         }
+    }
+
+    public void PauseMovement()
+    {
+        moveDelay = maxMoveDelay;
     }
 }

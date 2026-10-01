@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 7970669991613728946}
   - component: {fileID: 6639408195641434352}
   - component: {fileID: 3317037270297027513}
+  - component: {fileID: 4326388368815195434}
   m_Layer: 0
   m_Name: Skeleton(Armor 1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,3 +173,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   moveSpeed: 0.4
+--- !u!114 &4326388368815195434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3898671156306584144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920f6710458d0634681e058e2706cdd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
+  damageAmount: 20

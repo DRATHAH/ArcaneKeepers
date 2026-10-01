@@ -8,10 +8,10 @@ public class TowerHealth : HealthBase
     [SerializeField] private float currentHealth;
 
     [Tooltip("Damage resistance modifier.")]
-    public float damageResist;
+    public float damageResist = 1;
 
     [HideInInspector] public bool isAttacked = false;
-    private float attackedTimer = 0.2f;
+    [HideInInspector]public float attackedTimer = 0.2f;
     private float maxAttackedTimer = 0.2f;
 
 

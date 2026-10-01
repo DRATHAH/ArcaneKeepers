@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 9106612002703853024}
   - component: {fileID: 8295553400365742735}
   - component: {fileID: 6591488147516826310}
+  - component: {fileID: 8270876376611283203}
   - component: {fileID: 806042027394949148}
   - component: {fileID: 1935017073138235465}
   m_Layer: 0
   m_Name: ClericTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +117,22 @@ MonoBehaviour:
   - 25
   healingAmount: 500
   healingFieldLifeTime: 5
+--- !u!114 &8270876376611283203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958499418853621945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0226d23e3e99c664c8edce9d20911405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerHealth
+  maxHealth: 150
+  currentHealth: 0
+  damageResist: 1
+  isAttacked: 0
 --- !u!65 &806042027394949148
 BoxCollider:
   m_ObjectHideFlags: 0

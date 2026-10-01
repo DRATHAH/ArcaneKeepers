@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2968592893126040821}
   m_Layer: 0
   m_Name: KnightTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,10 +108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361fd1a5cd95d5c448f658db1fd9363a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallTower
-  swapLimit: 3
+  swapLimit: 6
   regenRate: 50
   damageResists:
-  - 0
+  - 1
   - 2
 --- !u!114 &4900465432934324430
 MonoBehaviour:

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 507032523565395887}
   m_Layer: 0
   m_Name: ArcherTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerHealth
   maxHealth: 200
   currentHealth: 0
-  damageResist: 0
+  damageResist: 1
   isAttacked: 0
 --- !u!114 &2059193530043033756
 MonoBehaviour:
