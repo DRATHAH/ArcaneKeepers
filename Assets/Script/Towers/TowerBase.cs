@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TowerBase : MonoBehaviour
 {
+    public Tower tower;
+
     public virtual void AbilityClose()
     {
         Debug.Log("Close to Home");

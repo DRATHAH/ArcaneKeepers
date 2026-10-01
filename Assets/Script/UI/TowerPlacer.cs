@@ -15,17 +15,20 @@ public class TowerPlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if player is touching screen
         if (Touch.activeTouches.Count > 0)
         {
+            // Get position of touch
             transform.position = Touchscreen.current.primaryTouch.position.ReadValue();
         }
-        else if (TouchManager.instance.hoveringTile)
+        else if (TouchManager.instance.hoveringTile) // If touch ends while hovering over a tile
         {
+            // Place tower
             Debug.Log("Placed");
             TouchManager.instance.hoveringTile.Initialize(tower.towerPrefab);
             Destroy(gameObject);
         }
-        else
+        else // If not hovering over tile, remove tower icon
         {
             Destroy(gameObject);
         }

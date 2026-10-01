@@ -23,6 +23,7 @@ public class TowerButton : MonoBehaviour
         tower = newTower;
     }
 
+    // Creates the tower icon when you drag from the image
     public void CreateTower()
     {
         Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();

@@ -23,6 +23,7 @@ public class TouchManager : MonoBehaviour
     #endregion
 
     public Tile hoveringTile;
+    public GameObject hoverObject; // Object the touch is currently hovering over
 
     InputActionMap actions;
     bool isTouching = false;
@@ -71,27 +72,36 @@ public class TouchManager : MonoBehaviour
             }
             isTouching = touchInProgress;
 
-            // Create a ray from the camera to the touch position
-            Ray ray = Camera.main.ScreenPointToRay(touchPos);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit) && isTouching)
-            {
-                // If over a tile, drag tower to it
-                if (hit.transform.GetComponent<Tile>())
-                {
-                    Debug.Log("over tile " + hit.transform.name);
-                    hoveringTile = hit.transform.GetComponent<Tile>();
-                }
-                else
-                {
-                    hoveringTile = null;
-                }
-            }
+            CheckPhysicalHover(touchPos);
         }
+    }
+
+    public GameObject CheckPhysicalHover(Vector2 touchPos)
+    {
+        // Create a ray from the camera to the touch position
+        Ray ray = Camera.main.ScreenPointToRay(touchPos);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit) && isTouching)
+        {
+            // If over a tile, get its transform to store for tower placement
+            if (hit.transform.GetComponent<Tile>())
+            {
+                hoveringTile = hit.transform.GetComponent<Tile>();
+            }
+            else
+            {
+                hoveringTile = null;
+            }
+            Debug.Log(hit.transform.name);
+            return hit.transform.gameObject;
+        }
+
+        return null;
     }
 
     GameObject GetUIElementUnderTouch(Vector2 screePos)
     {
+        // If over a UI element, return the UI object
         PointerEventData pointerData = new PointerEventData(EventSystem.current) {position = screePos};
         List<RaycastResult> raycastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, raycastResults);
@@ -103,12 +113,17 @@ public class TouchManager : MonoBehaviour
         return null;
     }
 
+    // Activate code of UI object when clicked
     void OverUI(GameObject UI)
     {
         // Detect if over tower icon
         if (UI.GetComponent<TowerButton>())
         {
             UI.GetComponent<TowerButton>().CreateTower();
+        }
+        else if (UI.GetComponent<TowerRelocate>())
+        {
+            UI.GetComponent<TowerRelocate>().RelocateTower();
         }
     }
 }
