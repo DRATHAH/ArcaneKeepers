@@ -20,7 +20,7 @@ public class WizardTower : TowerBase
     [Tooltip("Prefab for the close ability projectile.")]
     [SerializeField] private GameObject closeProjectile;
 
-    [SerializeField] private float maxMapLength;
+    //[SerializeField] private float maxMapLength;
 
     private void OnEnable()
     {
