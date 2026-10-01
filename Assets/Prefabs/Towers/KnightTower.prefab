@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7294304030510795637}
   - component: {fileID: 7749043369650434887}
   - component: {fileID: 4900465432934324430}
+  - component: {fileID: 5262910377712666955}
   - component: {fileID: 4518364333664289075}
   - component: {fileID: 2968592893126040821}
   m_Layer: 0
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361fd1a5cd95d5c448f658db1fd9363a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallTower
+  tower: {fileID: 0}
   swapLimit: 6
   regenRate: 50
   damageResists:
@@ -129,6 +131,19 @@ MonoBehaviour:
   currentHealth: 0
   damageResist: 0
   isAttacked: 0
+  attackedTimer: 0.2
+--- !u!114 &5262910377712666955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483944384165000995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
 --- !u!65 &4518364333664289075
 BoxCollider:
   m_ObjectHideFlags: 0
