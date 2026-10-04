@@ -24,4 +24,9 @@ public class Tile : MonoBehaviour
         tileObject = ObjectPool.pool.Create(preset, anchorPos.position, anchorPos.rotation);
         tileObject.transform.SetParent(anchorPos);
     }
+
+    public void SetTileObject(GameObject newTO)
+    {
+        tileObject = newTO;
+    }
 }

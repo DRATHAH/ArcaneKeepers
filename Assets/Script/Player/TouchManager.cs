@@ -130,7 +130,7 @@ public class TouchManager : MonoBehaviour
         // Detect if over a placed tower, run relocate function
         else if (UI.GetComponent<TowerRelocate>())
         {
-            UI.GetComponent<TowerRelocate>().RelocateTower();
+           // UI.GetComponent<TowerRelocate>().RelocateTower();
         }
     }
 }

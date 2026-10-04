@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   towerName: Knight
   towerPrefab: {fileID: 4483944384165000995, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
+  towerIcon: {fileID: 21300000, guid: 7aac6aa21e2aee94a9e13d98b134b45b, type: 3}

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   towerName: Archer
   towerPrefab: {fileID: 3601683227217436569, guid: f6ddec55d4e96e64c9c67c32fa7d38b2, type: 3}
+  towerIcon: {fileID: 21300000, guid: 7aac6aa21e2aee94a9e13d98b134b45b, type: 3}

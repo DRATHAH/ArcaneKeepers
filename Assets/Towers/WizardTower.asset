@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   towerName: Wizard
   towerPrefab: {fileID: 4668225259355750822, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
+  towerIcon: {fileID: 21300000, guid: 7aac6aa21e2aee94a9e13d98b134b45b, type: 3}

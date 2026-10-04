@@ -23,20 +23,24 @@ public class TowerPlacer : MonoBehaviour
         // Check if player is touching screen
         if (Touch.activeTouches.Count > 0)
         {
+            RelocationManager.instance.relocatedObject = this.gameObject;
             // Get position of touch
             transform.position = Touchscreen.current.primaryTouch.position.ReadValue();
         }
-        else if (TouchManager.instance.hoveringTile) // If touch ends while hovering over a tile
+        else if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null) // If touch ends while hovering over a tile
         {
             // Place tower
-            Debug.Log("Placed");
+           // Debug.Log("Placed");
             GameObject newbie = ObjectPool.pool.Create(tower.towerPrefab, TouchManager.instance.hoveringTile.anchorPos.position, TouchManager.instance.hoveringTile.anchorPos.rotation);
             newbie.transform.parent = TouchManager.instance.hoveringTile.anchorPos;
             towerButton.createdObject = newbie;
+            TouchManager.instance.hoveringTile.tileObject = newbie;
+            RelocationManager.instance.relocatedObject = null;
             ObjectPool.pool.Destroy(gameObject);
         }
         else // If not hovering over tile, remove tower icon
         {
+            RelocationManager.instance.relocatedObject = null;
             ObjectPool.pool.Destroy(gameObject);
         }
     }
