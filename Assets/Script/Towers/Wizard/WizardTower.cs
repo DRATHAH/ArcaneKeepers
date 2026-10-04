@@ -25,6 +25,7 @@ public class WizardTower : TowerBase
 
     [SerializeField] private float fireWaveRange = 3;
 
+
     private void Start()
     {
         towerRelocate = GetComponent<TowerRelocate>();
@@ -38,11 +39,13 @@ public class WizardTower : TowerBase
 
     void FixedUpdate()
     {
+        int layerMask = 1 << 6;
+
         if(towerRelocate.isRelocating == false)
         {
             if (transform.position.x < swapLimit)
             {
-                if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
+                if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit, Mathf.Infinity, layerMask))
                 {
                     if (hit.collider.tag == "Enemy")
                     {
@@ -53,9 +56,9 @@ public class WizardTower : TowerBase
             else
             {
                 RaycastHit hit;
-                if (Physics.Linecast(transform.position, new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z), out hit)
-                    || Physics.Linecast(new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z + fireOffset), out hit)
-                    || Physics.Linecast(new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z - fireOffset), out hit))
+                if (Physics.Linecast(transform.position, new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z), out hit, layerMask)
+                    || Physics.Linecast(new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z + fireOffset), out hit, layerMask)
+                    || Physics.Linecast(new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z - fireOffset), out hit, layerMask))
                 {
                     if (hit.collider.tag == "Enemy")
                     {
@@ -105,13 +108,5 @@ public class WizardTower : TowerBase
         {
             cooldown -= Time.deltaTime;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z));
-        Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z - fireOffset));
-        Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z + fireOffset));
     }
 }

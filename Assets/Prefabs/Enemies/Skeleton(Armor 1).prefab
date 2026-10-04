@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6639408195641434352}
   - component: {fileID: 3317037270297027513}
   - component: {fileID: 4326388368815195434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skeleton(Armor 1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1029491252498042598}
   - component: {fileID: 2920638859263831008}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

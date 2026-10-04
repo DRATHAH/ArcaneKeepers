@@ -35,9 +35,11 @@ public class RangerTower : TowerBase
 
     void FixedUpdate()
     {
+        int layerMask = 1 << 6;
+
         if (towerRelocate.isRelocating == false)
         {
-            if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
+            if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit, Mathf.Infinity, layerMask))
             {
                 if(hit.collider.tag == "Enemy")
                 {

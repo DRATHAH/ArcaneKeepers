@@ -34,7 +34,7 @@ public class EnemyHealth : HealthBase
             //If the attack will hit the armor but the armor won't survive the hit
             damageAmount -= currentArmorHealth; //Subtract the current armor health from the damage amount
             currentArmorHealth = 0; //Reduce armor health to 0
-            if (WaveSpawner.instance.enemiesSpawned.Find(x => this))
+            if (WaveSpawner.instance.enemiesThisWave.Find(x => this))
             {
                 WaveSpawner.instance.incrementHealthMeter -= damageAmount; //Increment damage meter with remaining amount
             }
@@ -44,7 +44,7 @@ public class EnemyHealth : HealthBase
         //If the attack is either armor piercing or the armor health is less than 0
         if (armorPiercing || currentArmorHealth <= 0)
         {
-            if(WaveSpawner.instance.enemiesSpawned.Find(x => this))
+            if(WaveSpawner.instance.enemiesThisWave.Find(x => this))
             {
                 WaveSpawner.instance.incrementHealthMeter -= damageAmount; //Subtract damage amount from increment meter
             }
@@ -62,7 +62,8 @@ public class EnemyHealth : HealthBase
     public override void Die()
     {
         WaveSpawner.instance.enemiesSpawned.Remove(this); //remove this from the enemy spawned pool
-        if(TryGetComponent<OnDeathBase>(out OnDeathBase deathAbility))
+        WaveSpawner.instance.enemiesThisWave.Remove(this); //remove this from the enemy spawned pool
+        if (TryGetComponent<OnDeathBase>(out OnDeathBase deathAbility))
         {
             deathAbility.OnDeathAbility(); //Trigger the death ability if there is one
         }

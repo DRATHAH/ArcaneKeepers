@@ -22,7 +22,9 @@ public class WaveSpawner : MonoBehaviour
 
     private float incrementTimer; //Actual timer for wave increases
     [HideInInspector] public List<EnemyHealth> enemiesSpawned = new List<EnemyHealth>(); //List of enemy's health spawned in a wave
-    
+    [HideInInspector] public List<EnemyHealth> enemiesThisWave = new List<EnemyHealth>();
+
+
     [HideInInspector]public float incrementHealthMeter; //Total amount of heal spawned in a wave
 
     [Header("Wave Health Vars")]
@@ -67,7 +69,7 @@ public class WaveSpawner : MonoBehaviour
             //If there are no more waves to spawn and all enemies are dead print the debug message
             if (currentWave >= maxWaves && enemiesSpawned.Count == 0)
             {
-                Debug.Log("You win!");
+                WinLossManager.instance.winner = true;
             }
 
             //If the time between waves is greater than a certain amount decrease it
@@ -94,7 +96,7 @@ public class WaveSpawner : MonoBehaviour
     //Helper func for incrementing a wave
     private void IncrementWave()
     {
-        enemiesSpawned.Clear(); //Clear enemies spawned list
+        enemiesThisWave.Clear(); //Clear enemies spawned list
         incrementTimer = incrementTimerBase; //Set the increment timer
         gracePeriod = 0; //Clear the grace period
 
@@ -106,6 +108,7 @@ public class WaveSpawner : MonoBehaviour
             if(newbie.TryGetComponent<EnemyHealth>(out EnemyHealth newbieHealth))
             {
                 enemiesSpawned.Add(newbieHealth);
+                enemiesThisWave.Add(newbieHealth);
             }
             else
             {
