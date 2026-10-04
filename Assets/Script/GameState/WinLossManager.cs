@@ -25,13 +25,12 @@ public class WinLossManager : MonoBehaviour
     [SerializeField] public GameObject winnerCanvas;
     [SerializeField] public GameObject loserCanvas;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        winnerCanvas.SetActive(false);
+        loserCanvas.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(winner == true)
