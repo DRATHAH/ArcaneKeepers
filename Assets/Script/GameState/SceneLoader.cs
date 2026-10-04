@@ -6,7 +6,10 @@ public class SceneLoader : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     // Update is called once per frame
@@ -26,4 +29,8 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(sceneToLoad);
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
