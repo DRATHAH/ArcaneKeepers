@@ -100,21 +100,7 @@ public class ClericTower : TowerBase
 
     private void Heal(float healAmount, bool burst, float lifeTime)
     {
-        if(healingField == null)
-        {
-            healingField = ObjectPool.pool.Create(healingAura, new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z), Quaternion.identity);
-        }
-        else
-        {
-            if(healingField.activeSelf == false)
-            {
-                healingField.SetActive(true);
-            }
-            else
-            {
-                return;
-            }
-        }
+        healingField = ObjectPool.pool.Create(healingAura, new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z), Quaternion.identity);
         HealingAura aura = healingField.GetComponent<HealingAura>();
         aura.parent = this.gameObject;
         aura.lifeTime = lifeTime;

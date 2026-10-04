@@ -51,6 +51,7 @@ public class ObjectPool : MonoBehaviour
     public virtual GameObject Destroy(GameObject gameObject)
     {
         pooledObjects.Add(gameObject); //Add object to pool
+        Debug.Log(pooledObjects.Count);
         gameObject.SetActive(false); //Disable object
         return gameObject;
     }
