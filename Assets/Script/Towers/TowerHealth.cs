@@ -60,6 +60,7 @@ public class TowerHealth : HealthBase
     }
     public override void Die()
     {
+        gameObject.transform.position = transform.position;
         isAttacked = false;
         currentHealth = maxHealth;
         GameObject currentGameObject = this.gameObject;

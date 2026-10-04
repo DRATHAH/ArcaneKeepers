@@ -94,7 +94,7 @@ public class ClericTower : TowerBase
     {
         if(healingField == null)
         {
-            healingField = ObjectPool.pool.Create(healingAura, transform.position);
+            healingField = ObjectPool.pool.Create(healingAura, transform.position, Quaternion.identity);
         }
         else
         {

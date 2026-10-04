@@ -23,7 +23,7 @@ public class ObjectPool : MonoBehaviour
     }
 
     //Func for creating new objects
-    public GameObject Create(GameObject objectType, Vector3 spawnPoint)
+    public GameObject Create(GameObject objectType, Vector3 spawnPoint, Quaternion rotation)
     {
         string localObject = objectType.name;
         
@@ -41,7 +41,7 @@ public class ObjectPool : MonoBehaviour
         else
         {
             //If there are no objects available in the pool create a new one.
-            GameObject newbie = Instantiate(objectType, spawnPoint, objectType.transform.rotation);
+            GameObject newbie = Instantiate(objectType, spawnPoint, rotation);
             newbie.name = objectType.name;
             return newbie;
         }

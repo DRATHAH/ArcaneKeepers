@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4821375762121360294}
   - component: {fileID: 4118237290638323801}
   - component: {fileID: 2059193530043033756}
+  - component: {fileID: 2369378130788539762}
   - component: {fileID: 507032523565395887}
   m_Layer: 0
   m_Name: ArcherTower
@@ -80,9 +81,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 598359319
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.28826985, g: 0.7735849, b: 0.35050535, a: 1}
@@ -111,6 +112,7 @@ MonoBehaviour:
   currentHealth: 0
   damageResist: 1
   isAttacked: 0
+  attackedTimer: 0.2
 --- !u!114 &2059193530043033756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,11 +125,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab3afd650271174f98bea1e46c34e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangerTower
+  tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
   swapLimit: 2
   maxFCooldown: 2
   maxCCooldown: 10
   weakProjectilePrefab: {fileID: 1286918116579938344, guid: a913c4a2b3bfd7c4b8226bc279710635, type: 3}
   strongProjectilePrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
+--- !u!114 &2369378130788539762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601683227217436569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
+  hitBox: {fileID: 507032523565395887}
 --- !u!65 &507032523565395887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,5 +163,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Size: {x: 1, y: 1.1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

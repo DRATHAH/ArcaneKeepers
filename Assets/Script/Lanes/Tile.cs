@@ -21,7 +21,7 @@ public class Tile : MonoBehaviour
     // Places an object on this tile
     public void Initialize(GameObject preset)
     {
-        tileObject = Instantiate(preset, anchorPos.position, anchorPos.rotation);
+        tileObject = ObjectPool.pool.Create(preset, anchorPos.position, anchorPos.rotation);
         tileObject.transform.SetParent(anchorPos);
     }
 }

@@ -61,7 +61,7 @@ public class WizardTower : TowerBase
         if (closeCooldown <= 0)
         {
             closeCooldown = maxCCooldown;
-            ObjectPool.pool.Create(closeProjectile, transform.position);
+            ObjectPool.pool.Create(closeProjectile, transform.position, Quaternion.identity);
         }
         else
         {
@@ -76,9 +76,9 @@ public class WizardTower : TowerBase
         if (farCooldown <= 0)
         {
             farCooldown = maxFCooldown;
-            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1));
-            ObjectPool.pool.Create(farProjectile, transform.position);
-            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z - 1));
+            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.identity);
+            ObjectPool.pool.Create(farProjectile, transform.position, Quaternion.identity);
+            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z - 1), Quaternion.identity);
         }
         else
         {

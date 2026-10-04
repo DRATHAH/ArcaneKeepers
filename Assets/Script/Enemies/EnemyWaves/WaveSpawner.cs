@@ -102,7 +102,7 @@ public class WaveSpawner : MonoBehaviour
         for (int i = 0; i < waveManager.numPerWave[currentWave]; i++)
         {
             //Create an enemy from the object pool, and try to get their health component
-            GameObject newbie = ObjectPool.pool.Create(waveManager.enemyPrefabs[i + waveOffset], waveManager.spawnPoints[i + waveOffset]);
+            GameObject newbie = ObjectPool.pool.Create(waveManager.enemyPrefabs[i + waveOffset], waveManager.spawnPoints[i + waveOffset], Quaternion.identity);
             if(newbie.TryGetComponent<EnemyHealth>(out EnemyHealth newbieHealth))
             {
                 enemiesSpawned.Add(newbieHealth);

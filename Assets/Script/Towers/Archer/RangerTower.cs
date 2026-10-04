@@ -59,7 +59,7 @@ public class RangerTower : TowerBase
         if(closeCooldown <= 0)
         {
             closeCooldown = maxCCooldown;
-            ObjectPool.pool.Create(strongProjectilePrefab, transform.position);
+            ObjectPool.pool.Create(strongProjectilePrefab, transform.position, Quaternion.identity);
         }
         else
         {
@@ -74,7 +74,7 @@ public class RangerTower : TowerBase
         if (farCooldown <= 0)
         {
             farCooldown = maxFCooldown;
-            ObjectPool.pool.Create(weakProjectilePrefab, transform.position);
+            ObjectPool.pool.Create(weakProjectilePrefab, transform.position, Quaternion.identity);
         }
         else
         {

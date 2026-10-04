@@ -6,23 +6,36 @@ public class TowerRelocate : MonoBehaviour
 {
     Tower tower;
     Vector3 originalPos;
-    bool isRelocating = false;
+    [SerializeField] bool isRelocating = false;
+
+    [SerializeField] private Collider hitBox;
+
+    private Tile originalTile;
+    private Tile newTile;
+
 
     private void Start()
     {
         tower = GetComponent<TowerBase>().tower;
         originalPos = transform.position;
+        if(TouchManager.instance.hoveringTile != null)
+        {
+            originalTile = TouchManager.instance.hoveringTile;
+        }
     }
 
     public void RelocateTower()
     {
         isRelocating = true;
+        originalPos = transform.position;
+        if (TouchManager.instance.hoveringTile != null)
+        {
+            originalTile = TouchManager.instance.hoveringTile;
+        }
     }
 
     private void Update()
     {
-        if (isRelocating)
-        {
             // Check if player is touching screen
             if (Touch.activeTouches.Count > 0)
             {
@@ -36,23 +49,30 @@ public class TowerRelocate : MonoBehaviour
                 {
                     Vector3 worldPosition = ray.GetPoint(distance);
 
-                    transform.SetParent(null, true);
-                    transform.position = worldPosition;
-                    gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                    if (hitBox.bounds.Contains(worldPosition))
+                    {
+                        RelocateTower();
+                        transform.SetParent(null, true);
+                        originalTile.tileObject = null;
+                        transform.position = worldPosition;
+                        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                    }
                 }
             }
-            else if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null) // If touch ends while hovering over a tile and tile is empty
+            else if (TouchManager.instance.hoveringTile && isRelocating == true && TouchManager.instance.hoveringTile.tileObject == null) // If touch ends while hovering over a tile and tile is empty
             {
                 // Place tower
                 isRelocating = false;
-                TouchManager.instance.hoveringTile.Initialize(tower.towerPrefab);
-                Destroy(gameObject);
+                newTile = TouchManager.instance.hoveringTile;
+                newTile.tileObject = this.gameObject;
+                transform.position = newTile.anchorPos.position;
+                transform.rotation = newTile.anchorPos.rotation;
+                transform.parent = newTile.anchorPos;
             }
             else // If not hovering over tile, reset to original location
             {
-                transform.position = originalPos;
                 gameObject.layer = LayerMask.NameToLayer("Default");
                 isRelocating = false;
             }
-        }    }
+    }
 }

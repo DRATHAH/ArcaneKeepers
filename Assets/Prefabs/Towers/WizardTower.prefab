@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4359695785392037104}
   - component: {fileID: 8031281120602272219}
   - component: {fileID: 1618864902372097007}
+  - component: {fileID: 941293826946317622}
   - component: {fileID: 180704256896079376}
   - component: {fileID: 7447170875761493446}
   m_Layer: 0
@@ -81,9 +82,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 598359319
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.19090424, g: 0.24154139, b: 0.735849, a: 1}
@@ -108,12 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a3ba56791178e449791d44d452ee4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WizardTower
+  tower: {fileID: 11400000, guid: a5c984c30c00f5842a8291acdcc5b6a0, type: 2}
   swapLimit: 1
   maxFCooldown: 2
   maxCCooldown: 5
   farProjectile: {fileID: 1043948582540308662, guid: c86ae18c4eb67f04088fbf4894e40df5, type: 3}
   closeProjectile: {fileID: 6909232196714440273, guid: c15d1b01dbe434c458633d7505cdb811, type: 3}
-  maxMapLength: 0
 --- !u!114 &1618864902372097007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +131,20 @@ MonoBehaviour:
   currentHealth: 0
   damageResist: 1
   isAttacked: 0
+  attackedTimer: 0.2
+--- !u!114 &941293826946317622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4668225259355750822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
+  hitBox: {fileID: 180704256896079376}
 --- !u!65 &180704256896079376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,7 +164,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Size: {x: 1, y: 1.1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7447170875761493446
 Rigidbody:

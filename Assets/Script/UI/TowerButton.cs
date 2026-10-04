@@ -6,6 +6,8 @@ public class TowerButton : MonoBehaviour
     public GameObject towerPlacerPrefab;
     public Tower tower;
 
+    public GameObject createdObject;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,10 +28,14 @@ public class TowerButton : MonoBehaviour
     // Creates the tower icon when you drag from the image
     public void CreateTower()
     {
-        Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();
-        GameObject towerPlacer = Instantiate(towerPlacerPrefab, touchPos, Quaternion.identity);
-        TowerPlacer placer = towerPlacer.GetComponent<TowerPlacer>();
-        placer.Initialize(tower);
-        towerPlacer.transform.SetParent(transform.root, true);
+        if(createdObject == null || createdObject.activeSelf == false)
+        {
+            Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();
+            GameObject towerPlacer = ObjectPool.pool.Create(towerPlacerPrefab, touchPos, Quaternion.identity);
+            TowerPlacer placer = towerPlacer.GetComponent<TowerPlacer>();
+            placer.Initialize(tower);
+            placer.towerButton = this;
+            towerPlacer.transform.SetParent(transform.root, true);
+        }
     }
 }

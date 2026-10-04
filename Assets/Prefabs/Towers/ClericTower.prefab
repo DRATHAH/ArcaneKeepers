@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8295553400365742735}
   - component: {fileID: 6591488147516826310}
   - component: {fileID: 8270876376611283203}
+  - component: {fileID: 5883715284815517443}
   - component: {fileID: 806042027394949148}
   - component: {fileID: 1935017073138235465}
   m_Layer: 0
@@ -81,9 +82,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 598359319
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.7848822, b: 0, a: 1}
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924e210193a06e145bb425edd3fc0f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClericTower
+  tower: {fileID: 0}
   swapLimit: 4
   maxHealingBurstCooldown: 15
   maxHealingFieldCooldown: 6.5
@@ -133,6 +135,20 @@ MonoBehaviour:
   currentHealth: 0
   damageResist: 1
   isAttacked: 0
+  attackedTimer: 0.2
+--- !u!114 &5883715284815517443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958499418853621945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
+  hitBox: {fileID: 806042027394949148}
 --- !u!65 &806042027394949148
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00fef9f3f25716c4a85253fb4cf091a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerPlacer
+  tower: {fileID: 0}
+  spriteRenderer: {fileID: 7565017036026786717}
 --- !u!225 &3515759945942254950
 CanvasGroup:
   m_ObjectHideFlags: 0
