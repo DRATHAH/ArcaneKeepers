@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361fd1a5cd95d5c448f658db1fd9363a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallTower
-  tower: {fileID: 0}
+  tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
   swapLimit: 6
   regenRate: 50
   damageResists:

@@ -20,13 +20,6 @@ public class TouchManager : MonoBehaviour
 
         instance = this;
     }
-    #endregion
-
-    public Tile hoveringTile;
-    public GameObject hoverObject; // Object the touch is currently hovering over
-
-    InputActionMap actions;
-    bool isTouching = false;
 
     private void OnEnable()
     {
@@ -37,6 +30,14 @@ public class TouchManager : MonoBehaviour
     {
         EnhancedTouchSupport.Disable();
     }
+
+    #endregion
+
+    public Tile hoveringTile;
+    public GameObject hoverObject; // Object the touch is currently hovering over
+
+    InputActionMap actions;
+    bool isTouching = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -72,7 +73,12 @@ public class TouchManager : MonoBehaviour
             }
             isTouching = touchInProgress;
 
-            CheckPhysicalHover(touchPos);
+            // Detects if over a physical 2D object (placed towers, for instance)
+            GameObject overObject = CheckPhysicalHover(touchPos);
+            if (overObject != null)
+            {
+                OverUI(overObject);
+            }
         }
     }
 
@@ -92,7 +98,7 @@ public class TouchManager : MonoBehaviour
             {
                 hoveringTile = null;
             }
-            Debug.Log(hit.transform.name);
+            
             return hit.transform.gameObject;
         }
 
@@ -113,14 +119,15 @@ public class TouchManager : MonoBehaviour
         return null;
     }
 
-    // Activate code of UI object when clicked
+    // Activate code of object when clicked
     void OverUI(GameObject UI)
     {
-        // Detect if over tower icon
+        // Detect if over tower icon, create a UI tower to place
         if (UI.GetComponent<TowerButton>())
         {
             UI.GetComponent<TowerButton>().CreateTower();
         }
+        // Detect if over a placed tower, run relocate function
         else if (UI.GetComponent<TowerRelocate>())
         {
             UI.GetComponent<TowerRelocate>().RelocateTower();

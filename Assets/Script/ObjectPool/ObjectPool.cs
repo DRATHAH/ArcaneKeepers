@@ -41,7 +41,7 @@ public class ObjectPool : MonoBehaviour
         else
         {
             //If there are no objects available in the pool create a new one.
-            GameObject newbie = Instantiate(objectType, spawnPoint, Quaternion.identity);
+            GameObject newbie = Instantiate(objectType, spawnPoint, objectType.transform.rotation);
             newbie.name = objectType.name;
             return newbie;
         }

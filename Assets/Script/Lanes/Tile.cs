@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
         
     }
 
-    // If we want an obstacle here, call this function
+    // Places an object on this tile
     public void Initialize(GameObject preset)
     {
         tileObject = Instantiate(preset, anchorPos.position, anchorPos.rotation);

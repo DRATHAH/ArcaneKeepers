@@ -479,6 +479,88 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!1 &590115526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 590115527}
+  - component: {fileID: 590115529}
+  - component: {fileID: 590115528}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &590115527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590115526}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1465946358}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &590115528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590115526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a86cba4b0bfd74d8b6c61894055b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  enemyPrefabs:
+  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+  - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+  - {fileID: 1970602856523223266, guid: e5c6933202ffb1448b7a9599ce5114ad, type: 3}
+  - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+  numPerWave: 01000000020000000300000002000000
+  spawnPoints:
+  - {x: 8, y: 0.5, z: 0}
+  - {x: 8, y: 0.5, z: 2}
+  - {x: 8.2, y: 0.5, z: 2}
+  - {x: 8, y: 0.5, z: 4}
+  - {x: 8, y: 0.5, z: -2}
+  - {x: 8, y: 0.5, z: 0}
+  - {x: 8, y: 0.5, z: 0}
+  - {x: 8, y: 0.5, z: 2}
+--- !u!114 &590115529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590115526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29a281737fba4e47b60e7c6588063a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
+  currentWave: 0
+  incrementTimerBase: 5
+  maxGracePeriod: 5
+  enemiesSpawned: []
+  incrementHealthMeter: 0
+  incrementPercent: 0.5
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241110330}
   - component: {fileID: 1241110331}
+  - component: {fileID: 1241110332}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -677,6 +760,18 @@ MonoBehaviour:
   gridSize: 10
   lanes: {fileID: 1327520825}
   tile: {fileID: 4884192367321044033, guid: 8a6632616355db54abc126a56987fb7a, type: 3}
+--- !u!114 &1241110332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241110329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a621d98ed91761a4c924beb8430b7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
 --- !u!1 &1327520822
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +902,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1241110330}
+  - {fileID: 590115527}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1648238679 stripped
