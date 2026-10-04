@@ -20,6 +20,13 @@ public class RangerTower : TowerBase
     [Tooltip("Prefab for the close ability projectile.")]
     [SerializeField] private GameObject strongProjectilePrefab;
 
+    private TowerRelocate towerRelocate;
+
+    private void Start()
+    {
+        towerRelocate = GetComponent<TowerRelocate>();
+    }
+
     private void OnEnable()
     {
         farCooldown = maxFCooldown;
@@ -28,26 +35,28 @@ public class RangerTower : TowerBase
 
     void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
+        if (towerRelocate.isRelocating == false)
         {
-            //Debug.Log("Avast");
-            if(hit.collider.tag == "Enemy")
+            if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
+            {
+                if(hit.collider.tag == "Enemy")
+                {
+                    if (transform.position.x < swapLimit)
+                    {
+                        AbilityClose();
+                    }
+                    else
+                    {
+                        AbilityFar();
+                    }
+                }
+            }
+            else
             {
                 if (transform.position.x < swapLimit)
                 {
-                    AbilityClose();
+                    ReduceCooldown(ref closeCooldown);
                 }
-                else
-                {
-                    AbilityFar();
-                }
-            }
-        }
-        else
-        {
-            if (transform.position.x < swapLimit)
-            {
-                ReduceCooldown(ref closeCooldown);
             }
         }
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8295553400365742735}
   - component: {fileID: 6591488147516826310}
   - component: {fileID: 8270876376611283203}
-  - component: {fileID: 5883715284815517443}
+  - component: {fileID: 4678202185045961964}
   - component: {fileID: 806042027394949148}
   - component: {fileID: 1935017073138235465}
   m_Layer: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClericTower
   tower: {fileID: 0}
-  swapLimit: 4
+  swapLimit: 0
   maxHealingBurstCooldown: 15
   maxHealingFieldCooldown: 6.5
   healingAura: {fileID: 3456134524809666570, guid: 509ab590ce0019041acf7643855e53d7, type: 3}
@@ -119,6 +119,7 @@ MonoBehaviour:
   - 25
   healingAmount: 500
   healingFieldLifeTime: 5
+  verticalOffset: -0.5
 --- !u!114 &8270876376611283203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +137,7 @@ MonoBehaviour:
   damageResist: 1
   isAttacked: 0
   attackedTimer: 0.2
---- !u!114 &5883715284815517443
+--- !u!114 &4678202185045961964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
+  isRelocating: 0
   hitBox: {fileID: 806042027394949148}
 --- !u!65 &806042027394949148
 BoxCollider:
@@ -168,7 +170,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1935017073138235465
 Rigidbody:

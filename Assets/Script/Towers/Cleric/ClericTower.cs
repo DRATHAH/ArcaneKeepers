@@ -27,11 +27,16 @@ public class ClericTower : TowerBase
 
     [Tooltip("How long each healing field should linger for.")]
     [SerializeField] private float healingFieldLifeTime = 5;
+
+    [Tooltip("Offset for spawning the healing field.")]
+    [SerializeField] private float verticalOffset = 0.5f;
     private GameObject healingField;
+
+    private TowerRelocate towerRelocate;
 
     private void Start()
     {
-        healingBurstCooldown = maxHealingBurstCooldown;
+        towerRelocate = GetComponent<TowerRelocate>();
     }
 
     private void OnEnable()
@@ -42,18 +47,21 @@ public class ClericTower : TowerBase
 
     void FixedUpdate()
     {
-        if(healingFieldCooldown > 0)
+        if(towerRelocate.isRelocating == false)
         {
-            healingFieldCooldown -= Time.deltaTime;
-        }
+            if (healingFieldCooldown > 0)
+            {
+                healingFieldCooldown -= Time.deltaTime;
+            }
 
-        if (transform.position.x < swapLimit)
-        {
-            AbilityClose();
-        }
-        else
-        {
-            AbilityFar();
+            if (transform.position.x < swapLimit)
+            {
+                AbilityClose();
+            }
+            else
+            {
+                AbilityFar();
+            }
         }
     }
 
@@ -94,7 +102,7 @@ public class ClericTower : TowerBase
     {
         if(healingField == null)
         {
-            healingField = ObjectPool.pool.Create(healingAura, transform.position, Quaternion.identity);
+            healingField = ObjectPool.pool.Create(healingAura, new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z), Quaternion.identity);
         }
         else
         {

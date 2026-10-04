@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangerTower
   tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
-  swapLimit: 2
-  maxFCooldown: 2
-  maxCCooldown: 10
+  swapLimit: 0
+  maxFCooldown: 0.5
+  maxCCooldown: 5
   weakProjectilePrefab: {fileID: 1286918116579938344, guid: a913c4a2b3bfd7c4b8226bc279710635, type: 3}
   strongProjectilePrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
 --- !u!114 &2369378130788539762
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
+  isRelocating: 0
   hitBox: {fileID: 507032523565395887}
 --- !u!65 &507032523565395887
 BoxCollider:

@@ -8,6 +8,7 @@ public class WallTower : TowerBase
     [SerializeField] private float swapLimit = 3f;
 
     private TowerHealth towerHealth;
+    private TowerRelocate towerRelocate;
 
     [Tooltip("Health the tower recovers while regenerating.")]
     [SerializeField] private float regenRate = 5f;
@@ -19,18 +20,22 @@ public class WallTower : TowerBase
     void Start()
     {
         towerHealth = GetComponent<TowerHealth>();
+        towerRelocate = GetComponent<TowerRelocate>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x < swapLimit)
+        if(towerRelocate.isRelocating == false)
         {
-            AbilityClose();
-        }
-        else
-        {
-            AbilityFar();
+            if (transform.position.x < swapLimit)
+            {
+                AbilityClose();
+            }
+            else
+            {
+                AbilityFar();
+            }
         }
     }
 

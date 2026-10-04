@@ -717,7 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
   currentWave: 0
   incrementTimerBase: 10
-  maxGracePeriod: 15
+  maxGracePeriod: 5
   enemiesSpawned: []
   incrementHealthMeter: 0
   incrementPercent: 0.5
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000031017422173daa23
+  m_ApplyToSortingLayers: 0000000031017422173daa23eda70fa2
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

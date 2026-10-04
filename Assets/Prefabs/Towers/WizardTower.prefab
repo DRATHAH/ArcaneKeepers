@@ -110,11 +110,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WizardTower
   tower: {fileID: 11400000, guid: a5c984c30c00f5842a8291acdcc5b6a0, type: 2}
-  swapLimit: 1
-  maxFCooldown: 2
-  maxCCooldown: 5
+  swapLimit: 0
+  maxFCooldown: 2.5
+  maxCCooldown: 1
+  fireOffset: 2
   farProjectile: {fileID: 1043948582540308662, guid: c86ae18c4eb67f04088fbf4894e40df5, type: 3}
   closeProjectile: {fileID: 6909232196714440273, guid: c15d1b01dbe434c458633d7505cdb811, type: 3}
+  fireWaveRange: 4
 --- !u!114 &1618864902372097007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
+  isRelocating: 0
   hitBox: {fileID: 180704256896079376}
 --- !u!65 &180704256896079376
 BoxCollider:

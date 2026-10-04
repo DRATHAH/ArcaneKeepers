@@ -20,7 +20,6 @@ public class HealingAura : MonoBehaviour
         if(lifeTime > 0)
         {
             lifeTime -= Time.deltaTime;
-            transform.position = parent.transform.position;
         }
         else
         {

@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallTower
   tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
-  swapLimit: 6
+  swapLimit: 0
   regenRate: 50
   damageResists:
   - 1
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0226d23e3e99c664c8edce9d20911405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerHealth
-  maxHealth: 1500
+  maxHealth: 750
   currentHealth: 0
   damageResist: 0
   isAttacked: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e969429224852924d8c774e070143f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
+  isRelocating: 0
   hitBox: {fileID: 4518364333664289075}
 --- !u!65 &4518364333664289075
 BoxCollider:
@@ -164,7 +165,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2968592893126040821
 Rigidbody:

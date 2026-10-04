@@ -24,8 +24,14 @@ public class EnemyDamage : DamageBase
     {
         if (hit.tag == "Tower")
         {
-            Attack(damageAmount * Time.deltaTime, hit.gameObject);
-            enemyMove.PauseMovement();
+            if(hit.TryGetComponent<TowerRelocate>(out TowerRelocate relocator))
+            {
+                if(relocator.isRelocating == false)
+                {
+                    Attack(damageAmount * Time.deltaTime, hit.gameObject);
+                    enemyMove.PauseMovement();
+                }
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ public class WizardTower : TowerBase
     [Tooltip("How long the waiting period for shots for the close ability should be.")]
     [SerializeField] private float maxCCooldown;
 
+    [SerializeField] private float fireOffset;
+
     private float farCooldown;
     private float closeCooldown;
 
@@ -19,8 +21,14 @@ public class WizardTower : TowerBase
 
     [Tooltip("Prefab for the close ability projectile.")]
     [SerializeField] private GameObject closeProjectile;
+    private TowerRelocate towerRelocate;
 
-    //[SerializeField] private float maxMapLength;
+    [SerializeField] private float fireWaveRange = 3;
+
+    private void Start()
+    {
+        towerRelocate = GetComponent<TowerRelocate>();
+    }
 
     private void OnEnable()
     {
@@ -30,26 +38,30 @@ public class WizardTower : TowerBase
 
     void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
-        {
-            //Debug.Log("Avast");
-            if (hit.collider.tag == "Enemy")
-            {
-                if (transform.position.x < swapLimit)
-                {
-                    AbilityClose();
-                }
-                else
-                {
-                    AbilityFar();
-                }
-            }
-        }
-        else
+        if(towerRelocate.isRelocating == false)
         {
             if (transform.position.x < swapLimit)
             {
-                ReduceCooldown(ref closeCooldown);
+                if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
+                {
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        AbilityClose();
+                    }
+                }
+            }
+            else
+            {
+                RaycastHit hit;
+                if (Physics.Linecast(transform.position, new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z), out hit)
+                    || Physics.Linecast(new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z + fireOffset), out hit)
+                    || Physics.Linecast(new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z - fireOffset), out hit))
+                {
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        AbilityFar();
+                    }
+                }
             }
         }
     }
@@ -61,7 +73,7 @@ public class WizardTower : TowerBase
         if (closeCooldown <= 0)
         {
             closeCooldown = maxCCooldown;
-            ObjectPool.pool.Create(closeProjectile, transform.position, Quaternion.identity);
+            ObjectPool.pool.Create(closeProjectile, transform.position, transform.rotation);
         }
         else
         {
@@ -76,9 +88,9 @@ public class WizardTower : TowerBase
         if (farCooldown <= 0)
         {
             farCooldown = maxFCooldown;
-            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.identity);
-            ObjectPool.pool.Create(farProjectile, transform.position, Quaternion.identity);
-            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z - 1), Quaternion.identity);
+            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), transform.rotation);
+            ObjectPool.pool.Create(farProjectile, transform.position, transform.rotation);
+            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), transform.rotation);
         }
         else
         {
@@ -93,5 +105,13 @@ public class WizardTower : TowerBase
         {
             cooldown -= Time.deltaTime;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z));
+        Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z - fireOffset));
+        Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), new Vector3(transform.position.x + fireWaveRange, transform.position.y, transform.position.z + fireOffset));
     }
 }

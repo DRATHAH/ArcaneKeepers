@@ -49,6 +49,9 @@ TagManager:
   - name: ActiveObjects
     uniqueID: 598359319
     locked: 0
+  - name: Projectiles
+    uniqueID: 2718935021
+    locked: 0
   m_RenderingLayers:
   - Default
   m_MigratedRenderPipelines: []

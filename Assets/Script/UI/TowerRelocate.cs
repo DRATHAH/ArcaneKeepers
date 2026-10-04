@@ -6,7 +6,7 @@ public class TowerRelocate : MonoBehaviour
 {
     Tower tower;
     Vector3 originalPos;
-    [SerializeField] bool isRelocating = false;
+    [SerializeField] public bool isRelocating = false;
 
     [SerializeField] private Collider hitBox;
 
@@ -57,7 +57,6 @@ public class TowerRelocate : MonoBehaviour
                     {
                         RelocateTower();
                         isRelocating = true;
-                        Debug.Log(originalTile.transform.position + " " + this.gameObject.name);
                     }
                 }
 
@@ -84,7 +83,7 @@ public class TowerRelocate : MonoBehaviour
                 TouchManager.instance.hoveringTile.tileObject = this.gameObject;
                 RelocationManager.instance.ClearObject();
             }
-            Debug.Log(TouchManager.instance.hoveringTile.tileObject);
+            //Debug.Log(TouchManager.instance.hoveringTile.tileObject);
             // Place tower
 
         }
