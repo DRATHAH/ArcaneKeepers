@@ -17,17 +17,11 @@ public class GameManager : MonoBehaviour
         {
             laneNum = count;
         }
-        Debug.Log(laneNum);
+
         for (int i = 0; i < laneNum * gridSize; i++)
         {
             GameObject createdTile = Instantiate(tile, transform.position, Quaternion.identity);
             createdTile.transform.SetParent(lanes.transform, false);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

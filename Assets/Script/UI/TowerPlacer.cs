@@ -9,7 +9,7 @@ public class TowerPlacer : MonoBehaviour
     [HideInInspector] public GameObject createdTower;
     [HideInInspector] public TowerButton towerButton;
 
-    [SerializeField]private Image spriteRenderer;
+    [SerializeField] private Image spriteRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
