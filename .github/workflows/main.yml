@@ -3,12 +3,11 @@ name: Discord Merge Notification
 on:
   push:
     branches:
-      
-- main
-- User-Interface
-- tower-testing
-- art-testing
-- level-blockout
+      - main
+      - User-Interface
+      - tower-testing
+      - art-testing
+      - level-blockout
 
 jobs:
   post-to-discord:
