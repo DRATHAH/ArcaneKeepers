@@ -12,6 +12,11 @@ public class HealthBase : MonoBehaviour
         Debug.Log("Take damage2");
     }
 
+    public virtual void TakeDamage(float damageAmount, bool armorPiercing, Vector3 knockback)
+    {
+        Debug.Log("Take damage3");
+    }
+
     public virtual void RecoverHealth(float recoveryAmount)
     {
         Debug.Log("Heal health");
