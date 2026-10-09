@@ -12,25 +12,29 @@ public class EnemyHealth : HealthBase
     [Header("Armor Variables")]
     [Tooltip("Maximum armor health this enemy can have.")]
     [SerializeField] private float maxArmorHealth = 0;
-    private float currentArmorHealth; //current armor health this enemy has
+    [SerializeField]private float currentArmorHealth; //current armor health this enemy has
 
     private EnemyMovement enemyMovement;
+    private ColorFlash damageFlash;
+    [SerializeField] private float flashLength = 0.5f;
 
+    void Start()
+    {
+        damageFlash = GetComponent<ColorFlash>();
+        enemyMovement = GetComponent<EnemyMovement>();
+    }
 
     void OnEnable()
     {
         //Reset health and armor for re-use
         currentHealth = maxHealth;
         currentArmorHealth = maxArmorHealth;
-
-        enemyMovement = GetComponent<EnemyMovement>();
     }
 
     //Taking damage func
     public override void TakeDamage(float damageAmount, bool armorPiercing)
     {
         CalcDamage(damageAmount, armorPiercing);
-
         //If the current health is less than 0, die.
         if (currentHealth <= 0)
         {
@@ -53,8 +57,11 @@ public class EnemyHealth : HealthBase
     //Helper func for death
     public override void Die()
     {
-        WaveSpawner.instance.enemiesSpawned.Remove(this); //remove this from the enemy spawned pool
-        WaveSpawner.instance.enemiesThisWave.Remove(this); //remove this from the enemy spawned pool
+        if(WaveSpawner.instance != null)
+        {
+            WaveSpawner.instance.enemiesSpawned.Remove(this); //remove this from the enemy spawned pool
+            WaveSpawner.instance.enemiesThisWave.Remove(this); //remove this from the enemy spawned pool
+        }
         if (TryGetComponent<OnDeathBase>(out OnDeathBase deathAbility))
         {
             deathAbility.OnDeathAbility(); //Trigger the death ability if there is one
@@ -64,6 +71,10 @@ public class EnemyHealth : HealthBase
 
     private void CalcDamage(float damageAmount, bool armorPiercing)
     {
+        if (damageFlash != null)
+        {
+            damageFlash.CallFlash(Color.white, flashLength);
+        }
         //If the attack will hit the armor and the armor will survive the hit do damage to the armor
         if (currentArmorHealth - damageAmount > 0 && !armorPiercing)
         {
@@ -74,23 +85,27 @@ public class EnemyHealth : HealthBase
             //If the attack will hit the armor but the armor won't survive the hit
             damageAmount -= currentArmorHealth; //Subtract the current armor health from the damage amount
             currentArmorHealth = 0; //Reduce armor health to 0
-            if (WaveSpawner.instance.enemiesThisWave.Find(x => this))
-            {
-                WaveSpawner.instance.incrementHealthMeter -= damageAmount; //Increment damage meter with remaining amount
-            }
+            IncrementMeter(damageAmount);
             currentHealth -= damageAmount; //Subtract remaining amount from current health
         }
 
         //If the attack is either armor piercing or the armor health is less than 0
         if (armorPiercing || currentArmorHealth <= 0)
         {
-            if (WaveSpawner.instance.enemiesThisWave.Find(x => this))
-            {
-                WaveSpawner.instance.incrementHealthMeter -= damageAmount; //Subtract damage amount from increment meter
-            }
+            IncrementMeter(damageAmount);
             currentHealth -= damageAmount; //Subtract damage amount from current health
         }
     }
 
+    private void IncrementMeter(float damageAmount)
+    {
+        if (WaveSpawner.instance != null)
+        {
+            if (WaveSpawner.instance.enemiesThisWave.Find(x => this))
+            {
+                WaveSpawner.instance.incrementHealthMeter -= damageAmount; //Increment damage meter with remaining amount
+            }
+        }
+    }
 
 }

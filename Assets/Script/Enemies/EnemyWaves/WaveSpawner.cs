@@ -69,7 +69,10 @@ public class WaveSpawner : MonoBehaviour
             //If there are no more waves to spawn and all enemies are dead print the debug message
             if (currentWave >= maxWaves && enemiesSpawned.Count == 0)
             {
-                WinLossManager.instance.winner = true;
+                if(WinLossManager.instance != null)
+                {
+                    WinLossManager.instance.winner = true;
+                }
             }
 
             //If the time between waves is greater than a certain amount decrease it

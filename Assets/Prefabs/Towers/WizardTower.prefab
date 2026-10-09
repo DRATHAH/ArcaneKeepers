@@ -133,7 +133,9 @@ MonoBehaviour:
   currentHealth: 0
   damageResist: 1
   isAttacked: 0
-  attackedTimer: 0.2
+  attackedTimer: 0
+  flashTime: 0.1
+  flashDelay: 0
 --- !u!114 &941293826946317622
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -308,6 +308,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1867367803739516473, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867367803739516473, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867367803739516473, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4590120532560721705, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -315,6 +327,10 @@ PrefabInstance:
     - target: {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
       propertyPath: m_Name
       value: Skeleton(Armor 0) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8442656604616977429, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
       propertyPath: m_Enabled
@@ -454,6 +470,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton(Armor 0)
       objectReference: {fileID: 0}
+    - target: {fileID: 7689758007720901451, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+      propertyPath: flashLength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240563998734188717, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e370ecfde67ccf44e813108537d4c65c, type: 2}
     - target: {fileID: 8442656604616977429, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -502,7 +526,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1867367803739516473, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -596,7 +621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2097967135
 SpriteRenderer:
   serializedVersion: 3
@@ -855,13 +880,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 941293826946317622, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1618864902372097007, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
       propertyPath: damageResist
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1667525022207391877, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.623
+      value: -1.51
       objectReference: {fileID: 0}
     - target: {fileID: 1667525022207391877, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -905,7 +934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4668225259355750822, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

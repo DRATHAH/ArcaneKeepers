@@ -11,9 +11,18 @@ public class TowerHealth : HealthBase
     public float damageResist = 1;
 
     [HideInInspector] public bool isAttacked = false;
-    [HideInInspector]public float attackedTimer = 0.2f;
+    [HideInInspector]public float attackedTimer = 0f;
     private float maxAttackedTimer = 0.2f;
 
+    private ColorFlash damageFlash;
+    [SerializeField] private float flashTime = 0.1f;
+    private float maxflashDelay = 0.6f;
+    public float flashDelay = 0;
+
+    private void Start()
+    {
+        damageFlash = GetComponent<ColorFlash>();
+    }
 
     private void OnEnable()
     {
@@ -25,6 +34,20 @@ public class TowerHealth : HealthBase
         if(attackedTimer > 0)
         {
             attackedTimer -= Time.deltaTime;
+
+            if(flashDelay <= 0)
+            {
+                flashDelay -= Time.deltaTime;
+                if (damageFlash != null)
+                {
+                    damageFlash.CallFlash(Color.white, flashTime);
+                }
+                flashDelay = maxflashDelay;
+            }
+            else
+            {
+                flashDelay -= Time.deltaTime;
+            }
         }
         else
         {
@@ -32,7 +55,9 @@ public class TowerHealth : HealthBase
             {
                 isAttacked = false;
             }
+            flashDelay = 0; 
         }
+      
     }
 
     public override void TakeDamage(float damageAmount)
@@ -40,7 +65,6 @@ public class TowerHealth : HealthBase
         currentHealth -= damageAmount / damageResist;
         isAttacked = true;
         attackedTimer = maxAttackedTimer;
-
         if (currentHealth <= 0)
         {
             Die();
