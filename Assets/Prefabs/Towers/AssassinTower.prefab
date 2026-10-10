@@ -162,11 +162,10 @@ MonoBehaviour:
   swapLimit: 0
   stabRange: 2.5
   maxBackStabCooldown: 2
-  backStabCooldown: 0
   stabDamage:
   - 250
   - 400
-  armorPiercing: 1
+  armorPiercing: 0
   panicAttackRange: 0.5
   maxPanicAttackCooldown: 3
   panicAttackDamage: 25
