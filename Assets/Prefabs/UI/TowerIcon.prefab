@@ -90,3 +90,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerButton
   towerPlacerPrefab: {fileID: 5064622704331887552, guid: adbda0cc43ceb8a4f936b0328313f084, type: 3}
   tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
+  icon: {fileID: 7669252621939207349}
+  createdObject: {fileID: 0}

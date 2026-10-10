@@ -53,7 +53,7 @@ public class TowerRelocate : MonoBehaviour
                 Vector3 worldPosition = ray.GetPoint(distance);
                 if (hitBox.bounds.Contains(worldPosition))
                 {
-                    if (RelocationManager.instance.relocatedObject == this.gameObject || RelocationManager.instance.relocatedObject == null)
+                    if (RelocationManager.instance.relocatedObject == gameObject || RelocationManager.instance.relocatedObject == null)
                     {
                         RelocateTower();
                         isRelocating = true;
