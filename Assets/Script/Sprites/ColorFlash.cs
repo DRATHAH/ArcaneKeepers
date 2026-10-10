@@ -6,8 +6,8 @@ public class ColorFlash : MonoBehaviour
     [SerializeField] private Color flashColor = Color.white;
     private float maxFlashTime = 1.0f;
 
-    private SpriteRenderer spriteRenderer;
-    private Material spriteMaterial;
+    private SpriteRenderer[] spriteRenderers;
+    private Material[] spriteMaterials;
 
     private Coroutine colorFlash;
 
@@ -16,9 +16,19 @@ public class ColorFlash : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteMaterial = spriteRenderer.material;
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        GrabMat();
     }
+
+    void GrabMat()
+    {
+        spriteMaterials = new Material[spriteRenderers.Length];
+        for (int i = 0;  i < spriteRenderers.Length; i++)
+        {
+            spriteMaterials[i] = spriteRenderers[i].material;
+        }
+    }
+
     void OnEnable()
     {
         if (flashing)
@@ -67,11 +77,17 @@ public class ColorFlash : MonoBehaviour
 
     private void SetColor()
     {
-        spriteMaterial.SetColor("_FlashColor", flashColor);
+        foreach(Material mat in spriteMaterials)
+        {
+            mat.SetColor("_FlashColor", flashColor);
+        }
     }
 
     private void SetTrans(float transAmount)
     {
-        spriteMaterial.SetFloat("_FlashTrans", transAmount);
+        foreach (Material mat in spriteMaterials)
+        {
+            mat.SetFloat("_FlashTrans", transAmount);
+        }
     }
 }

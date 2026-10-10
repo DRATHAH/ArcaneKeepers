@@ -18,6 +18,10 @@ public class EnemyHealth : HealthBase
     private ColorFlash damageFlash;
     [SerializeField] private float flashLength = 0.5f;
 
+    [SerializeField]private Animator healthAnim;
+    [SerializeField]private Animator armorAnim;
+
+
     void Start()
     {
         damageFlash = GetComponent<ColorFlash>();
@@ -29,6 +33,7 @@ public class EnemyHealth : HealthBase
         //Reset health and armor for re-use
         currentHealth = maxHealth;
         currentArmorHealth = maxArmorHealth;
+        AnimUpdate();
     }
 
     //Taking damage func
@@ -95,6 +100,8 @@ public class EnemyHealth : HealthBase
             IncrementMeter(damageAmount);
             currentHealth -= damageAmount; //Subtract damage amount from current health
         }
+
+        AnimUpdate();
     }
 
     private void IncrementMeter(float damageAmount)
@@ -105,6 +112,20 @@ public class EnemyHealth : HealthBase
             {
                 WaveSpawner.instance.incrementHealthMeter -= damageAmount; //Increment damage meter with remaining amount
             }
+        }
+    }
+
+
+    private void AnimUpdate()
+    {
+        if (healthAnim != null)
+        {
+            healthAnim.SetFloat("Health", currentHealth / maxHealth);
+        }
+
+        if (armorAnim != null)
+        {
+            armorAnim.SetFloat("Health", currentArmorHealth / maxArmorHealth);
         }
     }
 
