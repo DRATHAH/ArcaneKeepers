@@ -31,8 +31,6 @@ public class PlayerManager : MonoBehaviour
         {
             unlockedTowers.Add(tower, 1);
         }
-
-        LoadTowers(Inventory.instance);
     }
 
     public void SaveTowers(Inventory inventory)

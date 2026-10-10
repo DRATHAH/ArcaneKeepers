@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
 using System.Linq;
 
@@ -21,6 +22,7 @@ public class InventoryUI : MonoBehaviour
         selectedSlots = selectedTowersParent.GetComponentsInChildren<InventorySlot>();
 
         towerSelectionCanvas.SetActive(false);
+        StartCoroutine(WaitToLoadTowers());
     }
 
     void UpdateUI()
@@ -49,5 +51,11 @@ public class InventoryUI : MonoBehaviour
                 selectedSlots[i].ClearSlot();
             }
         }
+    }
+
+    IEnumerator WaitToLoadTowers()
+    {
+        yield return new WaitForSeconds(0.1f);
+        PlayerManager.instance.LoadTowers(inventory);
     }
 }
