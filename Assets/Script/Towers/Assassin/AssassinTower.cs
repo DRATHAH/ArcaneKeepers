@@ -8,10 +8,11 @@ public class AssassinTower : TowerBase
     [Header("Backstab Vars")]
     [SerializeField] private float stabRange = 3f;
     [SerializeField] private float maxBackStabCooldown = 2f;
+
     [SerializeField] private float backStabCooldown;
 
     [Header("Backstab Damage Vars")]
-    [SerializeField] private float stabDamage = 250;
+    [SerializeField] private float[] stabDamage = { 250, 350 };
     [SerializeField] private bool armorPiercing = false;
 
 
@@ -23,14 +24,19 @@ public class AssassinTower : TowerBase
     [SerializeField] private Vector3 panicAttackPush = Vector3.right;
 
 
+    [Tooltip("Determines what the damage resistances for this tower will be set to. Close to base = 0, Far from base = 1.")]
+    [SerializeField] private float[] damageResists = { 1f, 1.25f };
+
 
     private TowerRelocate towerRelocate;
     private MeleeAttack meleeAttack;
+    private TowerHealth towerHealth;
 
     private int layerMask = 1 << 6;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        towerHealth = GetComponent<TowerHealth>();
         towerRelocate = GetComponent<TowerRelocate>();
         meleeAttack = GetComponent<MeleeAttack>();
     }
@@ -55,6 +61,11 @@ public class AssassinTower : TowerBase
 
     public override void AbilityClose()
     {
+        if (towerHealth.damageResist != damageResists[0])
+        {
+            towerHealth.damageResist = damageResists[0];
+        }
+
         if (Physics.Linecast(transform.position, new Vector3(transform.position.x + panicAttackRange, transform.position.y, transform.position.z), out RaycastHit hit, layerMask))
         {
             if (hit.collider.tag == "Enemy" && panicAttackCooldown <= 0)
@@ -65,7 +76,7 @@ public class AssassinTower : TowerBase
         }
         else
         {
-            BackStab();
+            BackStab(0);
         }
 
         if(panicAttackCooldown > 0)
@@ -76,11 +87,15 @@ public class AssassinTower : TowerBase
 
     public override void AbilityFar()
     {
+        if (towerHealth.damageResist != damageResists[1])
+        {
+            towerHealth.damageResist = damageResists[1];
+        }
 
-        BackStab();
+        BackStab(1);
     }
 
-    void BackStab()
+    void BackStab(int stabDamageType)
     {
         if (backStabCooldown <= 0f)
         {
@@ -89,7 +104,7 @@ public class AssassinTower : TowerBase
                 if (hit.collider.tag == "Enemy")
                 {
                     Debug.Log(hit.collider.gameObject);
-                    meleeAttack.Attack(stabDamage, armorPiercing, hit.collider.gameObject);
+                    meleeAttack.Attack(stabDamage[stabDamageType], armorPiercing, hit.collider.gameObject);
                     backStabCooldown = maxBackStabCooldown;
                 }
             }
