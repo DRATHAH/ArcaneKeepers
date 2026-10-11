@@ -144,7 +144,7 @@ MonoBehaviour:
   damageResist: 1
   isAttacked: 0
   attackedTimer: 0.2
-  flashTime: 0.1
+  flashTime: 0.2
   flashDelay: 0.5
 --- !u!114 &5090302899812428184
 MonoBehaviour:

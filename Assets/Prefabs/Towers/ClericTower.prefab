@@ -170,8 +170,8 @@ MonoBehaviour:
   damageResist: 1
   isAttacked: 0
   attackedTimer: 0
-  flashTime: 0.1
-  flashDelay: 0
+  flashTime: 0.2
+  flashDelay: 0.5
 --- !u!114 &4678202185045961964
 MonoBehaviour:
   m_ObjectHideFlags: 0
