@@ -23,10 +23,12 @@ public class TowerButton : MonoBehaviour
     {
         if(createdObject != null)
         {
+            icon.color = Color.gray;
             towerHealthBar.gameObject.SetActive(true);
         }
         else
         {
+            icon.color = Color.white;
             towerHealthBar.gameObject.SetActive(false);
         }
     }
