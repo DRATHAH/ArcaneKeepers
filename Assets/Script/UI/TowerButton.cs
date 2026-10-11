@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class TowerButton : MonoBehaviour
 {
     public GameObject towerPlacerPrefab;
     public Tower tower;
+    public Image icon;
 
     public GameObject createdObject;
 
@@ -23,6 +25,10 @@ public class TowerButton : MonoBehaviour
     public void Initialize(Tower newTower)
     {
         tower = newTower;
+        if (newTower.towerIcon != null)
+        {
+            icon.sprite = newTower.towerIcon;
+        }
     }
 
     // Creates the tower icon when you drag from the image

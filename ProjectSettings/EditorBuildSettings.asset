@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 26c84a6c89a6013419302e22f85bd63b
   - enabled: 1
+    path: Assets/Scenes/TowerSelect.unity
+    guid: b1eb4112bb70a1149a860660f358fe37
+  - enabled: 1
     path: Assets/Scenes/DemoLevel.unity
     guid: d01667e91261a574ab0580127d90a0da
   m_configObjects:

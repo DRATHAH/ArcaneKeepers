@@ -20,6 +20,15 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScene(string sceneToLoad)
     {
+        // Makes sure the player doesn't start a match with 0 towers equipped
+        if (Inventory.instance && !Inventory.instance.CheckEquippedTowers())
+        {
+            return;
+        }
+        else if (Inventory.instance)
+        {
+            PlayerManager.instance.SaveTowers(Inventory.instance);
+        }
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 
