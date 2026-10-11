@@ -52,6 +52,9 @@ TagManager:
   - name: Projectiles
     uniqueID: 2718935021
     locked: 0
+  - name: VFX
+    uniqueID: 2019120665
+    locked: 0
   - name: SuperImportant
     uniqueID: 3263032825
     locked: 0
