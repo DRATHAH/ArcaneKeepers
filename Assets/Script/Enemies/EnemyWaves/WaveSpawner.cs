@@ -32,6 +32,11 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField]private float incrementPercent; //Multiplier to check against for summoning waves early
     private float incrementAmount; //Total amount of health spawned in a wave multiplied by the increment percent
 
+    [Header("Game End Vars")]
+    [SerializeField] private GameObject winTrigger;
+    private Vector3 winTriggerSpawn = new Vector3(0, 1.25f, 0);
+    private bool winner = false;
+
     private void Awake()
     {
         //Create Singleton conditions
@@ -69,9 +74,10 @@ public class WaveSpawner : MonoBehaviour
             //If there are no more waves to spawn and all enemies are dead print the debug message
             if (currentWave >= maxWaves && enemiesSpawned.Count == 0)
             {
-                if(WinLossManager.instance != null)
+                if (winner == false)
                 {
-                    WinLossManager.instance.winner = true;
+                    winner = true;
+                    ObjectPool.pool.Create(winTrigger, winTriggerSpawn, Quaternion.identity);
                 }
             }
 

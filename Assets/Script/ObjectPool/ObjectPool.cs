@@ -10,6 +10,8 @@ public class ObjectPool : MonoBehaviour
 
     private GameObject poolParent;
 
+    [SerializeField] private Vector3 holdingPoint;
+
     private void Awake()
     {
         if(pool != null && pool != this)
@@ -50,6 +52,7 @@ public class ObjectPool : MonoBehaviour
     //Func for destroying objects
     public virtual GameObject Destroy(GameObject gameObject)
     {
+        gameObject.transform.position = holdingPoint; //Move object so it can't cause problems
         pooledObjects.Add(gameObject); //Add object to pool
         gameObject.SetActive(false); //Disable object
         return gameObject;

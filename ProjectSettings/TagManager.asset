@@ -52,6 +52,9 @@ TagManager:
   - name: Projectiles
     uniqueID: 2718935021
     locked: 0
+  - name: SuperImportant
+    uniqueID: 3263032825
+    locked: 0
   m_RenderingLayers:
   - Default
   m_MigratedRenderPipelines: []
