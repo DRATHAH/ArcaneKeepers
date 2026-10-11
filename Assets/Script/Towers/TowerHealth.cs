@@ -19,6 +19,8 @@ public class TowerHealth : HealthBase
     private float maxflashDelay = 0.6f;
     public float flashDelay = 0;
 
+    [HideInInspector] public TowerButton parentButton;
+
     private void Start()
     {
         damageFlash = GetComponent<ColorFlash>();
@@ -28,6 +30,10 @@ public class TowerHealth : HealthBase
     {
         currentHealth = maxHealth;
         attackedTimer = 0;
+        if(parentButton != null)
+        {
+            parentButton.UpdateHealthBar(currentHealth / maxHealth);
+        }
     }
 
     private void Update()
@@ -66,6 +72,7 @@ public class TowerHealth : HealthBase
         currentHealth -= damageAmount / damageResist;
         isAttacked = true;
         attackedTimer = maxAttackedTimer;
+        parentButton.UpdateHealthBar(currentHealth/maxHealth);
         if (currentHealth <= 0)
         {
             Die();
@@ -77,6 +84,7 @@ public class TowerHealth : HealthBase
         if(currentHealth + recoveryAmount < maxHealth)
         {
             currentHealth += recoveryAmount;
+            parentButton.UpdateHealthBar(currentHealth / maxHealth);
         }
         else
         {
@@ -87,6 +95,7 @@ public class TowerHealth : HealthBase
     {
         gameObject.transform.position = transform.position;
         isAttacked = false;
+        parentButton.createdObject = null;
         currentHealth = maxHealth;
         GameObject currentGameObject = this.gameObject;
         ObjectPool.pool.Destroy(currentGameObject);

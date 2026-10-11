@@ -7,15 +7,15 @@ public class HealingAura : MonoBehaviour
     [HideInInspector] public float healingAmount;
     [HideInInspector] public bool burstHeal = false;
 
-    private List<GameObject> objectsHit = new List<GameObject>();
-    private List<float> objectTimers = new List<float>();
+    [SerializeField] private List<GameObject> objectsHit = new List<GameObject>();
+    [SerializeField] private List<float> objectTimers = new List<float>();
     private float maxObjectTimer = 0.1f;
 
-    private List<GameObject> healingVFX = new List<GameObject>();
+    [SerializeField] private List<GameObject> healingVFX = new List<GameObject>();
 
     [HideInInspector] public GameObject parent;
 
-    private GameObject healingVFXPrefab;
+    [SerializeField]private GameObject healingVFXPrefab;
 
     private void OnEnable()
     {
@@ -51,7 +51,7 @@ public class HealingAura : MonoBehaviour
             }
             else
             {
-                //ObjectPool.pool.Destroy(healingVFX[i]);
+                ObjectPool.pool.Destroy(healingVFX[i]);
                 healingVFX.RemoveAt(i);
                 objectTimers.RemoveAt(i);
                 objectsHit.RemoveAt(i);
@@ -73,12 +73,13 @@ public class HealingAura : MonoBehaviour
                 {
                     health.RecoverHealth(healingAmount);
                 }
+                //objectTimers.Add(maxObjectTimer);
 
                 CreateVFX(hit.transform.position);
             }
             else
             {
-                int selectedObject = objectsHit.FindIndex(x => x.name == hit.gameObject.name);
+                int selectedObject = objectsHit.FindIndex(x => hit.gameObject);
 
                 objectTimers[selectedObject] = maxObjectTimer;
             }

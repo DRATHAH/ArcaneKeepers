@@ -10,6 +10,8 @@ public class TowerButton : MonoBehaviour
 
     public GameObject createdObject;
 
+    [SerializeField] private Slider towerHealthBar;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,5 +45,10 @@ public class TowerButton : MonoBehaviour
             placer.towerButton = this;
             towerPlacer.transform.SetParent(transform.root, true);
         }
+    }
+
+    public void UpdateHealthBar(float updatedValue)
+    {
+        towerHealthBar.value = updatedValue;
     }
 }

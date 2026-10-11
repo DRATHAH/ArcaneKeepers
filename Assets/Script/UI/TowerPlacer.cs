@@ -32,6 +32,12 @@ public class TowerPlacer : MonoBehaviour
             // Place tower
            // Debug.Log("Placed");
             GameObject newbie = ObjectPool.pool.Create(tower.towerPrefab, TouchManager.instance.hoveringTile.anchorPos.position, TouchManager.instance.hoveringTile.anchorPos.rotation);
+            createdTower = newbie;
+            towerButton.createdObject = newbie;
+            if (createdTower.TryGetComponent<TowerHealth>(out TowerHealth towerHealth))
+            {
+                towerHealth.parentButton = towerButton;
+            }
             newbie.transform.parent = TouchManager.instance.hoveringTile.anchorPos;
             towerButton.createdObject = newbie;
             TouchManager.instance.hoveringTile.tileObject = newbie;
