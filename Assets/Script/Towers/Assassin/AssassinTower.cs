@@ -17,7 +17,7 @@ public class AssassinTower : TowerBase
 
     [Header("Backstab Damage Vars")]
     [Tooltip("Damage values for the backstab. 0 = Close Position, 1 = Far Position")]
-    [SerializeField] private float[] stabDamage = { 250, 350 };
+    [SerializeField] private float[] stabDamage = new float[2];
 
     [Tooltip("Can the backstab pierce enemy armor?")]
     [SerializeField] private bool armorPiercing = false; //Can the backstab pierce armor?
@@ -48,6 +48,8 @@ public class AssassinTower : TowerBase
     private MeleeAttack meleeAttack;
     private TowerHealth towerHealth;
 
+    private Animator anim;
+
     private int layerMask = 1 << 6; //Layer mask for raycast purposes
 
     void Start()
@@ -55,6 +57,7 @@ public class AssassinTower : TowerBase
         towerHealth = GetComponent<TowerHealth>();
         towerRelocate = GetComponent<TowerRelocate>();
         meleeAttack = GetComponent<MeleeAttack>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -84,8 +87,9 @@ public class AssassinTower : TowerBase
 
         if (Physics.Linecast(transform.position, new Vector3(transform.position.x + panicAttackRange, transform.position.y, transform.position.z), out RaycastHit hit, layerMask))
         {
-            if (hit.collider.tag == "Enemy" && panicAttackCooldown <= 0)
+            if (hit.collider.tag == "Enemy" && panicAttackCooldown <= 0 && hit.collider.gameObject.activeSelf == true)
             {
+                anim.SetTrigger("Panic");
                 meleeAttack.Attack(panicAttackDamage, false, panicAttackPush, hit.collider.gameObject);
                 panicAttackCooldown = maxPanicAttackCooldown;
             }
@@ -117,11 +121,11 @@ public class AssassinTower : TowerBase
         {
             if (Physics.Linecast(transform.position, new Vector3(transform.position.x - stabRange, transform.position.y, transform.position.z), out RaycastHit hit, layerMask))
             {
-                if (hit.collider.tag == "Enemy")
+                if (hit.collider.tag == "Enemy" && hit.collider.gameObject.activeSelf == true)
                 {
-                    Debug.Log(hit.collider.gameObject);
-                    meleeAttack.Attack(stabDamage[stabDamageType], armorPiercing, hit.collider.gameObject);
                     backStabCooldown = maxBackStabCooldown;
+                    anim.SetTrigger("Stab");
+                    meleeAttack.Attack(stabDamage[stabDamageType], armorPiercing, hit.collider.gameObject);
                 }
             }
         }

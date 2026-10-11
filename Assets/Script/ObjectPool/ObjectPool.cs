@@ -33,8 +33,8 @@ public class ObjectPool : MonoBehaviour
             // Find where the object is in the pooledObjects list
             int selectedPooledObject = pooledObjects.FindIndex(x => x.name == objectType.name);
             GameObject newbie = pooledObjects[selectedPooledObject];
-            newbie.SetActive(true); //Set the object active
             newbie.transform.position = spawnPoint;
+            newbie.SetActive(true); //Set the object active
             pooledObjects.RemoveAt(selectedPooledObject); //Remove it from the list
             return newbie;
         }

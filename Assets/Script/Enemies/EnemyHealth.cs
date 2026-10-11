@@ -76,29 +76,31 @@ public class EnemyHealth : HealthBase
 
     private void CalcDamage(float damageAmount, bool armorPiercing)
     {
+        float activeDamage = damageAmount;
         if (damageFlash != null)
         {
             damageFlash.CallFlash(Color.white, flashLength);
         }
+
         //If the attack will hit the armor and the armor will survive the hit do damage to the armor
-        if (currentArmorHealth - damageAmount > 0 && !armorPiercing)
+        if (currentArmorHealth - activeDamage > 0 && !armorPiercing)
         {
-            currentArmorHealth -= damageAmount;
+            currentArmorHealth -= activeDamage;
         }
-        else if (currentArmorHealth > 0 && currentArmorHealth - damageAmount <= 0 && !armorPiercing)
+        else if (currentArmorHealth > 0 && currentArmorHealth - activeDamage <= 0 && !armorPiercing)
         {
             //If the attack will hit the armor but the armor won't survive the hit
-            damageAmount -= currentArmorHealth; //Subtract the current armor health from the damage amount
+            activeDamage -= currentArmorHealth; //Subtract the current armor health from the damage amount
+            Debug.Log(activeDamage);
             currentArmorHealth = 0; //Reduce armor health to 0
-            IncrementMeter(damageAmount);
-            currentHealth -= damageAmount; //Subtract remaining amount from current health
+            IncrementMeter(activeDamage);
+            currentHealth -= activeDamage; //Subtract remaining amount from current health
         }
-
-        //If the attack is either armor piercing or the armor health is less than 0
-        if (armorPiercing || currentArmorHealth <= 0)
+        else if(armorPiercing || currentArmorHealth <= 0)
         {
-            IncrementMeter(damageAmount);
-            currentHealth -= damageAmount; //Subtract damage amount from current health
+            //If the attack is either armor piercing or the armor health is less than 0
+            IncrementMeter(activeDamage);
+            currentHealth -= activeDamage; //Subtract damage amount from current health
         }
 
         AnimUpdate();

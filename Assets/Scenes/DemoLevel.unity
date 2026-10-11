@@ -1490,8 +1490,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
   currentWave: 0
-  incrementTimerBase: 3
-  maxGracePeriod: 0
+  incrementTimerBase: 15
+  maxGracePeriod: 2
   enemiesSpawned: []
   enemiesThisWave: []
   incrementHealthMeter: 0

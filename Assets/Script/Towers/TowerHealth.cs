@@ -27,6 +27,7 @@ public class TowerHealth : HealthBase
     private void OnEnable()
     {
         currentHealth = maxHealth;
+        attackedTimer = 0;
     }
 
     private void Update()
