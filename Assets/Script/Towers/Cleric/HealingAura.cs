@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class HealingAura : MonoBehaviour
 {
-    public float lifeTime;
-    public float healingAmount;
-    public bool burstHeal = false;
+    [HideInInspector] public float lifeTime;
+    [HideInInspector] public float healingAmount;
+    [HideInInspector] public bool burstHeal = false;
 
-    [SerializeField] private List<GameObject> objectsHit = new List<GameObject>();
-    [SerializeField] private List<float> objectTimers = new List<float>();
+    private List<GameObject> objectsHit = new List<GameObject>();
+    private List<float> objectTimers = new List<float>();
     private float maxObjectTimer = 0.1f;
 
-    [SerializeField] private List<GameObject> healingVFX = new List<GameObject>();
+    private List<GameObject> healingVFX = new List<GameObject>();
 
-    public GameObject parent;
+    [HideInInspector] public GameObject parent;
 
-    [SerializeField] private GameObject healingVFXPrefab;
+    private GameObject healingVFXPrefab;
 
     private void OnEnable()
     {
