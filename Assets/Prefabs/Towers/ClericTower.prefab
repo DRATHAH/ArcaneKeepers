@@ -144,12 +144,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClericTower
   tower: {fileID: 11400000, guid: 1d6809c4ec161ef4d8b1336d4fe3762e, type: 2}
   swapLimit: 0
-  maxHealingBurstCooldown: 15
+  maxHealingBurstCooldown: 10
   maxHealingFieldCooldown: 6.5
   healingAura: {fileID: 3456134524809666570, guid: 509ab590ce0019041acf7643855e53d7, type: 3}
   healingSpeeds:
-  - 15
   - 25
+  - 35
   healingAmount: 500
   healingFieldLifeTime: 5
   verticalOffset: -0.5
@@ -198,7 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &806042027394949148
 BoxCollider:
   m_ObjectHideFlags: 0

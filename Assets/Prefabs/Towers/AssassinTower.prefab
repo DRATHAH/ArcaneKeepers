@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6059828474297919890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0226d23e3e99c664c8edce9d20911405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerHealth
-  maxHealth: 200
+  maxHealth: 350
   currentHealth: 0
   damageResist: 1
   isAttacked: 0

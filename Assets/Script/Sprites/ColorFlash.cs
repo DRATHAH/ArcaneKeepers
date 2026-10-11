@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ColorFlash : MonoBehaviour
 {
-    [SerializeField] private Color flashColor = Color.white;
+    private Color flashColor = Color.white;
     private float maxFlashTime = 1.0f;
 
     private SpriteRenderer[] spriteRenderers;

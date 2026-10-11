@@ -145,7 +145,7 @@ MonoBehaviour:
   tower: {fileID: 11400000, guid: a5c984c30c00f5842a8291acdcc5b6a0, type: 2}
   swapLimit: 0
   maxFCooldown: 1.5
-  maxCCooldown: 1.5
+  maxCCooldown: 2
   fireOffset: 2
   farProjectile: {fileID: 1043948582540308662, guid: c86ae18c4eb67f04088fbf4894e40df5, type: 3}
   closeProjectile: {fileID: 6909232196714440273, guid: c15d1b01dbe434c458633d7505cdb811, type: 3}
@@ -195,7 +195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &180704256896079376
 BoxCollider:
   m_ObjectHideFlags: 0

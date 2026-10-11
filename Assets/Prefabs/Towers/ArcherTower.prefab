@@ -163,8 +163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RangerTower
   tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
   swapLimit: 0
-  maxFCooldown: 0.5
-  maxCCooldown: 5
+  maxFCooldown: 0.75
+  maxCCooldown: 3
   weakProjectilePrefab: {fileID: 1286918116579938344, guid: a913c4a2b3bfd7c4b8226bc279710635, type: 3}
   strongProjectilePrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
 --- !u!114 &2369378130788539762
@@ -193,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &507032523565395887
 BoxCollider:
   m_ObjectHideFlags: 0

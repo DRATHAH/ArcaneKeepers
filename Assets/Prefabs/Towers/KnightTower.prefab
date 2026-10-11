@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WallTower
   tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
   swapLimit: 0
-  regenRate: 50
+  regenRate: 25
   damageResists:
   - 1
   - 2
@@ -182,7 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!54 &2968592893126040821
 Rigidbody:
   m_ObjectHideFlags: 0
