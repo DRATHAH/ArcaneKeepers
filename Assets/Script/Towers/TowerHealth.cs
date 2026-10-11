@@ -20,10 +20,12 @@ public class TowerHealth : HealthBase
     public float flashDelay = 0;
 
     [HideInInspector] public TowerButton parentButton;
+    private TowerRelocate towerRelocate;
 
     private void Start()
     {
         damageFlash = GetComponent<ColorFlash>();
+        towerRelocate = GetComponent<TowerRelocate>();
     }
 
     private void OnEnable()
@@ -93,9 +95,11 @@ public class TowerHealth : HealthBase
     }
     public override void Die()
     {
+        towerRelocate.DeathReset();
         gameObject.transform.position = transform.position;
         isAttacked = false;
         parentButton.createdObject = null;
+        this.transform.parent = null;
         currentHealth = maxHealth;
         GameObject currentGameObject = this.gameObject;
         ObjectPool.pool.Destroy(currentGameObject);

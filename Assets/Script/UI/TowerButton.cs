@@ -21,7 +21,14 @@ public class TowerButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(createdObject != null)
+        {
+            towerHealthBar.gameObject.SetActive(true);
+        }
+        else
+        {
+            towerHealthBar.gameObject.SetActive(false);
+        }
     }
 
     public void Initialize(Tower newTower)

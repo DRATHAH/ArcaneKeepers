@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   towerName: Assassin
   towerPrefab: {fileID: 3573245625740136893, guid: 9bafe0b108e0c5d488e8ff9b8992346f, type: 3}
-  towerIcon: {fileID: 21300000, guid: 7aac6aa21e2aee94a9e13d98b134b45b, type: 3}
+  towerIcon: {fileID: 1484555874654870105, guid: f0c89b83a0c425442bfcad7613267781, type: 3}
   towerId: 4
