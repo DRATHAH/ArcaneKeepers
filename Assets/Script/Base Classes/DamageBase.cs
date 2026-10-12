@@ -17,4 +17,12 @@ public class DamageBase : MonoBehaviour
             victimHealth.TakeDamage(damageAmount, armorPiercing);
         }
     }
+
+    public virtual void Attack(float damageAmount, bool armorPiercing, Vector3 force, GameObject target)
+    {
+        if(target.TryGetComponent<HealthBase>(out HealthBase victimHealth))
+        {
+            victimHealth.TakeDamage(damageAmount, armorPiercing, force);
+        }
+    }
 }

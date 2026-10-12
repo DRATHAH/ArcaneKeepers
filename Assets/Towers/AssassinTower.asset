@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd7a4e46f728dc49bdb372539ee3a6e, type: 3}
+  m_Name: AssassinTower
+  m_EditorClassIdentifier: Assembly-CSharp::Tower
+  towerName: Assassin
+  towerPrefab: {fileID: 3573245625740136893, guid: 9bafe0b108e0c5d488e8ff9b8992346f, type: 3}
+  towerIcon: {fileID: 1484555874654870105, guid: f0c89b83a0c425442bfcad7613267781, type: 3}
+  towerId: 4

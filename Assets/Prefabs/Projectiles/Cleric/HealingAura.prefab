@@ -70,7 +70,11 @@ MonoBehaviour:
   lifeTime: 0
   healingAmount: 0
   burstHeal: 0
+  objectsHit: []
+  objectTimers: []
+  healingVFX: []
   parent: {fileID: 0}
+  healingVFXPrefab: {fileID: 2394455688511405116, guid: bcb6ec5f39d1ab043a7284a93b64ffda, type: 3}
 --- !u!1 &3792213160889102439
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,12 +152,12 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 598359319
-  m_SortingLayer: 2
-  m_SortingOrder: -1
+  m_SortingLayerID: 578027825
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.98531425, b: 0.6462264, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Color: {r: 1, g: 0.98531425, b: 0.6462264, a: 0.6117647}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -10,6 +10,8 @@ public class TowerButton : MonoBehaviour
 
     public GameObject createdObject;
 
+    [SerializeField] private Slider towerHealthBar;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +21,16 @@ public class TowerButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(createdObject != null)
+        {
+            icon.color = Color.gray;
+            towerHealthBar.gameObject.SetActive(true);
+        }
+        else
+        {
+            icon.color = Color.white;
+            towerHealthBar.gameObject.SetActive(false);
+        }
     }
 
     public void Initialize(Tower newTower)
@@ -43,5 +54,10 @@ public class TowerButton : MonoBehaviour
             placer.towerButton = this;
             towerPlacer.transform.SetParent(transform.root, true);
         }
+    }
+
+    public void UpdateHealthBar(float updatedValue)
+    {
+        towerHealthBar.value = updatedValue;
     }
 }

@@ -20,6 +20,8 @@ public class RangerTower : TowerBase
     [Tooltip("Prefab for the close ability projectile.")]
     [SerializeField] private GameObject strongProjectilePrefab;
 
+    private float mapBorder = 9f;
+
     private TowerRelocate towerRelocate;
 
     private void Start()
@@ -39,7 +41,7 @@ public class RangerTower : TowerBase
 
         if (towerRelocate.isRelocating == false)
         {
-            if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit, Mathf.Infinity, layerMask))
+            if (Physics.Linecast(transform.position, new Vector3(mapBorder, transform.position.y, transform.position.z), out RaycastHit hit, layerMask))
             {
                 if(hit.collider.tag == "Enemy")
                 {

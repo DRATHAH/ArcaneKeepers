@@ -3,16 +3,33 @@ using UnityEngine;
 
 public class HealingAura : MonoBehaviour
 {
-    public float lifeTime;
-    public float healingAmount;
-    public bool burstHeal = false;
+    [HideInInspector] public float lifeTime;
+    [HideInInspector] public float healingAmount;
+    [HideInInspector] public bool burstHeal = false;
 
-    private List<GameObject> objectsHit = new List<GameObject>();
-    public GameObject parent;
+    [SerializeField] private List<GameObject> objectsHit = new List<GameObject>();
+    [SerializeField] private List<float> objectTimers = new List<float>();
+    private float maxObjectTimer = 0.1f;
+
+    [SerializeField] private List<GameObject> healingVFX = new List<GameObject>();
+
+    [HideInInspector] public GameObject parent;
+
+    [SerializeField]private GameObject healingVFXPrefab;
 
     private void OnEnable()
     {
         objectsHit.Clear();
+    }
+
+    private void OnDisable()
+    {
+        foreach(GameObject obj in healingVFX)
+        {
+            ObjectPool.pool.Destroy(obj);
+        }
+        healingVFX.Clear();
+        objectTimers.Clear();
     }
 
     private void Update()
@@ -25,24 +42,61 @@ public class HealingAura : MonoBehaviour
         {
             ObjectPool.pool.Destroy(this.gameObject);
         }
+
+        for(int i = 0; i < objectTimers.Count; i++)
+        {
+            if (objectTimers[i] > 0)
+            {
+                objectTimers[i] -= Time.deltaTime;
+            }
+            else
+            {
+                ObjectPool.pool.Destroy(healingVFX[i]);
+                healingVFX.RemoveAt(i);
+                objectTimers.RemoveAt(i);
+                objectsHit.RemoveAt(i);
+            }
+        }
+
     }
 
 
     private void OnTriggerStay(Collider hit)
     {
-        if (hit.gameObject.TryGetComponent<TowerHealth>(out TowerHealth health))
+        if (hit.gameObject.TryGetComponent<TowerHealth>(out TowerHealth health) && hit.gameObject != parent)
         {
-            if (burstHeal == true && hit.gameObject != parent)
+            if (!objectsHit.Find(x => x.name == hit.gameObject.name)) //For single burst heal actions
             {
-                if (!objectsHit.Find(x => x.name == hit.gameObject.name)) //For single burst heal actions
+                objectsHit.Add(hit.gameObject);
+
+                if (burstHeal == true)
                 {
                     health.RecoverHealth(healingAmount);
                 }
+                //objectTimers.Add(maxObjectTimer);
+
+                CreateVFX(hit.transform.position);
             }
-            else if(burstHeal == false && hit.gameObject != parent) //For gradual, healing-over-time effects
+            else
+            {
+                int selectedObject = objectsHit.FindIndex(x => hit.gameObject);
+
+                objectTimers[selectedObject] = maxObjectTimer;
+            }
+
+
+            if (burstHeal == false) //For gradual, healing-over-time effects
             {
                 health.RecoverHealth(healingAmount);
+                
             }
         }
+    }
+
+    private void CreateVFX(Vector3 origin)
+    {
+        GameObject newbie = ObjectPool.pool.Create(healingVFXPrefab, origin, Quaternion.identity);
+        healingVFX.Add(newbie);
+        objectTimers.Add(maxObjectTimer);
     }
 }

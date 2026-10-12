@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514bd8de2917d5447ba3938cd5ab3dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TPDamage
-  damageAmount: 250
+  damageAmount: 200
   maxhitCount: 1
   armorPiercing: 1
 --- !u!65 &8140450261346042728

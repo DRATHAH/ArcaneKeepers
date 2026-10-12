@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4900465432934324430}
   - component: {fileID: 5262910377712666955}
   - component: {fileID: 4518364333664289075}
+  - component: {fileID: 8105776268271884445}
   - component: {fileID: 2968592893126040821}
   m_Layer: 0
   m_Name: KnightTower
@@ -63,7 +64,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: e370ecfde67ccf44e813108537d4c65c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WallTower
   tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
   swapLimit: 0
-  regenRate: 50
+  regenRate: 25
   damageResists:
   - 1
   - 2
@@ -132,6 +133,8 @@ MonoBehaviour:
   damageResist: 0
   isAttacked: 0
   attackedTimer: 0.2
+  flashTime: 0.2
+  flashDelay: 0.5
 --- !u!114 &5262910377712666955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +170,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.75, y: 1.75, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8105776268271884445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483944384165000995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
 --- !u!54 &2968592893126040821
 Rigidbody:
   m_ObjectHideFlags: 0

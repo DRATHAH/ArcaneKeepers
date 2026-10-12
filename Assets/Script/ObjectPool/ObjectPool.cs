@@ -10,6 +10,8 @@ public class ObjectPool : MonoBehaviour
 
     private GameObject poolParent;
 
+    [SerializeField] private Vector3 holdingPoint;
+
     private void Awake()
     {
         if(pool != null && pool != this)
@@ -33,8 +35,8 @@ public class ObjectPool : MonoBehaviour
             // Find where the object is in the pooledObjects list
             int selectedPooledObject = pooledObjects.FindIndex(x => x.name == objectType.name);
             GameObject newbie = pooledObjects[selectedPooledObject];
-            newbie.SetActive(true); //Set the object active
             newbie.transform.position = spawnPoint;
+            newbie.SetActive(true); //Set the object active
             pooledObjects.RemoveAt(selectedPooledObject); //Remove it from the list
             return newbie;
         }
@@ -50,8 +52,12 @@ public class ObjectPool : MonoBehaviour
     //Func for destroying objects
     public virtual GameObject Destroy(GameObject gameObject)
     {
-        pooledObjects.Add(gameObject); //Add object to pool
-        gameObject.SetActive(false); //Disable object
+        if(gameObject != null)
+        {
+            gameObject.transform.position = holdingPoint; //Move object so it can't cause problems
+            pooledObjects.Add(gameObject); //Add object to pool
+            gameObject.SetActive(false); //Disable object
+        }
         return gameObject;
     }
 }

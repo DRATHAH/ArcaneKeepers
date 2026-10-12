@@ -22,6 +22,9 @@ public class EnemyMovement : MonoBehaviour
 
     private EnemyHealth enemyHealth;
 
+    public bool pushed = false;
+    private float pushedCooldown = 0.25f;
+
     private void OnEnable()
     {
         try
@@ -33,8 +36,11 @@ public class EnemyMovement : MonoBehaviour
             throw new ArgumentException("Unable to find Enemy Health Component!", nameof(EnemyMovement));
         }
 
+        pushed = false;
+
         rb = GetComponent<Rigidbody>();
         CalcMovement();
+
     }
 
     private void Update()
@@ -43,19 +49,23 @@ public class EnemyMovement : MonoBehaviour
         {
             moveDelay -= Time.deltaTime;
         }
+        else
+        {
+            pushed = false;
+        }
 
         if (enemyHealth != null)
         {
-            if(enemyHealth.currentHealth > 0 && moveDelay <= 0)
+            if (enemyHealth.currentHealth > 0 && moveDelay <= 0)
             {
-                if(livingStatus != Status.ALIVE)
+                if (livingStatus != Status.ALIVE)
                 {
                     livingStatus = Status.ALIVE;
                 }
             }
             else
             {
-                if(livingStatus != Status.STOPPED)
+                if (livingStatus != Status.STOPPED)
                 {
                     livingStatus = Status.STOPPED;
                 }
@@ -73,7 +83,10 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = Vector2.zero;
+            if (!pushed)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
         }
     }
 
@@ -81,4 +94,12 @@ public class EnemyMovement : MonoBehaviour
     {
         moveDelay = maxMoveDelay;
     }
+
+    public void Push(Vector3 pushForce)
+    {
+        moveDelay = pushedCooldown;
+        pushed = true;
+        rb.linearVelocity = pushForce;
+    }
+
 }

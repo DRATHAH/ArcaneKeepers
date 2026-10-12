@@ -17,8 +17,12 @@ public class TowerRelocate : MonoBehaviour
     private void Start()
     {
         tower = GetComponent<TowerBase>().tower;
+    }
+
+    private void OnEnable()
+    {
         originalPos = transform.position;
-        if(TouchManager.instance.hoveringTile != null)
+        if (TouchManager.instance.hoveringTile != null)
         {
             originalTile = TouchManager.instance.hoveringTile;
         }
@@ -103,5 +107,11 @@ public class TowerRelocate : MonoBehaviour
                 RelocationManager.instance.ClearObject();
             }
         }
+    }
+
+    public void DeathReset()
+    {
+        originalTile = null;
+        newTile = null;
     }
 }
