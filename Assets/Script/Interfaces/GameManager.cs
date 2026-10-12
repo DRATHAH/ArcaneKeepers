@@ -28,7 +28,12 @@ public class GameManager : MonoBehaviour
             createdTile.transform.SetParent(lanes.transform, false);
         }
 
-        // Load the towers the player equipped
+        // Load the towers the player equipped (none when the level is started directly, without the character menu)
+        if (PlayerManager.instance == null)
+        {
+            Debug.LogWarning("No PlayerManager: start from the character menu to bring a team into the level.");
+            return;
+        }
         foreach(Tower tower in PlayerManager.instance.equippedTowers)
         {
             GameObject towerButton = Instantiate(towerButtonPrefab, towerButtonParent);
