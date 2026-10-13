@@ -48,6 +48,13 @@ public class TouchManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // No touchscreen (e.g. playing with a mouse in the editor): nothing to do.
+        // Without this check the null reference trips the editor's Error Pause and freezes the game.
+        if (Touchscreen.current == null)
+        {
+            return;
+        }
+
         // Checks if a touch device exists and a press just started
         if (Touchscreen.current.touches.Count > 0)
         {

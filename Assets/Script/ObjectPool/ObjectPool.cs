@@ -52,9 +52,12 @@ public class ObjectPool : MonoBehaviour
     //Func for destroying objects
     public virtual GameObject Destroy(GameObject gameObject)
     {
-        gameObject.transform.position = holdingPoint; //Move object so it can't cause problems
-        pooledObjects.Add(gameObject); //Add object to pool
-        gameObject.SetActive(false); //Disable object
+        if(gameObject != null)
+        {
+            gameObject.transform.position = holdingPoint; //Move object so it can't cause problems
+            pooledObjects.Add(gameObject); //Add object to pool
+            gameObject.SetActive(false); //Disable object
+        }
         return gameObject;
     }
 }
