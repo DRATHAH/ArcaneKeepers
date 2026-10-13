@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class WaveSpawner : MonoBehaviour
     [Tooltip("Current wave of enemies. Only adjust for testing purposes!")]
     public int currentWave = 0; //Current wave of enemies
     private int maxWaves = 0; //Maximum number of waves of enemies
-    private int waveOffset = 0; //Offset from the start of the enemies list
 
     [Header("Wave Delay Vars")]
     [Tooltip("Max time between new waves spawning")]
@@ -25,17 +25,19 @@ public class WaveSpawner : MonoBehaviour
     [HideInInspector] public List<EnemyHealth> enemiesThisWave = new List<EnemyHealth>();
 
 
-    [HideInInspector]public float incrementHealthMeter; //Total amount of heal spawned in a wave
+    public float incrementHealthMeter; //Total amount of heal spawned in a wave
 
     [Header("Wave Health Vars")]
     [Tooltip("Percentile amount of damage that needs to be dealt in order to summon the next wave. Should be a decimal.")]
     [SerializeField]private float incrementPercent; //Multiplier to check against for summoning waves early
-    private float incrementAmount; //Total amount of health spawned in a wave multiplied by the increment percent
+    [SerializeField]private float incrementAmount; //Total amount of health spawned in a wave multiplied by the increment percent
 
     [Header("Game End Vars")]
     [SerializeField] private GameObject winTrigger;
     private Vector3 winTriggerSpawn = new Vector3(0, 1.25f, 0);
     private bool winner = false;
+
+    private bool spawning = false;
 
     private void Awake()
     {
@@ -54,7 +56,7 @@ public class WaveSpawner : MonoBehaviour
     {
         gracePeriod = maxGracePeriod; //Set the grace period
         waveManager = WaveManager.instance; //reference the wavemanager singleton for convenience sake
-        maxWaves = waveManager.numPerWave.Count; //Set the maximum waves for the level
+        maxWaves = waveManager.levelWaves.Count; //Set the maximum waves for the level
     }
 
     void Update()
@@ -63,10 +65,11 @@ public class WaveSpawner : MonoBehaviour
         if(gracePeriod <= 0)
         {
             //If the incremental health meter is below a certain point or if there are no enemies to spawn
-            if (incrementHealthMeter <= incrementAmount * incrementPercent || enemiesSpawned.Count == 0)
+            if ((incrementHealthMeter <= incrementAmount || enemiesSpawned.Count == 0) && spawning == false)
             {
                 if (currentWave < maxWaves)
                 {
+                    Debug.Log("Armed and Dangerous!");
                     IncrementWave();
                 }
             }
@@ -91,6 +94,7 @@ public class WaveSpawner : MonoBehaviour
                 //Otherwise spawn the next wave if possible
                 if (currentWave < maxWaves)
                 {
+                    Debug.Log("Again!");
                     IncrementWave();
                 }
             }
@@ -109,12 +113,22 @@ public class WaveSpawner : MonoBehaviour
         incrementTimer = incrementTimerBase; //Set the increment timer
         gracePeriod = 0; //Clear the grace period
 
-        //For each enemy in the current wave
-        for (int i = 0; i < waveManager.numPerWave[currentWave]; i++)
+        //Create an enemy from the object pool, and try to get their health component
+        StartCoroutine(spawnEnemy());
+        
+    }
+
+    private IEnumerator spawnEnemy()
+    {
+        spawning = true;
+
+        for (int i = 0; i < waveManager.levelWaves[currentWave].waveEnemies.Length; i++)
         {
+            yield return new WaitForSeconds(waveManager.levelWaves[currentWave].spawnDelay[i]);
             //Create an enemy from the object pool, and try to get their health component
-            GameObject newbie = ObjectPool.pool.Create(waveManager.enemyPrefabs[i + waveOffset], waveManager.spawnPoints[i + waveOffset], Quaternion.identity);
-            if(newbie.TryGetComponent<EnemyHealth>(out EnemyHealth newbieHealth))
+            GameObject newbie = ObjectPool.pool.Create(waveManager.levelWaves[currentWave].waveEnemies[i], waveManager.spawnPoints[waveManager.levelWaves[currentWave].wavePosition[i]], Quaternion.identity);
+
+            if (newbie.TryGetComponent<EnemyHealth>(out EnemyHealth newbieHealth))
             {
                 enemiesSpawned.Add(newbieHealth);
                 enemiesThisWave.Add(newbieHealth);
@@ -124,17 +138,18 @@ public class WaveSpawner : MonoBehaviour
                 Debug.LogWarning("Enemy created has no health component!");
             }
         }
+
         //For each enemy in enemy spawned add their health to the health meter
-        for(int i = 0; i < enemiesSpawned.Count; i++)
+        for (int i = 0; i < enemiesSpawned.Count; i++)
         {
             incrementHealthMeter += enemiesSpawned[i].currentHealth;
         }
         //Set the increment amount equal to the meter amount
-        incrementAmount = incrementHealthMeter;
+        incrementAmount = incrementHealthMeter * incrementPercent;
 
-        //Increase the wave offset
-        waveOffset += waveManager.numPerWave[currentWave];
-        
+
+        spawning = false;
+
         //Increase the current wave
         currentWave++;
     }

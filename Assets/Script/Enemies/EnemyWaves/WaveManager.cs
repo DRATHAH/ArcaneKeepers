@@ -6,14 +6,16 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance { get; private set; }
 
-    [Tooltip("List of enemies to spawn in throughout the level. Make a unique entry for each enemy.")]
-    public List<GameObject> enemyPrefabs = new List<GameObject>();
+    //[Tooltip("List of enemies to spawn in throughout the level. Make a unique entry for each enemy.")]
+    //public List<GameObject> enemyPrefabs = new List<GameObject>();
 
-    [Tooltip("Number of enemies to spawn in per wave.")]
-    public List<int> numPerWave = new List<int>();
+    public List<Wave> levelWaves = new List<Wave>();
 
-    [Tooltip("Spawn points for each enemy in a wave. Must match enemyPrefabs in length.")]
     public List<Vector3> spawnPoints = new List<Vector3>();
+
+    //[Tooltip("Number of enemies to spawn in per wave.")]
+    //public List<int> numPerWave = new List<int>();
+
 
     private void Awake()
     {
@@ -30,24 +32,9 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        if(enemyPrefabs.Count == 0)
+        if(levelWaves.Count == 0)
         {
             throw new ArgumentException("No enemies to spawn! Cannot generate wave!", nameof(WaveManager));
-        }
-
-        if(numPerWave.Count == 0)
-        {
-            throw new ArgumentException("Enemies to spawn per wave not listed! Cannot generate wave!", nameof(WaveManager));
-        }
-
-        if (spawnPoints.Count == 0)
-        {
-            throw new ArgumentException("No enemy spawn points listed! Cannot generate wave!", nameof(WaveManager));
-        }
-
-        if (enemyPrefabs.Count != spawnPoints.Count)
-        {
-            throw new ArgumentException("Unequal spawn points and enemyPrefabs!", nameof(WaveManager));
         }
     }
 }

@@ -2077,25 +2077,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a86cba4b0bfd74d8b6c61894055b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  enemyPrefabs:
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 1970602856523223266, guid: e5c6933202ffb1448b7a9599ce5114ad, type: 3}
-  - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
-  numPerWave: 01000000020000000300000002000000
+  levelWaves:
+  - waveEnemies:
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 0200000002000000
+    spawnDelay:
+    - 0
+    - 1
+  - waveEnemies:
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 0200000001000000
+    spawnDelay:
+    - 0
+    - 0
+  - waveEnemies:
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 0200000000000000
+    spawnDelay:
+    - 0
+    - 1
   spawnPoints:
-  - {x: 16, y: 0.5, z: 0}
-  - {x: 16, y: 0.5, z: 0}
-  - {x: 16, y: 0.5, z: 2}
   - {x: 16, y: 0.5, z: 4}
-  - {x: 16, y: 0.5, z: -2}
-  - {x: 16, y: 0.5, z: 0}
-  - {x: 16, y: 0.5, z: 0}
   - {x: 16, y: 0.5, z: 2}
+  - {x: 16, y: 0.5, z: 0}
+  - {x: 16, y: 0.5, z: -2}
+  - {x: 16, y: 0.5, z: -4}
 --- !u!114 &590115529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2115,6 +2124,7 @@ MonoBehaviour:
   enemiesThisWave: []
   incrementHealthMeter: 0
   incrementPercent: 0.5
+  incrementAmount: 0
   winTrigger: {fileID: 828887486275161208, guid: 2bbeab867b06df945834da91a2df7fb4, type: 3}
 --- !u!1 &619394800
 GameObject:
