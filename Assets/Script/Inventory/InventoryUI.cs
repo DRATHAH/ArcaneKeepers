@@ -31,8 +31,8 @@ public class InventoryUI : MonoBehaviour
         {
             if (i < inventory.towerNum.Count)
             {
-                Tower towerIndex = inventory.towerNum.Keys.ElementAt(i);
-                slots[i].AddItem(towerIndex, inventory.towerNum[towerIndex]);
+                TowerEntry towerIndex = inventory.towerNum[i];
+                slots[i].AddItem(towerIndex);
             }
             else
             {
@@ -44,7 +44,7 @@ public class InventoryUI : MonoBehaviour
         {
             if (inventory.selectedTowers[i] != null)
             {
-                selectedSlots[i].AddItem(inventory.selectedTowers[i], inventory.towerNum[inventory.selectedTowers[i]]);
+                selectedSlots[i].AddItem(inventory.selectedTowers[i]);
             }
             else
             {

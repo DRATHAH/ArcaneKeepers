@@ -34,10 +34,10 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No PlayerManager: start from the character menu to bring a team into the level.");
             return;
         }
-        foreach(Tower tower in PlayerManager.instance.equippedTowers)
+        foreach(TowerEntry tower in PlayerManager.instance.equippedTowers)
         {
             GameObject towerButton = Instantiate(towerButtonPrefab, towerButtonParent);
-            towerButton.GetComponent<TowerButton>().Initialize(tower);
+            towerButton.GetComponent<TowerButton>().Initialize(tower.tower);
         }
     }
 }

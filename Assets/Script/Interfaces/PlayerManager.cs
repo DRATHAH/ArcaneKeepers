@@ -20,16 +20,16 @@ public class PlayerManager : MonoBehaviour
 
     #endregion
 
-    public List<Tower> equippedTowers = new List<Tower>();
+    public List<TowerEntry> equippedTowers = new List<TowerEntry>();
     [Header("Dev Testing Section")]
-    public List<Tower> cheatedTowers = new List<Tower>();
-    public Dictionary<Tower, int> unlockedTowers = new Dictionary<Tower, int>();
+    public List<TowerEntry> cheatedTowers = new List<TowerEntry>();
+    public List<TowerEntry> unlockedTowers = new List<TowerEntry>();
 
     private void Start()
     {
-        foreach(Tower tower in cheatedTowers)
+        foreach(TowerEntry tower in cheatedTowers)
         {
-            unlockedTowers.Add(tower, 1);
+            unlockedTowers.Add(tower);
         }
     }
 
@@ -46,20 +46,20 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        foreach(Tower tow in inventory.towerNum.Keys)
+        foreach(TowerEntry tow in inventory.towerNum)
         {
-            unlockedTowers.Add(tow, inventory.towerNum[tow]);
+            unlockedTowers.Add(tow);
         }
     }
     public void LoadTowers(Inventory inventory)
     {
         inventory.ClearInventory();
 
-        foreach(Tower tower in unlockedTowers.Keys)
+        foreach(TowerEntry tower in unlockedTowers)
         {
-            for (int i = 0; i < unlockedTowers[tower]; i++)
+            for (int i = 0; i < unlockedTowers.Count; i++)
             {
-                Debug.Log("added " + tower.towerName);
+                Debug.Log("added " + tower.tower.towerName);
                 inventory.Add(tower);
             }
         }

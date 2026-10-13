@@ -172,6 +172,7 @@ MonoBehaviour:
   attackedTimer: 0
   flashTime: 0.2
   flashDelay: 0.5
+  parentButton: {fileID: 0}
 --- !u!114 &4678202185045961964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +218,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.75, y: 1.75, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1935017073138235465
 Rigidbody:

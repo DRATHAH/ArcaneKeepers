@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    Tower tower;
+    TowerEntry tower;
     public bool selectedSlot = false;
     public Image icon;
     public TMP_Text number;
@@ -24,12 +24,12 @@ public class InventorySlot : MonoBehaviour
         });
     }
 
-    public void AddItem(Tower newItem, int num)
+    public void AddItem(TowerEntry newItem)
     {
         tower = newItem;
-        icon.sprite = tower.towerIcon;
+        icon.sprite = tower.tower.towerIcon;
         icon.enabled = true;
-        amount = num;
+        amount = tower.amount;
 
         number.transform.parent.gameObject.SetActive(true);
         number.text = amount.ToString() + "/" + maxAmount.ToString();
@@ -51,14 +51,14 @@ public class InventorySlot : MonoBehaviour
         {
             if (selectedSlot)
             {
-                Inventory.instance.Remove(tower);
+                Inventory.instance.Remove(tower.tower);
             }
             else
             {
                 bool containsTower = false;
                 for (int i = 0; i < Inventory.instance.selectedTowers.Length; i++)
                 {
-                    if (Inventory.instance.selectedTowers[i] != null && Inventory.instance.selectedTowers[i].towerId == tower.towerId)
+                    if (Inventory.instance.selectedTowers[i] != null && Inventory.instance.selectedTowers[i].tower.towerId == tower.tower.towerId)
                     {
                         containsTower = true;
                     }
