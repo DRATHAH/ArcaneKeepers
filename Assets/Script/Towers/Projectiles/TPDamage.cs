@@ -11,7 +11,7 @@ public class TPDamage : DamageBase
     [SerializeField] private int maxhitCount = 1;
     private int hitCount;
 
-    private List<GameObject> objectsHit = new List<GameObject>();
+    [SerializeField]private List<GameObject> objectsHit = new List<GameObject>();
 
     [Tooltip("Does this projectile pierce enemy armor?")]
     [SerializeField] private bool armorPiercing = false;
@@ -25,11 +25,14 @@ public class TPDamage : DamageBase
 
     private void OnTriggerEnter(Collider hit)
     {
-        if(hit.tag == "Enemy" && !objectsHit.Find(x => x.name == hit.gameObject.name))
+        if(hit.tag == "Enemy")
         {
-            Attack(damageAmount, armorPiercing, hit.gameObject);
-            hitCount--;
-            objectsHit.Add(hit.gameObject);
+            if(!objectsHit.Find(x => x.gameObject.GetEntityId() == hit.gameObject.GetEntityId()))
+            {
+                objectsHit.Add(hit.gameObject);
+                Attack(damageAmount, armorPiercing, hit.gameObject);
+                hitCount--;
+            }
         }
 
         if (hitCount <= 0)
