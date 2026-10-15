@@ -40,7 +40,7 @@ public class TowerPlacer : MonoBehaviour
             }
             newbie.transform.parent = TouchManager.instance.hoveringTile.anchorPos;
             towerButton.createdObject = newbie;
-            TouchManager.instance.hoveringTile.tileObject = newbie;
+            TouchManager.instance.hoveringTile.SetTileObject(newbie);
             RelocationManager.instance.relocatedObject = null;
             ObjectPool.pool.Destroy(gameObject);
         }

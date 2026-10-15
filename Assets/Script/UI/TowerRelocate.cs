@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -12,7 +13,6 @@ public class TowerRelocate : MonoBehaviour
 
     private Tile originalTile;
     private Tile newTile;
-
 
     private void Start()
     {
@@ -57,7 +57,7 @@ public class TowerRelocate : MonoBehaviour
                 Vector3 worldPosition = ray.GetPoint(distance);
                 if (hitBox.bounds.Contains(worldPosition))
                 {
-                    if (RelocationManager.instance.relocatedObject == gameObject || RelocationManager.instance.relocatedObject == null)
+                    if (RelocationManager.instance.relocateCooldown <= 0 && (RelocationManager.instance.relocatedObject == gameObject || RelocationManager.instance.relocatedObject == null))
                     {
                         RelocateTower();
                         isRelocating = true;
@@ -73,41 +73,42 @@ public class TowerRelocate : MonoBehaviour
                 }
             }
         }
-        else if (isRelocating == true && TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null) // If touch ends while hovering over a tile and tile is empty
+        else if (RelocationManager.instance.relocateCooldown <= 0 && isRelocating == true && TouchManager.instance.hoveringTile) // If touch ends while hovering over a tile and tile is empty
         {
-            if(RelocationManager.instance.relocatedObject == this.gameObject)
+            if(TouchManager.instance.hoveringTile.tileObject == null)
             {
-                Debug.Log(TouchManager.instance.hoveringTile.tileObject);
+                Debug.Log("Groovy");
+                if (RelocationManager.instance.relocatedObject == this.gameObject)
+                {
+                    Debug.Log(TouchManager.instance.hoveringTile.tileObject);
 
-                isRelocating = false;
-                newTile = TouchManager.instance.hoveringTile;
-                originalTile = newTile;
-                newTile.tileObject = this.gameObject;
-                transform.position = newTile.anchorPos.position;
-                transform.rotation = newTile.anchorPos.rotation;
-                transform.parent = newTile.anchorPos;
-                TouchManager.instance.hoveringTile.tileObject = this.gameObject;
-                RelocationManager.instance.ClearObject();
+                    isRelocating = false;
+                    newTile = TouchManager.instance.hoveringTile;
+                    originalTile = newTile;
+                    newTile.tileObject = this.gameObject;
+                    transform.position = newTile.anchorPos.position;
+                    transform.rotation = newTile.anchorPos.rotation;
+                    transform.parent = newTile.anchorPos;
+                    TouchManager.instance.hoveringTile.SetTileObject(this.gameObject);
+                    RelocationManager.instance.ClearObject();
+                }
             }
+
+
             //Debug.Log(TouchManager.instance.hoveringTile.tileObject);
             // Place tower
 
         }
         else // If not hovering over tile, reset to original location
         {
-            isRelocating = false;
-            if (transform.position != originalTile.anchorPos.position)
-            {
-                transform.position = originalTile.anchorPos.position;
-                transform.rotation = originalTile.anchorPos.rotation;
-                transform.parent = originalTile.anchorPos;
-                originalTile.tileObject = this.gameObject;
-                gameObject.layer = LayerMask.NameToLayer("Default");
-            }
-
             if (RelocationManager.instance.relocatedObject == this.gameObject)
             {
                 RelocationManager.instance.ClearObject();
+            }
+
+            if (transform.position != originalTile.anchorPos.position)
+            {
+                ResetPosition();
             }
         }
     }
@@ -116,5 +117,14 @@ public class TowerRelocate : MonoBehaviour
     {
         originalTile = null;
         newTile = null;
+    }
+
+    private void ResetPosition()
+    {
+        transform.position = originalTile.anchorPos.position;
+        transform.rotation = originalTile.anchorPos.rotation;
+        transform.parent = originalTile.anchorPos;
+        originalTile.tileObject = this.gameObject;
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 }

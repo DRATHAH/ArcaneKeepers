@@ -6,7 +6,7 @@ public class RelocationManager : MonoBehaviour
 
     public GameObject relocatedObject;
 
-    [SerializeField]private float maxRelocateCooldown = 0.5f;
+    [SerializeField]private float maxRelocateCooldown = 1.5f;
     public float relocateCooldown;
 
     public bool busy;
@@ -30,16 +30,25 @@ public class RelocationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
+
+
         if(relocateCooldown > 0 && relocatedObject == null)
         {
             relocateCooldown -= Time.deltaTime;
         }
     }
 
+    void RelocateObject()
+    {
+
+    }
+
     public void GrabObject(GameObject grabbedObject)
     {
         relocatedObject = grabbedObject;
-        relocateCooldown = maxRelocateCooldown;
         //busy = true;
     }
 
