@@ -11,9 +11,9 @@ public static class TeamInfo
             if (Inventory.instance != null)
             {
                 int count = 0;
-                foreach (Tower tower in Inventory.instance.selectedTowers)
+                foreach (TowerEntry tower in Inventory.instance.selectedTowers)
                 {
-                    if (tower != null)
+                    if (!Inventory.IsEmpty(tower))
                     {
                         count++;
                     }

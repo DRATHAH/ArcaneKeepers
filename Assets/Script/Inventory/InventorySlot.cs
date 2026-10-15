@@ -7,12 +7,16 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    Tower tower;
+    TowerEntry tower;
     public bool selectedSlot = false;
     public Image icon;
     public TMP_Text number;
     public int amount = 0;
     public Slider amountSlider;
+    [Tooltip("Optional: shows the tower's name.")]
+    public TMP_Text nameText;
+    [Tooltip("Optional: shown only while the slot is empty.")]
+    public GameObject emptyMarker;
 
     int maxAmount = 5;
 
@@ -24,16 +28,25 @@ public class InventorySlot : MonoBehaviour
         });
     }
 
-    public void AddItem(Tower newItem, int num)
+    public void AddItem(TowerEntry newItem)
     {
         tower = newItem;
-        icon.sprite = tower.towerIcon;
+        icon.sprite = tower.tower.towerIcon;
         icon.enabled = true;
-        amount = num;
+        amount = tower.amount;
 
         number.transform.parent.gameObject.SetActive(true);
         number.text = amount.ToString() + "/" + maxAmount.ToString();
         amountSlider.value = (float)amount / (float)maxAmount;
+
+        if (nameText)
+        {
+            nameText.text = tower.tower.towerName;
+        }
+        if (emptyMarker)
+        {
+            emptyMarker.SetActive(false);
+        }
     }
 
     public void ClearSlot()
@@ -43,6 +56,15 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = false;
         number.transform.parent.gameObject.SetActive(false);
         amount = 0;
+
+        if (nameText)
+        {
+            nameText.text = "";
+        }
+        if (emptyMarker)
+        {
+            emptyMarker.SetActive(true);
+        }
     }
 
     public void OnButton()
@@ -51,14 +73,14 @@ public class InventorySlot : MonoBehaviour
         {
             if (selectedSlot)
             {
-                Inventory.instance.Remove(tower);
+                Inventory.instance.Remove(tower.tower);
             }
             else
             {
                 bool containsTower = false;
                 for (int i = 0; i < Inventory.instance.selectedTowers.Length; i++)
                 {
-                    if (Inventory.instance.selectedTowers[i] != null && Inventory.instance.selectedTowers[i].towerId == tower.towerId)
+                    if (!Inventory.IsEmpty(Inventory.instance.selectedTowers[i]) && Inventory.instance.selectedTowers[i].tower.towerId == tower.tower.towerId)
                     {
                         containsTower = true;
                     }

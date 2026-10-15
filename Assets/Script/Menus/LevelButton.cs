@@ -47,6 +47,6 @@ public class LevelButton : MonoBehaviour
             SceneManager.LoadScene(characterScene);
             return;
         }
-        SceneManager.LoadScene(sceneName);
+        LoadingScreen.Load(sceneName);
     }
 }
