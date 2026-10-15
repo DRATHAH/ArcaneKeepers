@@ -21,7 +21,11 @@ public class InventoryUI : MonoBehaviour
         slots = towersParent.GetComponentsInChildren<InventorySlot>();
         selectedSlots = selectedTowersParent.GetComponentsInChildren<InventorySlot>();
 
-        towerSelectionCanvas.SetActive(false);
+        // Optional: the picker can also be always visible
+        if (towerSelectionCanvas)
+        {
+            towerSelectionCanvas.SetActive(false);
+        }
         StartCoroutine(WaitToLoadTowers());
     }
 
@@ -42,7 +46,7 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < selectedSlots.Length; i++)
         {
-            if (inventory.selectedTowers[i] != null)
+            if (!Inventory.IsEmpty(inventory.selectedTowers[i]))
             {
                 selectedSlots[i].AddItem(inventory.selectedTowers[i]);
             }

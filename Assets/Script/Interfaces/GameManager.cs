@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour
         }
         foreach(TowerEntry tower in PlayerManager.instance.equippedTowers)
         {
+            if (Inventory.IsEmpty(tower))
+            {
+                continue;
+            }
             GameObject towerButton = Instantiate(towerButtonPrefab, towerButtonParent);
             towerButton.GetComponent<TowerButton>().Initialize(tower.tower);
         }

@@ -15,9 +15,24 @@ public class Inventory : MonoBehaviour
             return;
         }
         instance = this;
+
+        // TowerEntry is serializable, so Unity fills empty team slots with blank entries; treat those as empty
+        for (int i = 0; i < selectedTowers.Length; i++)
+        {
+            if (IsEmpty(selectedTowers[i]))
+            {
+                selectedTowers[i] = null;
+            }
+        }
     }
 
     #endregion
+
+    // A team slot counts as empty when it has no entry or the entry has no tower
+    public static bool IsEmpty(TowerEntry entry)
+    {
+        return entry == null || entry.tower == null;
+    }
 
     public delegate void OnItemChanged(); // When invoked, calls every method subscribed to this
     public OnItemChanged onItemChangedCallback; // Call after modifying inventory to update it
@@ -74,7 +89,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < selectedTowers.Length; i++)
         {
-            if (selectedTowers[i] != null && selectedTowers[i].tower.towerId == newTower.towerId)
+            if (!IsEmpty(selectedTowers[i]) && selectedTowers[i].tower.towerId == newTower.towerId)
             {
                 selectedTowers[i] = null;
             }
@@ -90,7 +105,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < selectedTowers.Length; i++)
         {
-            if (selectedTowers[i] == null)
+            if (IsEmpty(selectedTowers[i]))
             {
                 selectedTowers[i] = equippedTower;
 
@@ -108,7 +123,7 @@ public class Inventory : MonoBehaviour
         int length = 0;
         for (int i = 0; i < selectedTowers.Length; i++)
         {
-            if (selectedTowers[i] != null)
+            if (!IsEmpty(selectedTowers[i]))
             {
                 length++;
             }

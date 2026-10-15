@@ -40,7 +40,7 @@ public class PlayerManager : MonoBehaviour
 
         for (int i = 0; i < inventory.selectedTowers.Length; i++)
         {
-            if (inventory.selectedTowers[i] != null)
+            if (!Inventory.IsEmpty(inventory.selectedTowers[i]))
             {
                 equippedTowers.Add(inventory.selectedTowers[i]);
             }
@@ -57,16 +57,20 @@ public class PlayerManager : MonoBehaviour
 
         foreach(TowerEntry tower in unlockedTowers)
         {
-            for (int i = 0; i < unlockedTowers.Count; i++)
+            // Entries with no tower (e.g. unassigned in the inspector) would break the slots
+            if (Inventory.IsEmpty(tower))
             {
-                Debug.Log("added " + tower.tower.towerName);
-                inventory.Add(tower);
+                continue;
             }
+            inventory.Add(tower);
         }
 
         for (int i = 0; i < equippedTowers.Count; i++)
         {
-            inventory.EquipTower(equippedTowers[i]);
+            if (!Inventory.IsEmpty(equippedTowers[i]))
+            {
+                inventory.EquipTower(equippedTowers[i]);
+            }
         }
     }
 }

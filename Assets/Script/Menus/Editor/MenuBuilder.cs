@@ -45,12 +45,13 @@ public static class MenuBuilder
         string startScene = SceneManager.GetActiveScene().path;
 
         EnsureStyleAssets();
+        EnsureCritterAssets();
         BuildSelectMenu();
         BuildLevelSelect();
         AddScenesToBuild();
         RetargetButtons(MainMenuScene, CharacterScene, SelectMenuScene, null);
         RetargetButtons(CharacterScene, GameScene, SelectMenuScene, "Done");
-        AddCharacterGuide();
+        BuildCharacterSelect();
         StyleMainMenu();
         BuildPauseMenu();
 
@@ -61,30 +62,88 @@ public static class MenuBuilder
         Debug.Log("Menu Builder: SelectMenu, LevelSelect and the DemoLevel pause menu are ready.");
     }
 
+    // Rebuilds only the select screens (SelectMenu, LevelSelect, TowerSelect); leaves the main menu and pause menu alone
+    [MenuItem("Arcane Keepers/Rebuild Select Screens")]
+    public static void BuildSelectScreens()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("Menu Builder", "Exit Play Mode first.", "OK");
+            return;
+        }
+        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            return;
+        }
+
+        string startScene = SceneManager.GetActiveScene().path;
+
+        EnsureStyleAssets();
+        EnsureCritterAssets();
+        BuildSelectMenu();
+        BuildLevelSelect();
+        AddScenesToBuild();
+        BuildCharacterSelect();
+
+        if (!string.IsNullOrEmpty(startScene))
+        {
+            EditorSceneManager.OpenScene(startScene);
+        }
+        Debug.Log("Menu Builder: select screens rebuilt.");
+    }
+
+    // Rebuilds only the DemoLevel pause menu
+    [MenuItem("Arcane Keepers/Rebuild Pause Menu")]
+    public static void BuildPauseMenuOnly()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("Menu Builder", "Exit Play Mode first.", "OK");
+            return;
+        }
+        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            return;
+        }
+
+        string startScene = SceneManager.GetActiveScene().path;
+
+        EnsureStyleAssets();
+        EnsureCritterAssets();
+        BuildPauseMenu();
+
+        if (!string.IsNullOrEmpty(startScene))
+        {
+            EditorSceneManager.OpenScene(startScene);
+        }
+        Debug.Log("Menu Builder: pause menu rebuilt.");
+    }
+
     #region Scenes
+
+    // Menus are landscape: everything important sits inside a 1920x1080 area that always fits the screen
+    // (phones get extra width, tablets extra height), and inside the device's safe area.
 
     static void BuildSelectMenu()
     {
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         CreateCameraAndEventSystem();
-        Transform canvas = CreateCanvas("Canvas", new Vector2(1080, 2340), 0, 0);
+        Transform canvas = CreateMenuCanvas("Canvas");
         SceneLoader loader = canvas.gameObject.AddComponent<SceneLoader>();
 
-        CreateBackground(canvas);
+        CreateMenuBackground(canvas);
+        Transform safe = CreateSafeArea(canvas);
+        CreateBanner(safe, "Get Ready!");
 
-        CreateHeader(canvas, "Get Ready!", "2 quick steps");
-
-        Button characters = CreateStepCard(canvas, "Step1", 1, new Vector2(0, 420), "Characters",
-            "Pick your keepers",
-            "Start here!", "Team: {0}/{1}", GuidePulse.Condition.WhenNoTeam);
+        Button characters = CreateStepCard(safe, "Step1", 1, new Vector2(-390, -45), "Characters", "Pick Team", "CC_Blue",
+            "Main-Background", "MainMenu-Heroes", "Start here!", "Team: {0}/{1}", GuidePulse.Condition.WhenNoTeam);
         UnityEventTools.AddStringPersistentListener(characters.onClick, loader.LoadScene, CharacterScene);
 
-        Button levels = CreateStepCard(canvas, "Step2", 2, new Vector2(0, -150), "Level Select",
-            "Choose a level",
-            "Pick a team first", "Ready!", GuidePulse.Condition.WhenTeamReady);
+        Button levels = CreateStepCard(safe, "Step2", 2, new Vector2(390, -45), "Levels", "Choose Level", "CC_Gold",
+            "LevelBackground", "MainMenu-Skeletons", "Pick a team first", "Ready!", GuidePulse.Condition.WhenTeamReady);
         UnityEventTools.AddStringPersistentListener(levels.onClick, loader.LoadScene, LevelSelectScene);
 
-        CreateBackButton(canvas, loader, MainMenuScene);
+        CreateBackButton(safe, loader, MainMenuScene);
 
         EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), ScenesFolder + SelectMenuScene + ".unity");
     }
@@ -93,211 +152,362 @@ public static class MenuBuilder
     {
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         CreateCameraAndEventSystem();
-        Transform canvas = CreateCanvas("Canvas", new Vector2(1080, 2340), 0, 0);
+        Transform canvas = CreateMenuCanvas("Canvas");
         SceneLoader loader = canvas.gameObject.AddComponent<SceneLoader>();
 
-        CreateBackground(canvas);
+        CreateMenuBackground(canvas);
+        Transform safe = CreateSafeArea(canvas);
+        CreateBanner(safe, "Select Level");
 
-        CreateHeader(canvas, "Select Level", "Step 2 of 2");
-
-        // Hint bar that changes once the player has a team
-        Image hint = CreatePanel("Hint", canvas, Color.white);
-        Place(hint.rectTransform, new Vector2(0.5f, 1f), new Vector2(0, -470), new Vector2(900, 130));
-        ApplyStyleSprite(hint, "PanelCream", 130);
-        TextMeshProUGUI hintText = CreateText("HintText", hint.transform, "", 44, Navy);
-        Stretch(hintText.rectTransform);
-        hintText.rectTransform.offsetMin = new Vector2(30, 10);
-        hintText.rectTransform.offsetMax = new Vector2(-30, -10);
+        // Hint that changes once the player has a team
+        Image hint = CreatePanel("Hint", safe, Color.white);
+        Place(hint.rectTransform, new Vector2(0.5f, 1f), new Vector2(0, -262), new Vector2(820, 90));
+        ApplyChunky(hint, "CC_Dark", 90);
+        hint.raycastTarget = false;
+        TextMeshProUGUI hintText = CreateChunkyText("HintText", hint.transform, "Pick a team first!", 42, WarnOrange);
+        StretchLabel(hintText, 90);
         TeamStatusText hintStatus = hintText.gameObject.AddComponent<TeamStatusText>();
         hintStatus.emptyText = "Pick a team first!";
         hintStatus.readyText = "Tap Level 1 to play!";
+        hintStatus.emptyColor = WarnOrange;
+        hintStatus.readyColor = OkGreen;
 
-        // Level grid
-        GameObject grid = new GameObject("LevelGrid", typeof(RectTransform));
-        grid.transform.SetParent(canvas, false);
-        Place(grid.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, 40), new Vector2(900, 1100));
-        GridLayoutGroup layout = grid.AddComponent<GridLayoutGroup>();
-        layout.cellSize = new Vector2(420, 300);
-        layout.spacing = new Vector2(60, 60);
-        layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        layout.constraintCount = 2;
-        layout.childAlignment = TextAnchor.UpperCenter;
+        // One row of level tiles
+        GameObject row = new GameObject("LevelRow", typeof(RectTransform));
+        row.transform.SetParent(safe, false);
+        Place(row.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, -30), new Vector2(1800, 430));
+        GridLayoutGroup layout = row.AddComponent<GridLayoutGroup>();
+        layout.cellSize = new Vector2(310, 420);
+        layout.spacing = new Vector2(36, 0);
+        layout.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+        layout.constraintCount = 1;
+        layout.childAlignment = TextAnchor.MiddleCenter;
 
         for (int i = 0; i < LevelScenes.Length; i++)
         {
-            CreateLevelButton(grid.transform, i + 1, LevelScenes[i]);
+            CreateLevelTile(row.transform, i + 1, LevelScenes[i]);
         }
         // Point the player at the first level
-        grid.transform.GetChild(0).gameObject.AddComponent<GuidePulse>().amount = 0.04f;
+        row.transform.GetChild(0).gameObject.AddComponent<GuidePulse>().amount = 0.03f;
 
-        CreateBackButton(canvas, loader, SelectMenuScene);
+        CreateBackButton(safe, loader, SelectMenuScene);
 
-        Button changeTeam = CreateTextButton("ChangeTeamButton", canvas, "Change Team", new Vector2(400, 130), 58);
-        Place(changeTeam.GetComponent<RectTransform>(), new Vector2(1, 0), new Vector2(-260, 170), new Vector2(400, 130));
+        Button changeTeam = CreateChunkyButton("ChangeTeamButton", safe, "Change Team", "CC_Blue",
+            new Vector2(0.5f, 0f), new Vector2(0, 105), new Vector2(400, 120), 56);
         UnityEventTools.AddStringPersistentListener(changeTeam.onClick, loader.LoadScene, CharacterScene);
 
         EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), ScenesFolder + LevelSelectScene + ".unity");
     }
 
-    static void CreateHeader(Transform canvas, string title, string subtitle)
+    // A big tappable card: step badge, picture, title, live team status and a call-to-action pill
+    static Button CreateStepCard(Transform parent, string name, int number, Vector2 pos, string title, string action, string actionSprite,
+        string backdrop, string art, string emptyText, string readyText, GuidePulse.Condition pulse)
     {
-        // Purple, like the PAUSED banner
-        Image header = CreatePanel("Header", canvas, Color.white);
-        Place(header.rectTransform, new Vector2(0.5f, 1f), new Vector2(0, -260), new Vector2(900, 220));
-        ApplyStyleSprite(header, "PanelPurple", 220);
+        Image card = CreatePanel(name, parent, Color.white);
+        Place(card.rectTransform, new Vector2(0.5f, 0.5f), pos, new Vector2(700, 660));
+        ApplyChunky(card, "CC_Stone", 660);
+        Button button = card.gameObject.AddComponent<Button>();
+        SetPressedTint(button);
+        GuidePulse guide = card.gameObject.AddComponent<GuidePulse>();
+        guide.condition = pulse;
+        guide.amount = 0.02f;
 
-        TextMeshProUGUI titleText = CreateText("Title", header.transform, title, 96, Color.white, true);
-        Place(titleText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 30), new Vector2(860, 120));
-        // Shrink long titles to one line instead of wrapping into the subtitle
-        titleText.textWrappingMode = TextWrappingModes.NoWrap;
-        titleText.enableAutoSizing = true;
-        titleText.fontSizeMin = 40;
-        titleText.fontSizeMax = 96;
+        // Picture in a dark frame: backdrop scenery with the characters standing in front
+        Image frame = CreatePanel("Picture", card.transform, Color.white);
+        Place(frame.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 135), new Vector2(620, 330));
+        ApplyChunky(frame, "CC_Dark", 330);
+        frame.raycastTarget = false;
+        GameObject mask = new GameObject("Mask", typeof(RectTransform));
+        mask.transform.SetParent(frame.transform, false);
+        RectTransform maskRect = (RectTransform)mask.transform;
+        Stretch(maskRect);
+        maskRect.offsetMin = new Vector2(9, 32);
+        maskRect.offsetMax = new Vector2(-9, -9);
+        mask.AddComponent<RectMask2D>();
 
-        TextMeshProUGUI subtitleText = CreateText("Subtitle", header.transform, subtitle, 44, LightGold, true);
-        Place(subtitleText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -65), new Vector2(880, 70));
-    }
+        Sprite backdropSprite = LoadSprite(backdrop);
+        Image backdropImage = CreateImage("Backdrop", mask.transform, backdropSprite);
+        backdropImage.raycastTarget = false;
+        backdropImage.preserveAspect = false;
+        Place(backdropImage.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(600, 290));
+        AspectRatioFitter fitter = backdropImage.gameObject.AddComponent<AspectRatioFitter>();
+        fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+        fitter.aspectRatio = backdropSprite ? backdropSprite.rect.width / backdropSprite.rect.height : 16f / 9f;
 
-    // A numbered step: label, big button, one-line explanation and a live team status line
-    static Button CreateStepCard(Transform canvas, string name, int number, Vector2 pos, string buttonLabel,
-        string caption, string emptyText, string readyText, GuidePulse.Condition pulse)
-    {
-        Image card = CreatePanel(name, canvas, Color.white);
-        Place(card.rectTransform, new Vector2(0.5f, 0.5f), pos, new Vector2(900, 500));
-        ApplyStyleSprite(card, "PanelCream", 220);
+        Sprite artSprite = LoadSprite(art);
+        Image artImage = CreateImage("Art", mask.transform, artSprite);
+        artImage.raycastTarget = false;
+        artImage.rectTransform.anchorMin = artImage.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+        artImage.rectTransform.pivot = new Vector2(0.5f, 0f);
+        artImage.rectTransform.anchoredPosition = new Vector2(0, -6);
+        artImage.rectTransform.sizeDelta = SizeFromHeight(artSprite, 285);
 
-        TextMeshProUGUI stepLabel = CreateText("StepLabel", card.transform, "STEP " + number, 54, Purple);
-        Place(stepLabel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 190), new Vector2(820, 70));
+        // Step number badge on the corner
+        Image badge = CreateImage("StepBadge", card.transform, StyleSprite("CC_CircleGold"));
+        badge.raycastTarget = false;
+        Place(badge.rectTransform, new Vector2(0f, 1f), new Vector2(34, -30), new Vector2(124, 124));
+        TextMeshProUGUI badgeNumber = CreateChunkyText("Number", badge.transform, number.ToString(), 72, Color.white);
+        StretchLabel(badgeNumber, 124);
 
-        Button button = CreateTextButton(buttonLabel.Replace(" ", "") + "Button", card.transform, buttonLabel, new Vector2(640, 170), 88, ButtonStyle.Blue);
-        Place(button.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, 60), new Vector2(640, 170));
-        button.gameObject.AddComponent<GuidePulse>().condition = pulse;
+        TextMeshProUGUI titleText = CreateChunkyText("Title", card.transform, title, 76, Color.white);
+        Place(titleText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -88), new Vector2(640, 90));
 
-        TextMeshProUGUI captionText = CreateText("Caption", card.transform, caption, 40, Navy);
-        Place(captionText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -85), new Vector2(840, 70));
-
-        TextMeshProUGUI statusText = CreateText("Status", card.transform, emptyText, 46, Navy);
-        Place(statusText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -165), new Vector2(840, 70));
+        TextMeshProUGUI statusText = CreateChunkyText("Status", card.transform, emptyText, 42, WarnOrange);
+        Place(statusText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -150), new Vector2(640, 56));
         TeamStatusText status = statusText.gameObject.AddComponent<TeamStatusText>();
         status.emptyText = emptyText;
         status.readyText = readyText;
+        status.emptyColor = WarnOrange;
+        status.readyColor = OkGreen;
+
+        // Looks like a button; taps go through to the card
+        Image pill = CreatePanel("Action", card.transform, Color.white);
+        Place(pill.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -246), new Vector2(420, 116));
+        ApplyChunky(pill, actionSprite, 116);
+        pill.raycastTarget = false;
+        TextMeshProUGUI pillText = CreateChunkyText("Text", pill.transform, action, 58, Color.white);
+        StretchLabel(pillText, 116);
 
         return button;
     }
 
-    // Adds titles, hints and labels to the existing character (tower select) screen
-    static void AddCharacterGuide()
+    static void CreateLevelTile(Transform parent, int number, string sceneName)
+    {
+        // Levels that exist are blue with a gold medal; ones not made yet are grey and locked
+        bool exists = EditorBuildSettings.scenes.Any(s => s.enabled && System.IO.Path.GetFileNameWithoutExtension(s.path) == sceneName);
+
+        Image tile = CreatePanel("Level" + number, parent, Color.white);
+        ApplyChunky(tile, exists ? "CC_Blue" : "CC_Gray", 420);
+        Button button = tile.gameObject.AddComponent<Button>();
+        SetPressedTint(button);
+        ColorBlock colors = button.colors;
+        colors.disabledColor = Color.white; // the grey art already shows it's locked
+        button.colors = colors;
+
+        Image medal = CreateImage("Medal", tile.transform, StyleSprite(exists ? "CC_CircleGold" : "CC_CircleGray"));
+        medal.raycastTarget = false;
+        Place(medal.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 88), new Vector2(190, 190));
+        TextMeshProUGUI medalNumber = CreateChunkyText("Number", medal.transform, number.ToString(), 110, Color.white);
+        StretchLabel(medalNumber, 190);
+
+        if (!exists)
+        {
+            Image padlock = CreateImage("Lock", tile.transform, StyleSprite("CC_Lock"));
+            padlock.raycastTarget = false;
+            Place(padlock.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(78, 150), new Vector2(96, 96));
+        }
+
+        TextMeshProUGUI label = CreateChunkyText("Label", tile.transform, "Level " + number, 56, Color.white);
+        Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -48), new Vector2(290, 70));
+
+        Image pill = CreatePanel("StatusPill", tile.transform, Color.white);
+        Place(pill.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -132), new Vector2(250, 92));
+        ApplyChunky(pill, exists ? "CC_Gold" : "CC_Dark", 92);
+        pill.raycastTarget = false;
+        TextMeshProUGUI status = CreateChunkyText("Status", pill.transform, exists ? "Play" : "Locked", 44, Color.white);
+        StretchLabel(status, 92);
+
+        LevelButton levelButton = tile.gameObject.AddComponent<LevelButton>();
+        levelButton.sceneName = sceneName;
+        levelButton.statusText = status;
+    }
+
+    // Restyles the existing character (tower select) screen: team row on top, all keepers below, Done in the corner
+    static void BuildCharacterSelect()
     {
         Scene scene = EditorSceneManager.OpenScene(ScenesFolder + CharacterScene + ".unity");
         Transform canvas = scene.GetRootGameObjects().First(r => r.name == "Canvas").transform;
+        Transform picker = canvas.GetComponentsInChildren<Transform>(true).First(t => t.name == "TowerSelectUI");
+        Transform done = canvas.GetComponentsInChildren<Button>(true).First(b => b.name == "PlayButton").transform;
 
-        foreach (Transform t in canvas.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith("Guide_")).ToList())
+        // Undo a previous build: put the kept objects back, then remove everything generated
+        picker.SetParent(canvas, false);
+        done.SetParent(canvas, false);
+        foreach (Transform t in canvas.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith("Guide_") || t.name.StartsWith("CC_")).ToList())
         {
-            Object.DestroyImmediate(t.gameObject);
+            if (t)
+            {
+                Object.DestroyImmediate(t.gameObject);
+            }
+        }
+        RemoveMissingListeners(done.GetComponent<Button>());
+
+        CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
+        scaler.referenceResolution = new Vector2(1920, 1080);
+        scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+
+        // The old front view (single keeper + open-picker button) is replaced by the always-visible picker
+        Transform frontView = canvas.Find("MainMenuUI");
+        if (frontView)
+        {
+            frontView.gameObject.SetActive(false);
         }
 
-        Transform picker = canvas.Find("TowerSelectUI");
-        Color lightOrange = new Color32(255, 190, 90, 255);
-        Color lightGreen = new Color32(150, 235, 130, 255);
+        CreateMenuBackground(canvas, "CC_");
+        Transform safe = CreateSafeArea(canvas, "CC_Safe");
+        CreateBanner(safe, "Choose Your Team", "CC_Banner");
 
-        // Front view guide, hidden while the picker is open (drawn under the picker)
-        GameObject frontView = new GameObject("Guide_FrontView", typeof(RectTransform));
-        frontView.transform.SetParent(canvas, false);
-        Stretch((RectTransform)frontView.transform);
+        SerializedObject ui = new SerializedObject(canvas.GetComponent<InventoryUI>());
+        ui.FindProperty("towerSelectionCanvas").objectReferenceValue = null;
+        ui.ApplyModifiedPropertiesWithoutUndo();
 
-        Button openPicker = canvas.GetComponentsInChildren<Button>(true).First(b => b.name == "TowerSelectButton");
-        Button closePicker = picker.GetComponentsInChildren<Button>(true).First(b => b.name == "CloseButton");
-        RemoveMissingListeners(openPicker);
-        RemoveMissingListeners(closePicker);
-        UnityEventTools.AddBoolPersistentListener(openPicker.onClick, frontView.SetActive, false);
-        UnityEventTools.AddBoolPersistentListener(closePicker.onClick, frontView.SetActive, true);
+        picker.gameObject.SetActive(true);
+        picker.SetParent(safe, false);
+        Stretch((RectTransform)picker);
+        Transform close = picker.Find("CloseButton");
+        if (close)
+        {
+            close.gameObject.SetActive(false);
+        }
 
-        TextMeshProUGUI title = CreateText("Title", frontView.transform, "Your Team", 70, Color.white, true);
-        Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 250), new Vector2(1000, 90));
+        // Your team: dark tray with 4 slots
+        RectTransform team = (RectTransform)picker.Find("EquippedTowers");
+        Place(team, new Vector2(0.5f, 0.5f), new Vector2(0, 198), new Vector2(1480, 250));
+        ApplyChunky(team.GetComponent<Image>(), "CC_Dark", 250);
+        GridLayoutGroup teamGrid = team.GetComponent<GridLayoutGroup>();
+        teamGrid.cellSize = new Vector2(180, 180);
+        teamGrid.spacing = new Vector2(30, 0);
+        teamGrid.padding = new RectOffset(400, 40, 14, 34);
+        teamGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+        teamGrid.constraintCount = 1;
+        teamGrid.childAlignment = TextAnchor.MiddleCenter;
 
-        TextMeshProUGUI team = CreateText("TeamStatus", frontView.transform, "", 40, Color.white, true);
-        Place(team.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 185), new Vector2(1000, 60));
-        TeamStatusText teamStatus = team.gameObject.AddComponent<TeamStatusText>();
-        teamStatus.emptyText = "No keepers yet";
-        teamStatus.readyText = "{0}/{1} keepers";
-        teamStatus.emptyColor = lightOrange;
-        teamStatus.readyColor = lightGreen;
+        TextMeshProUGUI teamLabel = CreateChunkyText("CC_TeamLabel", team, "YOUR TEAM", 60, TextGold);
+        Place(teamLabel.rectTransform, new Vector2(0f, 0.5f), new Vector2(220, 34), new Vector2(340, 74));
+        teamLabel.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+        TextMeshProUGUI teamHint = CreateChunkyText("CC_TeamHint", team, "tap to remove", 36, Color.white);
+        Place(teamHint.rectTransform, new Vector2(0f, 0.5f), new Vector2(220, -28), new Vector2(340, 50));
+        teamHint.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
 
-        TextMeshProUGUI tapHint = CreateText("TapHint", frontView.transform,"Tap the keeper", 38, Color.white, true);
-        Place(tapHint.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -128), new Vector2(950, 60));
-        tapHint.gameObject.AddComponent<GuidePulse>().amount = 0.05f;
+        foreach (InventorySlot slot in team.GetComponentsInChildren<InventorySlot>(true))
+        {
+            StyleSlot(slot, true);
+        }
 
-        // Bigger, clearer Done button. The whole front view is one compact column around the keeper
-        // (+295..-283) so it fits even when the screen is landscape (canvas only ~600 units tall)
-        Transform done = canvas.GetComponentsInChildren<Button>(true).First(b => b.name == "PlayButton").transform;
-        done.SetParent(canvas, false);
-        Place((RectTransform)done, new Vector2(0.5f, 0.5f), new Vector2(0, -238), new Vector2(360, 90));
-        // Blue main-action button, like Continue
-        ApplyStyleSprite(done.GetComponent<Image>(), "ButtonBlue", 90);
+        // All keepers: stone panel with a card per keeper
+        RectTransform keepers = (RectTransform)picker.Find("UnlockedTowers");
+        Place(keepers, new Vector2(0.5f, 0.5f), new Vector2(0, -142), new Vector2(1480, 400));
+        ApplyChunky(keepers.GetComponent<Image>(), "CC_Stone", 400);
+        GridLayoutGroup keeperGrid = keepers.GetComponent<GridLayoutGroup>();
+        keeperGrid.cellSize = new Vector2(220, 286);
+        keeperGrid.spacing = new Vector2(34, 0);
+        keeperGrid.padding = new RectOffset(30, 30, 70, 36);
+        keeperGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+        keeperGrid.constraintCount = 1;
+        keeperGrid.childAlignment = TextAnchor.MiddleCenter;
+
+        TextMeshProUGUI keepersLabel = CreateChunkyText("CC_KeepersLabel", keepers, "Tap a keeper to add  (max 4)", 46, Color.white);
+        Place(keepersLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0, -44), new Vector2(1300, 60));
+        keepersLabel.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+
+        foreach (InventorySlot slot in keepers.GetComponentsInChildren<InventorySlot>(true))
+        {
+            StyleSlot(slot, false);
+        }
+
+        // Done: big gold button in the bottom-right corner, with the team status next to it
+        done.SetParent(safe, false);
+        Place((RectTransform)done, new Vector2(1f, 0f), new Vector2(-205, 100), new Vector2(340, 130));
+        ApplyChunky(done.GetComponent<Image>(), "CC_Gold", 130);
         Outline oldBorder = done.GetComponent<Outline>();
         if (oldBorder)
         {
             Object.DestroyImmediate(oldBorder);
         }
+        SetPressedTint(done.GetComponent<Button>());
         TextMeshProUGUI doneLabel = done.GetComponentInChildren<TextMeshProUGUI>(true);
         doneLabel.text = "Done";
-        doneLabel.fontSize = 54;
         doneLabel.color = Color.white;
-        ApplyFont(doneLabel, true);
-        doneLabel.rectTransform.offsetMin = new Vector2(0, 5);
-        doneLabel.rectTransform.offsetMax = Vector2.zero;
-
-        // Round gold + purple close button in the picker, matching the pause menu's round buttons
-        Image closeImage = closePicker.GetComponent<Image>();
-        closeImage.sprite = StyleSprite("ButtonRound");
-        closeImage.type = Image.Type.Simple;
-        closeImage.color = Color.white;
-        TextMeshProUGUI closeLabel = closePicker.GetComponentInChildren<TextMeshProUGUI>(true);
-        closeLabel.color = DarkBrown;
-        ApplyFont(closeLabel, false);
-        closeLabel.fontSize = 36;
+        doneLabel.fontSize = 68;
+        doneLabel.fontSharedMaterial = chunkyMaterial;
+        doneLabel.font = styleFont;
+        doneLabel.fontStyle = FontStyles.Normal;
+        doneLabel.alignment = TextAlignmentOptions.Center;
+        StretchLabel(doneLabel, 130);
         if (!done.GetComponent<GuidePulse>())
         {
             done.gameObject.AddComponent<GuidePulse>().condition = GuidePulse.Condition.WhenTeamReady;
         }
 
-        TextMeshProUGUI doneHint = CreateText("Guide_DoneHint", canvas, "", 32, Color.white, true);
-        Place(doneHint.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -178), new Vector2(1000, 50));
-        TeamStatusText doneStatus = doneHint.gameObject.AddComponent<TeamStatusText>();
-        doneStatus.emptyText = "Pick at least 1";
-        doneStatus.readyText = "All set? Tap Done";
-        doneStatus.emptyColor = lightOrange;
-        doneStatus.readyColor = lightGreen;
-
-        // Keep the front view under the picker
-        int pickerIndex = picker.GetSiblingIndex();
-        foreach (Transform t in new Transform[] { frontView.transform, doneHint.transform })
-        {
-            t.SetSiblingIndex(pickerIndex);
-            pickerIndex = picker.GetSiblingIndex();
-        }
-        // Done stays usable (and uncovered) while the picker is open
-        done.SetAsLastSibling();
-
-        // Picker panels and slot counters in the same style (cream = your team, purple = all keepers)
-        ApplyStyleSprite(picker.Find("EquippedTowers").GetComponent<Image>(), "PanelCream", 150);
-        ApplyStyleSprite(picker.Find("UnlockedTowers").GetComponent<Image>(), "PanelPurple", 350);
-        foreach (TextMeshProUGUI counter in picker.GetComponentsInChildren<TextMeshProUGUI>(true).Where(t => t.name == "UpgradeText"))
-        {
-            ApplyFont(counter, false);
-        }
-
-        // Picker labels (ignored by the slot grids' layout)
-        TextMeshProUGUI teamLabel = CreateText("Guide_TeamLabel", picker.Find("EquippedTowers"), "YOUR TEAM\n<size=75%>tap to remove</size>", 32, Purple);
-        Place(teamLabel.rectTransform, new Vector2(1f, 0.5f), new Vector2(-125, 0), new Vector2(230, 130));
-        teamLabel.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
-
-        TextMeshProUGUI addLabel = CreateText("Guide_AddLabel", picker.Find("UnlockedTowers"), "Tap to add (max 4)", 38, Color.white, true);
-        Place(addLabel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0, 45), new Vector2(1000, 70));
-        addLabel.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+        TextMeshProUGUI status = CreateChunkyText("CC_Status", safe, "Pick at least 1 keeper", 46, WarnOrange);
+        Place(status.rectTransform, new Vector2(0.5f, 0f), new Vector2(-120, 100), new Vector2(1000, 64));
+        TeamStatusText teamStatus = status.gameObject.AddComponent<TeamStatusText>();
+        teamStatus.emptyText = "Pick at least 1 keeper";
+        teamStatus.readyText = "{0}/{1} keepers ready - tap Done!";
+        teamStatus.emptyColor = WarnOrange;
+        teamStatus.readyColor = OkGreen;
 
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
+    }
+
+    // Team slots are dark wells with a "+" while empty; keeper slots are blue cards with name and upgrade bar
+    static void StyleSlot(InventorySlot slot, bool teamSlot)
+    {
+        ApplyChunky(slot.GetComponent<Image>(), teamSlot ? "CC_Slot" : "CC_Blue", teamSlot ? 180 : 286);
+        SetPressedTint(slot.GetComponent<Button>());
+
+        RectTransform icon = slot.icon.rectTransform;
+        Stretch(icon);
+        icon.offsetMin = teamSlot ? new Vector2(18, 44) : new Vector2(20, 104);
+        icon.offsetMax = teamSlot ? new Vector2(-18, -14) : new Vector2(-20, -16);
+        slot.icon.preserveAspect = true;
+
+        RectTransform bar = (RectTransform)slot.amountSlider.transform;
+        bar.anchorMin = new Vector2(0, 0);
+        bar.anchorMax = new Vector2(1, 0);
+        bar.pivot = new Vector2(0.5f, 0);
+        bar.anchoredPosition = new Vector2(0, teamSlot ? 22 : 30);
+        bar.sizeDelta = teamSlot ? new Vector2(-36, 28) : new Vector2(-40, 36);
+        foreach (Image part in bar.GetComponentsInChildren<Image>(true))
+        {
+            bool fill = part.name == "Fill";
+            part.sprite = StyleSprite(fill ? "CC_BarFill" : "CC_BarBg");
+            part.type = Image.Type.Sliced;
+            part.color = Color.white;
+            part.pixelsPerUnitMultiplier = 2f;
+            Stretch(part.rectTransform);
+        }
+        Transform fillArea = bar.Find("Fill Area");
+        if (fillArea)
+        {
+            Stretch((RectTransform)fillArea);
+            ((RectTransform)fillArea).offsetMin = new Vector2(4, 4);
+            ((RectTransform)fillArea).offsetMax = new Vector2(-4, -4);
+        }
+        TMP_Text number = slot.number;
+        number.font = styleFont;
+        number.fontSharedMaterial = chunkyMaterial;
+        number.color = Color.white;
+        number.fontSize = teamSlot ? 22 : 26;
+        number.enableAutoSizing = false;
+        number.alignment = TextAlignmentOptions.Center;
+        Stretch(number.rectTransform);
+
+        SerializedObject so = new SerializedObject(slot);
+        if (teamSlot)
+        {
+            TextMeshProUGUI plus = CreateChunkyText("CC_Empty", slot.transform, "+", 110, new Color(1, 1, 1, 0.4f));
+            StretchLabel(plus, 180);
+            plus.transform.SetSiblingIndex(0);
+            so.FindProperty("emptyMarker").objectReferenceValue = plus.gameObject;
+        }
+        else
+        {
+            TextMeshProUGUI keeperName = CreateChunkyText("CC_Name", slot.transform, "", 36, Color.white);
+            Place(keeperName.rectTransform, new Vector2(0.5f, 0f), new Vector2(0, 86), new Vector2(200, 46));
+            so.FindProperty("nameText").objectReferenceValue = keeperName;
+        }
+        so.ApplyModifiedPropertiesWithoutUndo();
+
+        // The slots are prefab instances: direct edits are only saved once recorded as overrides
+        foreach (Component part in slot.GetComponentsInChildren<Component>(true))
+        {
+            if (PrefabUtility.IsPartOfPrefabInstance(part))
+            {
+                PrefabUtility.RecordPrefabInstancePropertyModifications(part);
+            }
+        }
     }
 
     // Drops persistent onClick calls whose target was deleted (e.g. guide objects from a previous build)
@@ -310,31 +520,6 @@ public static class MenuBuilder
                 UnityEventTools.RemovePersistentListener(button.onClick, i);
             }
         }
-    }
-
-    static void CreateLevelButton(Transform parent, int number, string sceneName)
-    {
-        GameObject go = new GameObject("Level" + number, typeof(RectTransform));
-        go.transform.SetParent(parent, false);
-        Image image = go.AddComponent<Image>();
-        // Levels that exist look like the blue pause buttons; ones not made yet are grey
-        bool exists = EditorBuildSettings.scenes.Any(s => s.enabled && s.path == ScenesFolder + sceneName + ".unity");
-        ApplyStyleSprite(image, exists ? "ButtonBlue" : "ButtonGray", 300);
-
-        Button button = go.AddComponent<Button>();
-        ColorBlock colors = button.colors;
-        colors.disabledColor = Color.white; // the grey art already shows it's locked
-        button.colors = colors;
-
-        TextMeshProUGUI label = CreateText("Label", go.transform, "Level " + number, 80, Color.white, true);
-        Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 50), new Vector2(400, 110));
-
-        TextMeshProUGUI status = CreateText("Status", go.transform, "Play", 50, exists ? LightGold : new Color32(230, 230, 238, 255), true);
-        Place(status.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -60), new Vector2(400, 80));
-
-        LevelButton levelButton = go.AddComponent<LevelButton>();
-        levelButton.sceneName = sceneName;
-        levelButton.statusText = status;
     }
 
     static void BuildPauseMenu()
@@ -356,39 +541,46 @@ public static class MenuBuilder
         Transform canvas = CreateCanvas("PauseCanvas", new Vector2(1920, 1080), 1, 50);
         PauseMenu pause = canvas.gameObject.AddComponent<PauseMenu>();
 
-        // Pause button (top right of the HUD)
-        // Round gold + purple button, same look as the Music / Sound buttons
-        Button pauseButton = CreateTextButton("PauseButton", canvas, "II", new Vector2(130, 130), 64);
-        Place(pauseButton.GetComponent<RectTransform>(), new Vector2(1, 1), new Vector2(-95, -95), new Vector2(130, 130));
-        Image pauseImage = pauseButton.GetComponent<Image>();
-        pauseImage.sprite = StyleSprite("ButtonRound");
-        pauseImage.type = Image.Type.Simple;
-        RectTransform pauseLabel = pauseButton.GetComponentInChildren<TextMeshProUGUI>().rectTransform;
-        pauseLabel.offsetMin = new Vector2(0, 4);
-        pauseLabel.offsetMax = Vector2.zero;
+        // Pause button: round chunky button in the top-right corner, inside the safe area
+        Transform hudSafe = CreateSafeArea(canvas, "PauseButtonSafe");
+        Button pauseButton = CreateRoundButton("PauseButton", hudSafe, "CC_CircleBlue", new Vector2(1, 1), new Vector2(-95, -95), 130);
+        TextMeshProUGUI pauseLabel = CreateChunkyText("Text", pauseButton.transform, "II", 64, Color.white);
+        StretchLabel(pauseLabel, 130);
         UnityEventTools.AddPersistentListener(pauseButton.onClick, pause.Pause);
 
         // Dimmed overlay that also blocks touches to the game behind it
-        Image panel = CreatePanel("PausePanel", canvas, new Color(0, 0, 0, 0.65f));
+        Image panel = CreatePanel("PausePanel", canvas, new Color(Ink.r, Ink.g, Ink.b, 0.7f));
+        panel.sprite = null;
         Stretch(panel.rectTransform);
+        Transform safe = CreateSafeArea(panel.transform);
 
-        Sprite banner = LoadSprite("Pausedbanner");
-        Image bannerImage = CreateImage("PausedBanner", panel.transform, banner);
-        bannerImage.raycastTarget = false;
-        Place(bannerImage.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 340), SizeFromWidth(banner, 1000));
+        // Stone card with the blue ribbon across its top, like the select screens
+        Image card = CreatePanel("Card", safe, Color.white);
+        Place(card.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -40), new Vector2(720, 700));
+        ApplyChunky(card, "CC_Stone", 700);
+        card.raycastTarget = false;
 
-        Button continueButton = CreateSpriteButton("ContinueButton", panel.transform, LoadSprite("continuebutton"), new Vector2(0, 160), 125);
+        Image banner = CreatePanel("Banner", safe, Color.white);
+        banner.sprite = StyleSprite("CC_Banner");
+        banner.pixelsPerUnitMultiplier = 200f / 190f;
+        banner.raycastTarget = false;
+        Place(banner.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 320), new Vector2(880, 190));
+        TextMeshProUGUI title = CreateChunkyText("Title", banner.transform, "Paused", 92, Color.white);
+        Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 24), new Vector2(600, 110));
+
+        // Gold = main action (like Play / Done), blue = secondary, red = leave
+        Vector2 center = new Vector2(0.5f, 0.5f);
+        Button continueButton = CreateChunkyButton("ContinueButton", safe, "Continue", "CC_Gold", center, new Vector2(0, 140), new Vector2(500, 136), 68);
         UnityEventTools.AddPersistentListener(continueButton.onClick, pause.Continue);
 
-        // RestartButton.png has the top of another button cropped into its bottom edge, so mask it off
-        Button restartButton = CreateSpriteButton("RestartButton", panel.transform, LoadSprite("RestartButton"), new Vector2(0, 10), 125, 20f / 134f);
+        Button restartButton = CreateChunkyButton("RestartButton", safe, "Restart", "CC_Blue", center, new Vector2(0, -2), new Vector2(460, 120), 58);
         UnityEventTools.AddPersistentListener(restartButton.onClick, pause.Restart);
 
-        Button giveUpButton = CreateSpriteButton("GiveUpButton", panel.transform, LoadSprite("GiveUpButton"), new Vector2(0, -140), 125);
+        Button giveUpButton = CreateChunkyButton("GiveUpButton", safe, "Give Up", "CC_Red", center, new Vector2(0, -136), new Vector2(460, 120), 58);
         UnityEventTools.AddPersistentListener(giveUpButton.onClick, pause.GiveUp);
 
-        CreateAudioButton("MusicButton", panel.transform, LoadSprite("musicbutton"), new Vector2(-110, -320), AudioChannel.Channel.Music);
-        CreateAudioButton("SoundButton", panel.transform, LoadSprite("SoundButton"), new Vector2(110, -320), AudioChannel.Channel.Sound);
+        CreateAudioButton("MusicButton", safe, "CC_IconMusic", new Vector2(-90, -295), AudioChannel.Channel.Music);
+        CreateAudioButton("SoundButton", safe, "CC_IconSound", new Vector2(90, -295), AudioChannel.Channel.Sound);
 
         SerializedObject so = new SerializedObject(pause);
         so.FindProperty("pausePanel").objectReferenceValue = panel.gameObject;
@@ -402,14 +594,20 @@ public static class MenuBuilder
         EditorSceneManager.SaveScene(scene);
     }
 
-    static void CreateAudioButton(string name, Transform parent, Sprite sprite, Vector2 pos, AudioChannel.Channel channel)
+    // Round blue button with a white icon; a red slash covers it while muted
+    static void CreateAudioButton(string name, Transform parent, string icon, Vector2 pos, AudioChannel.Channel channel)
     {
-        Button button = CreateSpriteButton(name, parent, sprite, pos, 140);
+        Button button = CreateRoundButton(name, parent, "CC_CircleBlue", new Vector2(0.5f, 0.5f), pos, 140);
 
-        // Red slash shown while muted
-        Image slash = CreatePanel("OffSlash", button.transform, new Color32(220, 40, 40, 255));
+        Image iconImage = CreateImage("Icon", button.transform, StyleSprite(icon));
+        iconImage.raycastTarget = false;
+        Place(iconImage.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 5), new Vector2(84, 84));
+
+        Image slash = CreateImage("OffSlash", button.transform, StyleSprite("CC_Slash"));
         slash.raycastTarget = false;
-        Place(slash.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(170, 18));
+        slash.preserveAspect = false;
+        slash.type = Image.Type.Sliced;
+        Place(slash.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 5), new Vector2(150, 32));
         slash.rectTransform.localRotation = Quaternion.Euler(0, 0, 45);
         slash.gameObject.SetActive(false);
 
@@ -543,27 +741,6 @@ public static class MenuBuilder
         }
         go.AddComponent<GraphicRaycaster>();
         return go.transform;
-    }
-
-    static void CreateBackground(Transform canvas)
-    {
-        Sprite sprite = LoadSprite("LevelBackground");
-        Image bg = CreateImage("Background", canvas, sprite);
-        bg.raycastTarget = false;
-        Place(bg.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1080, 2340));
-        if (sprite)
-        {
-            AspectRatioFitter fitter = bg.gameObject.AddComponent<AspectRatioFitter>();
-            fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-            fitter.aspectRatio = sprite.rect.width / sprite.rect.height;
-        }
-    }
-
-    static void CreateBackButton(Transform canvas, SceneLoader loader, string target)
-    {
-        Button back = CreateTextButton("BackButton", canvas, "Back", new Vector2(300, 130), 64);
-        Place(back.GetComponent<RectTransform>(), new Vector2(0, 0), new Vector2(210, 170), new Vector2(300, 130));
-        UnityEventTools.AddStringPersistentListener(back.onClick, loader.LoadScene, target);
     }
 
     // Blue = main action (white outlined text, like Continue); Gold = secondary (dark text, like Give Up)
@@ -883,6 +1060,500 @@ public static class MenuBuilder
             Debug.LogWarning("Menu Builder: no sprite found in " + UIFolder + fileName + ".png");
         }
         return sprite;
+    }
+
+    #endregion
+
+    #region Critter style (chunky cartoon UI, like the main menu art)
+
+    // Thick dark outlines, glossy bevelled buttons with a darker bottom lip and a hard drop shadow,
+    // blue ribbon banner, stone panels: the same look as the main menu's logo and characters.
+
+    static readonly Color Ink = new Color32(29, 21, 51, 255);
+    static readonly Color TextGold = new Color32(255, 222, 99, 255);
+    static readonly Color WarnOrange = new Color32(255, 186, 74, 255);
+    static readonly Color OkGreen = new Color32(150, 240, 110, 255);
+
+    const float ChunkyLip = 12, ChunkyShadow = 8;
+
+    static Material chunkyMaterial;
+
+    static void EnsureCritterAssets()
+    {
+        Color blueTop = new Color32(96, 178, 255, 255), blueBottom = new Color32(36, 108, 232, 255), blueLip = new Color32(22, 62, 158, 255);
+        Color goldTop = new Color32(255, 220, 92, 255), goldBottom = new Color32(244, 152, 22, 255), goldLip = new Color32(176, 90, 10, 255);
+        Color grayTop = new Color32(172, 172, 186, 255), grayBottom = new Color32(124, 124, 140, 255), grayLip = new Color32(82, 82, 98, 255);
+
+        WriteChunkyRect("CC_Gold", goldTop, goldBottom, goldLip, Ink, 0.28f);
+        WriteChunkyRect("CC_Blue", blueTop, blueBottom, blueLip, Ink, 0.24f);
+        WriteChunkyRect("CC_Gray", grayTop, grayBottom, grayLip, Ink, 0.15f);
+        WriteChunkyRect("CC_Stone", new Color32(158, 162, 206, 255), new Color32(110, 114, 160, 255), new Color32(68, 70, 108, 255), Ink, 0.08f);
+        WriteChunkyRect("CC_Dark", new Color(0.13f, 0.11f, 0.29f, 0.84f), new Color(0.09f, 0.08f, 0.22f, 0.84f), new Color(0.05f, 0.04f, 0.14f, 0.9f), Ink, 0);
+        WriteChunkyRect("CC_Slot", new Color(0.07f, 0.06f, 0.18f, 0.7f), new Color(0.1f, 0.09f, 0.24f, 0.7f), new Color(0.04f, 0.03f, 0.12f, 0.8f), new Color32(132, 118, 214, 255), 0);
+        WriteChunkyCircle("CC_CircleGold", goldTop, goldBottom, goldLip);
+        WriteChunkyCircle("CC_CircleGray", grayTop, grayBottom, grayLip);
+        WriteChunkyCircle("CC_CircleBlue", blueTop, blueBottom, blueLip);
+        Color redTop = new Color32(255, 108, 92, 255), redBottom = new Color32(222, 46, 46, 255), redLip = new Color32(140, 22, 30, 255);
+        WriteChunkyRect("CC_Red", redTop, redBottom, redLip, Ink, 0.24f);
+        WriteBar("CC_Slash", redTop, redBottom, 4);
+        WriteMusicIcon("CC_IconMusic");
+        WriteSoundIcon("CC_IconSound");
+        WriteBanner("CC_Banner", blueTop, blueBottom, blueLip);
+        WriteLock("CC_Lock");
+        WriteBar("CC_BarBg", new Color32(24, 20, 52, 255), new Color32(24, 20, 52, 255), 3);
+        WriteBar("CC_BarFill", goldTop, goldBottom, 0);
+
+        // White lettering with a thick dark outline and a hard dark drop, like the cartoon art
+        chunkyMaterial = AssetDatabase.LoadAssetAtPath<Material>(StyleFolder + "LilitaOne SDF Chunky.mat");
+        if (!chunkyMaterial)
+        {
+            chunkyMaterial = new Material(styleFont.material) { name = "LilitaOne SDF Chunky" };
+            AssetDatabase.CreateAsset(chunkyMaterial, StyleFolder + "LilitaOne SDF Chunky.mat");
+        }
+        chunkyMaterial.CopyPropertiesFromMaterial(styleFont.material);
+        chunkyMaterial.EnableKeyword("OUTLINE_ON");
+        chunkyMaterial.SetFloat("_OutlineWidth", 0.28f);
+        chunkyMaterial.SetColor("_OutlineColor", Ink);
+        chunkyMaterial.SetFloat("_FaceDilate", 0.28f);
+        chunkyMaterial.EnableKeyword("UNDERLAY_ON");
+        chunkyMaterial.SetColor("_UnderlayColor", Ink);
+        chunkyMaterial.SetFloat("_UnderlayOffsetX", 0);
+        chunkyMaterial.SetFloat("_UnderlayOffsetY", -0.85f);
+        chunkyMaterial.SetFloat("_UnderlayDilate", 0.28f);
+        chunkyMaterial.SetFloat("_UnderlaySoftness", 0);
+        EditorUtility.SetDirty(chunkyMaterial);
+
+        AssetDatabase.SaveAssets();
+    }
+
+    static Transform CreateMenuCanvas(string name)
+    {
+        Transform canvas = CreateCanvas(name, new Vector2(1920, 1080), 0.5f, 0);
+        canvas.GetComponent<CanvasScaler>().screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+        return canvas;
+    }
+
+    // Same castle-wall scenery as the main menu, slightly dimmed so the UI stands out
+    static void CreateMenuBackground(Transform canvas, string prefix = "")
+    {
+        Sprite sprite = LoadSprite("Main-Background");
+        Image bg = CreateImage(prefix + "Background", canvas, sprite);
+        bg.raycastTarget = false;
+        bg.preserveAspect = false;
+        Place(bg.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1920, 1080));
+        AspectRatioFitter fitter = bg.gameObject.AddComponent<AspectRatioFitter>();
+        fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+        fitter.aspectRatio = sprite ? sprite.rect.width / sprite.rect.height : 16f / 9f;
+        bg.transform.SetSiblingIndex(0);
+
+        Image dim = CreatePanel(prefix + "Dim", canvas, new Color(Ink.r, Ink.g, Ink.b, 0.22f));
+        dim.sprite = null;
+        dim.raycastTarget = false;
+        Stretch(dim.rectTransform);
+        dim.transform.SetSiblingIndex(1);
+    }
+
+    static Transform CreateSafeArea(Transform canvas, string name = "Safe")
+    {
+        GameObject safe = new GameObject(name, typeof(RectTransform));
+        safe.transform.SetParent(canvas, false);
+        Stretch((RectTransform)safe.transform);
+        safe.AddComponent<SafeArea>();
+        return safe.transform;
+    }
+
+    static void CreateBanner(Transform parent, string title, string name = "Banner")
+    {
+        Image banner = CreatePanel(name, parent, Color.white);
+        banner.sprite = StyleSprite("CC_Banner");
+        banner.type = Image.Type.Sliced;
+        banner.pixelsPerUnitMultiplier = 200f / 190f;
+        banner.raycastTarget = false;
+        Place(banner.rectTransform, new Vector2(0.5f, 1f), new Vector2(0, -108), new Vector2(960, 190));
+
+        TextMeshProUGUI text = CreateChunkyText("Title", banner.transform, title, 88, Color.white);
+        Place(text.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 24), new Vector2(680, 110));
+    }
+
+    static void CreateBackButton(Transform parent, SceneLoader loader, string target)
+    {
+        Button back = CreateChunkyButton("BackButton", parent, "Back", "CC_Blue", new Vector2(0f, 1f), new Vector2(160, -100), new Vector2(250, 116), 58);
+        UnityEventTools.AddStringPersistentListener(back.onClick, loader.LoadScene, target);
+    }
+
+    static Button CreateChunkyButton(string name, Transform parent, string text, string sprite, Vector2 anchor, Vector2 pos, Vector2 size, float fontSize)
+    {
+        Image image = CreatePanel(name, parent, Color.white);
+        Place(image.rectTransform, anchor, pos, size);
+        ApplyChunky(image, sprite, size.y);
+        Button button = image.gameObject.AddComponent<Button>();
+        SetPressedTint(button);
+        TextMeshProUGUI label = CreateChunkyText("Text", image.transform, text, fontSize, Color.white);
+        StretchLabel(label, size.y);
+        return button;
+    }
+
+    static Button CreateRoundButton(string name, Transform parent, string sprite, Vector2 anchor, Vector2 pos, float size)
+    {
+        Image image = CreateImage(name, parent, StyleSprite(sprite));
+        Place(image.rectTransform, anchor, pos, new Vector2(size, size));
+        Button button = image.gameObject.AddComponent<Button>();
+        SetPressedTint(button);
+        return button;
+    }
+
+    static TextMeshProUGUI CreateChunkyText(string name, Transform parent, string text, float size, Color color)
+    {
+        TextMeshProUGUI tmp = CreateText(name, parent, text, size, color);
+        tmp.fontSharedMaterial = chunkyMaterial;
+        // Shrink long text to fit on one line instead of wrapping
+        tmp.textWrappingMode = TextWrappingModes.NoWrap;
+        tmp.enableAutoSizing = true;
+        tmp.fontSizeMin = Mathf.Round(size * 0.5f);
+        tmp.fontSizeMax = size;
+        return tmp;
+    }
+
+    // Fills a chunky button/pill, keeping the text off the thick bottom lip
+    static void StretchLabel(TextMeshProUGUI label, float height)
+    {
+        Stretch(label.rectTransform);
+        float lip = (ChunkyLip + ChunkyShadow) / ChunkyScale(height);
+        label.rectTransform.offsetMin = new Vector2(16, lip);
+        label.rectTransform.offsetMax = new Vector2(-16, -4);
+    }
+
+    static float ChunkyScale(float height)
+    {
+        return Mathf.Clamp(160f / height, 0.9f, 2f);
+    }
+
+    // 9-sliced chunky sprite; small elements get a scaled-down border so every button looks alike
+    static void ApplyChunky(Image image, string spriteName, float height)
+    {
+        image.sprite = StyleSprite(spriteName);
+        image.type = Image.Type.Sliced;
+        image.color = Color.white;
+        image.pixelsPerUnitMultiplier = ChunkyScale(height);
+    }
+
+    static void SetPressedTint(Button button)
+    {
+        ColorBlock colors = button.colors;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = Color.white;
+        colors.selectedColor = Color.white;
+        colors.pressedColor = new Color(0.82f, 0.82f, 0.82f);
+        button.colors = colors;
+    }
+
+    // Draws a sprite with 4x4 supersampling; shade returns the colour at a point (crisp edges)
+    static void RenderSprite(string name, int w, int h, System.Func<float, float, Color> shade, Vector4 border)
+    {
+        const int samples = 4;
+        Color[] pixels = new Color[w * h];
+        for (int y = 0; y < h; y++)
+        {
+            for (int x = 0; x < w; x++)
+            {
+                float r = 0, g = 0, b = 0, a = 0;
+                for (int sy = 0; sy < samples; sy++)
+                {
+                    for (int sx = 0; sx < samples; sx++)
+                    {
+                        Color c = shade(x + (sx + 0.5f) / samples, y + (sy + 0.5f) / samples);
+                        r += c.r * c.a;
+                        g += c.g * c.a;
+                        b += c.b * c.a;
+                        a += c.a;
+                    }
+                }
+                pixels[y * w + x] = a > 0 ? new Color(r / a, g / a, b / a, a / (samples * samples)) : Color.clear;
+            }
+        }
+        Texture2D tex = new Texture2D(w, h, TextureFormat.RGBA32, false);
+        tex.SetPixels(pixels);
+        tex.Apply();
+
+        string path = StyleFolder + name + ".png";
+        System.IO.File.WriteAllBytes(path, tex.EncodeToPNG());
+        Object.DestroyImmediate(tex);
+        AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
+        TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(path);
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Single;
+        importer.mipmapEnabled = false;
+        importer.alphaIsTransparency = true;
+        importer.wrapMode = TextureWrapMode.Clamp;
+        importer.textureCompression = TextureImporterCompression.Uncompressed;
+        importer.spriteBorder = border;
+        importer.SaveAndReimport();
+    }
+
+    static Color Lighten(Color c, float amount)
+    {
+        return new Color(Mathf.Lerp(c.r, 1, amount), Mathf.Lerp(c.g, 1, amount), Mathf.Lerp(c.b, 1, amount), c.a);
+    }
+
+    // Rounded button/panel: outline, gradient face with a glossy top half, darker bottom lip, hard drop shadow
+    static void WriteChunkyRect(string name, Color top, Color bottom, Color lip, Color outlineColor, float gloss)
+    {
+        const int w = 256, h = 160;
+        const float radius = 34, outline = 7;
+        float cx = w / 2f, hx = w / 2f - 1;
+        float bodyBottom = ChunkyShadow + 1, bodyTop = h - 1;
+        float cy = (bodyBottom + bodyTop) / 2, hy = (bodyTop - bodyBottom) / 2;
+        float faceBottom = bodyBottom + outline + ChunkyLip, faceTop = bodyTop - outline;
+        float fcy = (faceBottom + faceTop) / 2, fhy = (faceTop - faceBottom) / 2;
+        Color shadow = new Color(0, 0, 0, 0.35f);
+
+        RenderSprite(name, w, h, (px, py) =>
+        {
+            if (RoundedRectDistance(px, py, cx, fcy, hx - outline, fhy, radius - outline) < 0)
+            {
+                float t = Mathf.InverseLerp(faceBottom, faceTop, py);
+                Color c = Color.Lerp(bottom, top, t);
+                if (gloss > 0 && t > 0.5f && RoundedRectDistance(px, py, cx, fcy, hx - outline - 7, fhy - 6, radius - outline - 7) < 0)
+                {
+                    c = Lighten(c, gloss);
+                }
+                return c;
+            }
+            if (RoundedRectDistance(px, py, cx, cy, hx - outline, hy - outline, radius - outline) < 0)
+            {
+                return lip;
+            }
+            if (RoundedRectDistance(px, py, cx, cy, hx, hy, radius) < 0)
+            {
+                return outlineColor;
+            }
+            if (RoundedRectDistance(px, py, cx, cy - ChunkyShadow, hx, hy, radius) < 0)
+            {
+                return shadow;
+            }
+            return Color.clear;
+        }, new Vector4(radius + 2, radius + ChunkyLip + ChunkyShadow + 2, radius + 2, radius + 2));
+    }
+
+    // Round medal: same layers as the buttons
+    static void WriteChunkyCircle(string name, Color top, Color bottom, Color lip)
+    {
+        const int size = 256;
+        const float outline = 9;
+        float cx = size / 2f, cy = size / 2f + ChunkyShadow / 2, radius = size / 2f - 1 - ChunkyShadow / 2;
+        float faceRadius = radius - outline - ChunkyLip / 2, fcy = cy + ChunkyLip / 2;
+        Color shadow = new Color(0, 0, 0, 0.35f);
+
+        RenderSprite(name, size, size, (px, py) =>
+        {
+            float face = new Vector2(px - cx, py - fcy).magnitude;
+            if (face < faceRadius)
+            {
+                float t = Mathf.InverseLerp(fcy - faceRadius, fcy + faceRadius, py);
+                Color c = Color.Lerp(bottom, top, t);
+                if (t > 0.5f && face < faceRadius - 8)
+                {
+                    c = Lighten(c, 0.25f);
+                }
+                return c;
+            }
+            float d = new Vector2(px - cx, py - cy).magnitude;
+            if (d < radius - outline)
+            {
+                return lip;
+            }
+            if (d < radius)
+            {
+                return Ink;
+            }
+            if (new Vector2(px - cx, py - cy + ChunkyShadow).magnitude < radius)
+            {
+                return shadow;
+            }
+            return Color.clear;
+        }, Vector4.zero);
+    }
+
+    // Blue ribbon: chunky plate with folded tails behind both ends
+    static void WriteBanner(string name, Color top, Color bottom, Color lip)
+    {
+        const int w = 640, h = 200;
+        const float radius = 28, outline = 7, tailOutline = 6;
+        float cx = w / 2f, hx = w / 2f - 70;
+        float bodyBottom = 52, bodyTop = h - 2;
+        float cy = (bodyBottom + bodyTop) / 2, hy = (bodyTop - bodyBottom) / 2;
+        float faceBottom = bodyBottom + outline + ChunkyLip, faceTop = bodyTop - outline;
+        float fcy = (faceBottom + faceTop) / 2, fhy = (faceTop - faceBottom) / 2;
+        Color tail = new Color32(30, 82, 196, 255), tailFold = new Color32(16, 46, 126, 255);
+        Color shadow = new Color(0, 0, 0, 0.35f);
+
+        System.Func<float, float, bool> inTail = (px, py) =>
+        {
+            float x = px < w / 2f ? px : w - px;
+            const float left = 3, right = 150, low = 14, high = 120, notch = 44;
+            float mid = (low + high) / 2, half = (high - low) / 2;
+            return x >= left && x <= right && py >= low && py <= high && x - left >= notch * (1 - Mathf.Abs(py - mid) / half);
+        };
+
+        RenderSprite(name, w, h, (px, py) =>
+        {
+            if (RoundedRectDistance(px, py, cx, fcy, hx - outline, fhy, radius - outline) < 0)
+            {
+                float t = Mathf.InverseLerp(faceBottom, faceTop, py);
+                Color c = Color.Lerp(bottom, top, t);
+                if (t > 0.52f && RoundedRectDistance(px, py, cx, fcy, hx - outline - 8, fhy - 6, radius - outline - 8) < 0)
+                {
+                    c = Lighten(c, 0.22f);
+                }
+                return c;
+            }
+            if (RoundedRectDistance(px, py, cx, cy, hx - outline, hy - outline, radius - outline) < 0)
+            {
+                return lip;
+            }
+            if (RoundedRectDistance(px, py, cx, cy, hx, hy, radius) < 0)
+            {
+                return Ink;
+            }
+            if (inTail(px, py))
+            {
+                bool inner = inTail(px - tailOutline, py) && inTail(px + tailOutline, py) && inTail(px, py - tailOutline) && inTail(px, py + tailOutline);
+                if (!inner)
+                {
+                    return Ink;
+                }
+                // Darker fold where the tail tucks behind the plate
+                float x = px < w / 2f ? px : w - px;
+                return x > 112 ? tailFold : tail;
+            }
+            if (RoundedRectDistance(px, py, cx, cy - ChunkyShadow, hx, hy, radius) < 0 || inTail(px, py + ChunkyShadow))
+            {
+                return shadow;
+            }
+            return Color.clear;
+        }, new Vector4(170, 0, 170, 0));
+    }
+
+    static void WriteLock(string name)
+    {
+        const int size = 128;
+        Color body = new Color32(255, 214, 80, 255), bodyDark = new Color32(222, 150, 24, 255), shackle = new Color32(196, 196, 214, 255);
+        RenderSprite(name, size, size, (px, py) =>
+        {
+            float bodyD = RoundedRectDistance(px, py, 64, 42, 40, 32, 12);
+            if (bodyD < 0)
+            {
+                if (bodyD > -6)
+                {
+                    return Ink;
+                }
+                // Keyhole
+                if (new Vector2(px - 64, py - 48).magnitude < 8 || (Mathf.Abs(px - 64) < 4 && py > 28 && py < 48))
+                {
+                    return Ink;
+                }
+                return py > 46 ? body : bodyDark;
+            }
+            // Shackle: half ring with two legs
+            float ringD;
+            if (py >= 80)
+            {
+                float d = new Vector2(px - 64, py - 80).magnitude;
+                ringD = Mathf.Max(d - 33, 15 - d);
+            }
+            else
+            {
+                float leg = Mathf.Min(Mathf.Abs(px - 40), Mathf.Abs(px - 88));
+                ringD = Mathf.Max(leg - 9, Mathf.Max(60 - py, py - 80));
+            }
+            if (ringD < 0)
+            {
+                return ringD > -5 ? Ink : shackle;
+            }
+            return Color.clear;
+        }, Vector4.zero);
+    }
+
+    // White icon with a thick dark outline; inside says whether a point is part of the shape
+    static void WriteIcon(string name, System.Func<float, float, bool> inside)
+    {
+        const int size = 128;
+        const float outline = 7;
+        RenderSprite(name, size, size, (px, py) =>
+        {
+            if (inside(px, py))
+            {
+                return Color.white;
+            }
+            for (int i = 0; i < 16; i++)
+            {
+                float angle = i * Mathf.PI / 8;
+                float dx = Mathf.Cos(angle), dy = Mathf.Sin(angle);
+                if (inside(px + dx * outline, py + dy * outline) || inside(px + dx * outline / 2, py + dy * outline / 2))
+                {
+                    return Ink;
+                }
+            }
+            return Color.clear;
+        }, Vector4.zero);
+    }
+
+    static float SegmentDistance(float px, float py, float ax, float ay, float bx, float by)
+    {
+        Vector2 p = new Vector2(px - ax, py - ay), ab = new Vector2(bx - ax, by - ay);
+        float t = Mathf.Clamp01(Vector2.Dot(p, ab) / ab.sqrMagnitude);
+        return (p - ab * t).magnitude;
+    }
+
+    // Two beamed notes
+    static void WriteMusicIcon(string name)
+    {
+        WriteIcon(name, (px, py) =>
+        {
+            bool head1 = Mathf.Pow((px - 42) / 19, 2) + Mathf.Pow((py - 34) / 14, 2) < 1;
+            bool head2 = Mathf.Pow((px - 92) / 19, 2) + Mathf.Pow((py - 46) / 14, 2) < 1;
+            bool stem1 = px > 51 && px < 61 && py > 34 && py < 102;
+            bool stem2 = px > 101 && px < 111 && py > 46 && py < 114;
+            bool beam = SegmentDistance(px, py, 56, 98, 106, 110) < 9;
+            return head1 || head2 || stem1 || stem2 || beam;
+        });
+    }
+
+    // Speaker with two sound waves
+    static void WriteSoundIcon(string name)
+    {
+        WriteIcon(name, (px, py) =>
+        {
+            bool box = px > 14 && px < 40 && Mathf.Abs(py - 64) < 17;
+            bool cone = px >= 36 && px < 64 && Mathf.Abs(py - 64) < 17 + (px - 36) * 0.9f;
+            float d = new Vector2(px - 62, py - 64).magnitude;
+            bool facing = px > 62 && Mathf.Abs(py - 64) < (px - 62) * 1.1f;
+            bool wave1 = facing && Mathf.Abs(d - 24) < 6;
+            bool wave2 = facing && Mathf.Abs(d - 44) < 6;
+            return box || cone || wave1 || wave2;
+        });
+    }
+
+    // Small rounded bar for the upgrade progress sliders
+    static void WriteBar(string name, Color top, Color bottom, float outline)
+    {
+        const int w = 64, h = 32;
+        const float radius = 14;
+        RenderSprite(name, w, h, (px, py) =>
+        {
+            float d = RoundedRectDistance(px, py, w / 2f, h / 2f, w / 2f - 1, h / 2f - 1, radius);
+            if (d >= 0)
+            {
+                return Color.clear;
+            }
+            if (d > -outline)
+            {
+                return Ink;
+            }
+            float t = py / h;
+            Color c = Color.Lerp(bottom, top, t);
+            return t > 0.55f ? Lighten(c, 0.2f) : c;
+        }, new Vector4(radius + 2, radius + 2, radius + 2, radius + 2));
     }
 
     #endregion
