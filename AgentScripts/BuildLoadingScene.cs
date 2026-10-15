@@ -12,8 +12,8 @@ public static class BuildLoadingScene
 {
     const string ScenePath = "Assets/Scenes/Loading.unity";
     const string FramesFolder = "Assets/UserInterface/LoadingFrames";
-    const string StyleFolder = "Assets/UserInterface/Generated/";
     static readonly Color Bg = new Color32(5, 5, 5, 255);
+    static readonly Color TextGold = new Color32(255, 222, 99, 255);
 
     public static string Run()
     {
@@ -32,8 +32,8 @@ public static class BuildLoadingScene
         }
         Sprite[] frames = framePaths.Select(AssetDatabase.LoadAssetAtPath<Sprite>).ToArray();
 
-        TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(StyleFolder + "LilitaOne SDF.asset");
-        Material outline = AssetDatabase.LoadAssetAtPath<Material>(StyleFolder + "LilitaOne SDF Outline.mat");
+        TMP_FontAsset font = Style<TMP_FontAsset>("LilitaOne SDF");
+        Material chunky = Style<Material>("LilitaOne SDF Chunky");
 
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -68,42 +68,49 @@ public static class BuildLoadingScene
         anim.preserveAspect = true;
         Place(anim.rectTransform, new Vector2(0, 90), new Vector2(480, 428));
 
-        // Loading bar beneath it
+        // Loading bar beneath it, in the chunky "critter" style of the level/character select screens:
+        // stone frame with a dark ink outline and lip, a dark inset well, and a glossy gold fill
+        const float barWidth = 920, barHeight = 104;
         RectTransform bar = NewRect("LoadingBar", root);
-        Place(bar, new Vector2(0, -230), new Vector2(900, 64));
+        Place(bar, new Vector2(0, -250), new Vector2(barWidth, barHeight));
 
-        Image track = NewImage("Track", bar, AssetDatabase.LoadAssetAtPath<Sprite>(StyleFolder + "PanelPurple.png"));
-        Sliced(track, 64);
+        Image frame = NewImage("Frame", bar, Style<Sprite>("CC_Stone"));
+        Chunky(frame, barHeight);
+        Stretch(frame.rectTransform);
+
+        // Inset well, kept off the frame's bottom lip
+        Image track = NewImage("Track", bar, Style<Sprite>("CC_BarBg"));
+        track.type = Image.Type.Sliced;
+        track.pixelsPerUnitMultiplier = 0.8f;
         Stretch(track.rectTransform);
+        track.rectTransform.offsetMin = new Vector2(18, 30);
+        track.rectTransform.offsetMax = new Vector2(-18, -14);
 
-        RectTransform fillMask = NewRect("FillMask", bar);
-        fillMask.gameObject.AddComponent<RectMask2D>();
-        fillMask.anchorMin = new Vector2(0, 0);
-        fillMask.anchorMax = new Vector2(0, 1);
-        fillMask.pivot = new Vector2(0, 0.5f);
-        fillMask.offsetMin = Vector2.zero;
-        fillMask.offsetMax = Vector2.zero;
+        RectTransform fillArea = NewRect("FillArea", track.transform);
+        Stretch(fillArea);
+        fillArea.offsetMin = new Vector2(6, 6);
+        fillArea.offsetMax = new Vector2(-6, -6);
 
-        Image fill = NewImage("Fill", fillMask, AssetDatabase.LoadAssetAtPath<Sprite>(StyleFolder + "ButtonGold.png"));
-        Sliced(fill, 64);
-        RectTransform fr = fill.rectTransform;
-        fr.anchorMin = new Vector2(0, 0);
-        fr.anchorMax = new Vector2(0, 1);
-        fr.pivot = new Vector2(0, 0.5f);
-        fr.anchoredPosition = Vector2.zero;
-        fr.sizeDelta = new Vector2(900, 0);
+        // The fill's right anchor follows progress; sliced so the leading edge stays rounded
+        Image fill = NewImage("Fill", fillArea, Style<Sprite>("CC_BarFill"));
+        fill.type = Image.Type.Sliced;
+        fill.pixelsPerUnitMultiplier = 0.9f;
+        Stretch(fill.rectTransform);
+        fill.rectTransform.anchorMax = new Vector2(0, 1);
 
-        TextMeshProUGUI percent = NewText("Percent", bar, "0%", 40, font, outline);
+        TextMeshProUGUI percent = NewText("Percent", track.transform, "0%", 40, font, chunky);
         Stretch(percent.rectTransform);
+        percent.rectTransform.offsetMin = new Vector2(0, 2);
 
-        TextMeshProUGUI label = NewText("LoadingLabel", root, "Loading...", 56, font, outline);
-        Place(label.rectTransform, new Vector2(0, -160), new Vector2(900, 70));
+        TextMeshProUGUI label = NewText("LoadingLabel", root, "Loading...", 64, font, chunky);
+        label.color = TextGold;
+        Place(label.rectTransform, new Vector2(0, -145), new Vector2(900, 80));
 
         LoadingScreen screen = canvasGo.AddComponent<LoadingScreen>();
         screen.animationImage = anim;
         screen.frames = frames;
         screen.frameTime = 0.1f;
-        screen.barFill = fillMask;
+        screen.barFill = fill.rectTransform;
         screen.percentText = percent;
 
         EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), ScenePath);
@@ -146,10 +153,24 @@ public static class BuildLoadingScene
         return t;
     }
 
-    static void Sliced(Image image, float height)
+    // The generated style assets (MenuBuilder) live under UserInterface/.../Generated; find them by name
+    static T Style<T>(string name) where T : Object
+    {
+        foreach (string guid in AssetDatabase.FindAssets(name + " t:" + typeof(T).Name, new[] { "Assets/UserInterface" }))
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            if (System.IO.Path.GetFileNameWithoutExtension(path) == name)
+                return AssetDatabase.LoadAssetAtPath<T>(path);
+        }
+        Debug.LogWarning("BuildLoadingScene: style asset not found: " + name);
+        return null;
+    }
+
+    // Same 9-slice scale as MenuBuilder.ApplyChunky so the frame matches the menu buttons/panels
+    static void Chunky(Image image, float height)
     {
         image.type = Image.Type.Sliced;
-        image.pixelsPerUnitMultiplier = Mathf.Clamp(130f / height, 0.6f, 3f);
+        image.pixelsPerUnitMultiplier = Mathf.Clamp(160f / height, 0.9f, 2f);
     }
 
     static void Stretch(RectTransform rt)
