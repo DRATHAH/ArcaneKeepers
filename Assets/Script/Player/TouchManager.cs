@@ -39,6 +39,9 @@ public class TouchManager : MonoBehaviour
     InputActionMap actions;
     bool isTouching = false;
 
+    private Ray debugRay;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -93,6 +96,7 @@ public class TouchManager : MonoBehaviour
     {
         // Create a ray from the camera to the touch position
         Ray ray = Camera.main.ScreenPointToRay(touchPos);
+        debugRay = ray;
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit) && isTouching)
         {
@@ -140,4 +144,5 @@ public class TouchManager : MonoBehaviour
            // UI.GetComponent<TowerRelocate>().RelocateTower();
         }
     }
+
 }

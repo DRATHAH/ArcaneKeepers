@@ -69,7 +69,7 @@ public class WaveSpawner : MonoBehaviour
             {
                 if (currentWave < maxWaves)
                 {
-                    Debug.Log("Armed and Dangerous!");
+                    //Debug.Log("Armed and Dangerous!");
                     IncrementWave();
                 }
             }
@@ -94,7 +94,7 @@ public class WaveSpawner : MonoBehaviour
                 //Otherwise spawn the next wave if possible
                 if (currentWave < maxWaves)
                 {
-                    Debug.Log("Again!");
+                    //Debug.Log("Again!");
                     IncrementWave();
                 }
             }
