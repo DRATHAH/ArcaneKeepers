@@ -77,6 +77,7 @@ public class RangerTower : TowerBase
         anim.SetBool("Charging", true);
         if (closeCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("Arrow");
             anim.SetTrigger("Shoot");
             closeCooldown = maxCCooldown;
             ObjectPool.pool.Create(strongProjectilePrefab, transform.position, Quaternion.identity);
@@ -95,6 +96,7 @@ public class RangerTower : TowerBase
         anim.SetBool("Charging", false);
         if (farCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("Arrow");
             anim.SetTrigger("Shoot");
             farCooldown = maxFCooldown;
             ObjectPool.pool.Create(weakProjectilePrefab, transform.position, Quaternion.identity);
