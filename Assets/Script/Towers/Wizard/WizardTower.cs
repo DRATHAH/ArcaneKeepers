@@ -27,15 +27,18 @@ public class WizardTower : TowerBase
 
     private float mapBorder = 9f; //Range limit for aiming
 
+    private Animator anim;
+
     private void Start()
     {
         towerRelocate = GetComponent<TowerRelocate>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
     {
-        farCooldown = maxFCooldown;
-        closeCooldown = maxCCooldown;
+        farCooldown = 0;
+        closeCooldown = 0;
     }
 
     void FixedUpdate()
@@ -77,6 +80,7 @@ public class WizardTower : TowerBase
         if (closeCooldown <= 0)
         {
             closeCooldown = maxCCooldown;
+            anim.SetTrigger("Shoot");
             ObjectPool.pool.Create(closeProjectile, transform.position, transform.rotation);
         }
         else
@@ -91,6 +95,7 @@ public class WizardTower : TowerBase
         //Fast Attack
         if (farCooldown <= 0)
         {
+            anim.SetTrigger("Firewave");
             farCooldown = maxFCooldown;
             ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), transform.rotation);
             ObjectPool.pool.Create(farProjectile, transform.position, transform.rotation);
