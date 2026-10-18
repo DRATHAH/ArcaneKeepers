@@ -1,7 +1,15 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class RelocationManager : MonoBehaviour
 {
+    public bool canRelocate = false;
+
+    [SerializeField] Slider cooldownSlider;
+    [SerializeField] Button relocateButton;
+
     public static RelocationManager instance;
 
     public GameObject relocatedObject;
@@ -30,14 +38,37 @@ public class RelocationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(canRelocate == true)
+        {
+            if (Touch.activeTouches.Count > 0)
+            {
+                       
+            }
+            else if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null)
+            {
+                if (relocatedObject == null)
+                {
+                    ClearObject(0.1f);
+                }
+            }
+        }
 
-
-
-
-
-        if(relocateCooldown > 0 && relocatedObject == null)
+        if (relocateCooldown > 0 && relocatedObject == null)
         {
             relocateCooldown -= Time.deltaTime;
+            if(relocateButton.interactable == true)
+            {
+                relocateButton.interactable = false;
+                canRelocate = false;
+            }
+            cooldownSlider.value = relocateCooldown/maxRelocateCooldown;
+        }
+        else
+        {
+            if(relocateButton.interactable == false)
+            {
+                relocateButton.interactable = true;
+            }
         }
     }
 
@@ -56,6 +87,20 @@ public class RelocationManager : MonoBehaviour
     {
         relocatedObject = null;
         relocateCooldown = maxRelocateCooldown;
+        canRelocate = false;
         //busy = false;
+    }
+
+    public void ClearObject(float coolDown)
+    {
+        relocatedObject = null;
+        relocateCooldown = coolDown;
+        canRelocate = false;
+    }
+
+    public void EnableRelocate()
+    {
+        canRelocate = true;
+        cooldownSlider.value = maxRelocateCooldown/maxRelocateCooldown;
     }
 }
