@@ -4,8 +4,8 @@ using UnityEngine;
 public class TowerHealth : HealthBase
 {
     [Tooltip("How much health the tower can have.")]
-    [SerializeField] private float maxHealth = 200;
-    [SerializeField] private float currentHealth;
+    [SerializeField] public float maxHealth = 200;
+    [HideInInspector] public float currentHealth;
 
     [Tooltip("Damage resistance modifier.")]
     public float damageResist = 1;

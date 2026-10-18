@@ -16,16 +16,21 @@ public class WallTower : TowerBase
     [Tooltip("Determines what the damage resistances for this tower will be set to. Close to base = 0, Far from base = 1.")]
     [SerializeField] private float[] damageResists = new float[2];
 
+    private Animator anim;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         towerHealth = GetComponent<TowerHealth>();
         towerRelocate = GetComponent<TowerRelocate>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        anim.SetFloat("Health", towerHealth.currentHealth / towerHealth.maxHealth);
+
         if(towerRelocate.isRelocating == false)
         {
             if (transform.position.x < swapLimit)
@@ -49,7 +54,12 @@ public class WallTower : TowerBase
 
         if(towerHealth.attackedTimer <= 0)
         {
+            anim.SetBool("Healing", true);
             towerHealth.RecoverHealth(regenRate * Time.deltaTime);
+        }
+        else
+        {
+            anim.SetBool("Healing", false);
         }
 
     }
@@ -57,7 +67,8 @@ public class WallTower : TowerBase
     //While far from home shoot weaker projectiles with slightly more defense
     public override void AbilityFar()
     {
-        if(towerHealth.damageResist != damageResists[1])
+        anim.SetBool("Healing", false);
+        if (towerHealth.damageResist != damageResists[1])
         {
             towerHealth.damageResist = damageResists[1];
         }
