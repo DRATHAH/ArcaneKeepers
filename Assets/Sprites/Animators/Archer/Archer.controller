@@ -116,9 +116,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Charging
     m_EventTreshold: 0
-  - m_ConditionMode: 3
+  - m_ConditionMode: 4
     m_ConditionEvent: ChargeAmount
-    m_EventTreshold: 0.99
+    m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 284339298176041545}
   m_Solo: 0
