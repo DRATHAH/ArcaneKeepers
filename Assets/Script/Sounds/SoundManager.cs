@@ -19,12 +19,10 @@ public class SoundManager : MonoBehaviour
             if (instance == null)
             {
                 instance = value;
-                DontDestroyOnLoad(value);
             }
             else if (instance != value)
             {
                 Debug.Log($"{nameof(SoundManager)} instance already exists, destoying duplicate");
-                Destroy(value);
             }
         }
     }

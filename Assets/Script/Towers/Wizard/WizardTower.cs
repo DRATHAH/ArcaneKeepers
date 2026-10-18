@@ -76,6 +76,7 @@ public class WizardTower : TowerBase
     {
         if (closeCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("FireArrow");
             closeCooldown = maxCCooldown;
             ObjectPool.pool.Create(closeProjectile, transform.position, transform.rotation);
         }
@@ -91,6 +92,7 @@ public class WizardTower : TowerBase
         //Fast Attack
         if (farCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("FireWall");
             farCooldown = maxFCooldown;
             ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), transform.rotation);
             ObjectPool.pool.Create(farProjectile, transform.position, transform.rotation);

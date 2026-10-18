@@ -71,6 +71,7 @@ public class RangerTower : TowerBase
     {
         if(closeCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("Arrow");
             closeCooldown = maxCCooldown;
             ObjectPool.pool.Create(strongProjectilePrefab, transform.position, Quaternion.identity);
         }
@@ -86,6 +87,7 @@ public class RangerTower : TowerBase
         //Fast Attack
         if (farCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("Arrow");
             farCooldown = maxFCooldown;
             ObjectPool.pool.Create(weakProjectilePrefab, transform.position, Quaternion.identity);
         }

@@ -39,6 +39,7 @@ public class EnemyHealth : HealthBase
     //Taking damage func
     public override void TakeDamage(float damageAmount, bool armorPiercing)
     {
+        SoundManager.Instance.PlaySound("EnemyDamage");
         CalcDamage(damageAmount, armorPiercing);
         //If the current health is less than 0, die.
         if (currentHealth <= 0)
