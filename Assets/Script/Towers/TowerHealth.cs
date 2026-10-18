@@ -22,6 +22,8 @@ public class TowerHealth : HealthBase
     [HideInInspector] public TowerButton parentButton;
     private TowerRelocate towerRelocate;
 
+    [SerializeField] private float deathCooldown;
+
     private void Start()
     {
         damageFlash = GetComponent<ColorFlash>();
@@ -98,7 +100,7 @@ public class TowerHealth : HealthBase
         towerRelocate.DeathReset();
         gameObject.transform.position = transform.position;
         isAttacked = false;
-        parentButton.createdObject = null;
+        parentButton.KillTower(deathCooldown);
         this.transform.parent = null;
         currentHealth = maxHealth;
         GameObject currentGameObject = this.gameObject;

@@ -191,6 +191,7 @@ MonoBehaviour:
   flashTime: 0.2
   flashDelay: 0.5
   parentButton: {fileID: 0}
+  deathCooldown: 25
 --- !u!114 &5262910377712666955
 MonoBehaviour:
   m_ObjectHideFlags: 0
