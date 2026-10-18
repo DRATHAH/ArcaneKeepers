@@ -52,6 +52,7 @@ public class TowerHealth : HealthBase
                 if (damageFlash != null)
                 {
                     damageFlash.CallFlash(Color.white, flashTime);
+                    SoundManager.Instance.PlaySound("TowerDamage");
                 }
                 flashDelay = maxflashDelay;
             }

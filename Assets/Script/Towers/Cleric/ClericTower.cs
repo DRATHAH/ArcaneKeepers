@@ -95,6 +95,7 @@ public class ClericTower : TowerBase
         anim.SetBool("Charging", false);
         if (healingBurstCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("Arrow");
             Heal(healingAmount, true, 5);
             healingBurstCooldown = maxHealingBurstCooldown;
         }
@@ -107,6 +108,7 @@ public class ClericTower : TowerBase
     private void Heal(float healAmount, bool burst, float lifeTime)
     {
         anim.SetTrigger("Cast");
+        SoundManager.Instance.PlaySound("HealPool");
         healingField = ObjectPool.pool.Create(healingAura, new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z), Quaternion.identity);
         HealingAura aura = healingField.GetComponent<HealingAura>();
         aura.parent = this.gameObject;

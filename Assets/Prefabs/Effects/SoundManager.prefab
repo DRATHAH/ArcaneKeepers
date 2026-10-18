@@ -64,7 +64,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: TowerDamage
-    clip: {fileID: 8300000, guid: 6126d282157ad974fb64e4ac44cd4c7c, type: 3}
+    clip: {fileID: 8300000, guid: d78e7fc79144e4641b57d6afd356a827, type: 3}
     volume: 0.5
     pitch: 2
     loop: 0
@@ -83,6 +83,18 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: FireWall
     clip: {fileID: 8300000, guid: cb35b80cfe423d94c93c5e033ea25a78, type: 3}
+    volume: 0.75
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Stab
+    clip: {fileID: 8300000, guid: 7e52bf34350aa1e499a5aa94a2e245db, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HealPool
+    clip: {fileID: 8300000, guid: bedf287d45456fc48834da327938b4c1, type: 3}
     volume: 0.75
     pitch: 1.5
     loop: 0

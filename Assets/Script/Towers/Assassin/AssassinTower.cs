@@ -123,6 +123,7 @@ public class AssassinTower : TowerBase
             {
                 if (hit.collider.tag == "Enemy" && hit.collider.gameObject.activeSelf == true)
                 {
+                    SoundManager.Instance.PlaySound("Stab");
                     backStabCooldown = maxBackStabCooldown;
                     anim.SetTrigger("Stab");
                     meleeAttack.Attack(stabDamage[stabDamageType], armorPiercing, hit.collider.gameObject);
