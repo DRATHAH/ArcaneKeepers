@@ -91,7 +91,7 @@ public class TowerRelocate : MonoBehaviour
                 }
                 //Debug.Log(TouchManager.instance.hoveringTile.tileObject);
                 // Place tower
-
+                SoundManager.Instance.PlaySound("TowerPlacement");
             }
             else // If not hovering over tile, reset to original location
             {
