@@ -24,9 +24,12 @@ public class RangerTower : TowerBase
 
     private TowerRelocate towerRelocate;
 
+    private Animator anim;
+
     private void Start()
     {
         towerRelocate = GetComponent<TowerRelocate>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -59,6 +62,8 @@ public class RangerTower : TowerBase
             {
                 if (transform.position.x < swapLimit)
                 {
+                    anim.SetBool("Charging", true);
+                    anim.SetFloat("ChargeAmount", closeCooldown/ maxCCooldown);
                     ReduceCooldown(ref closeCooldown);
                 }
             }
@@ -69,13 +74,17 @@ public class RangerTower : TowerBase
     //While close to home charge a strong single-target projectile that does relatively more damage to armored targets
     public override void AbilityClose()
     {
-        if(closeCooldown <= 0)
+        anim.SetBool("Charging", true);
+        if (closeCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("Arrow");
+            anim.SetTrigger("Shoot");
             closeCooldown = maxCCooldown;
             ObjectPool.pool.Create(strongProjectilePrefab, transform.position, Quaternion.identity);
         }
         else
         {
+            anim.SetFloat("ChargeAmount", closeCooldown / maxCCooldown);
             ReduceCooldown(ref closeCooldown);
         }
     }
@@ -84,8 +93,11 @@ public class RangerTower : TowerBase
     public override void AbilityFar()
     {
         //Fast Attack
+        anim.SetBool("Charging", false);
         if (farCooldown <= 0)
         {
+            SoundManager.Instance.PlaySound("Arrow");
+            anim.SetTrigger("Shoot");
             farCooldown = maxFCooldown;
             ObjectPool.pool.Create(weakProjectilePrefab, transform.position, Quaternion.identity);
         }

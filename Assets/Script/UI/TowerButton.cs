@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Processors;
 using UnityEngine.UI;
 
 public class TowerButton : MonoBehaviour
@@ -12,6 +13,11 @@ public class TowerButton : MonoBehaviour
 
     [SerializeField] private Slider towerHealthBar;
 
+    [SerializeField] private Slider deathCooldownSlider;
+
+    private float deathCooldown;
+    private float maxDeathCooldown;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +27,12 @@ public class TowerButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(deathCooldown > 0 && maxDeathCooldown != 0)
+        {
+            deathCooldown -= Time.deltaTime;
+            deathCooldownSlider.value = deathCooldown/ maxDeathCooldown;
+        }
+
         if(createdObject != null)
         {
             icon.color = Color.gray;
@@ -45,19 +57,32 @@ public class TowerButton : MonoBehaviour
     // Creates the tower icon when you drag from the image
     public void CreateTower()
     {
-        if(createdObject == null || createdObject.activeSelf == false)
+        if(deathCooldown <= 0)
         {
-            Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();
-            GameObject towerPlacer = ObjectPool.pool.Create(towerPlacerPrefab, touchPos, Quaternion.identity);
-            TowerPlacer placer = towerPlacer.GetComponent<TowerPlacer>();
-            placer.Initialize(tower);
-            placer.towerButton = this;
-            towerPlacer.transform.SetParent(transform.root, true);
+            if (createdObject == null || createdObject.activeSelf == false)
+            {
+                Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();
+                GameObject towerPlacer = ObjectPool.pool.Create(towerPlacerPrefab, touchPos, Quaternion.identity);
+                TowerPlacer placer = towerPlacer.GetComponent<TowerPlacer>();
+                placer.Initialize(tower);
+                placer.towerButton = this;
+                towerPlacer.transform.SetParent(transform.root, true);
+            }
         }
     }
 
     public void UpdateHealthBar(float updatedValue)
     {
         towerHealthBar.value = updatedValue;
+    }
+
+    public void KillTower(float setCooldown)
+    {
+        createdObject = null;
+        if(setCooldown != 0)
+        {
+            maxDeathCooldown = setCooldown;
+        }
+        deathCooldown = maxDeathCooldown;
     }
 }

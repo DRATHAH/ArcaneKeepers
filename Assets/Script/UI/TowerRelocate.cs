@@ -32,7 +32,7 @@ public class TowerRelocate : MonoBehaviour
     {
         RelocationManager.instance.GrabObject(this.gameObject);
         originalPos = transform.position;
-        if(isRelocating == false)
+        if (isRelocating == false)
         {
             if (TouchManager.instance.hoveringTile != null)
             {
@@ -43,68 +43,71 @@ public class TowerRelocate : MonoBehaviour
 
     private void Update()
     {
-        // Check if player is touching screen
-        if (Touch.activeTouches.Count > 0)
+        if(RelocationManager.instance.canRelocate == true)
         {
-            // Get position of touch
-            Vector2 mousePos = Touchscreen.current.primaryTouch.position.ReadValue();
-            Ray ray = Camera.main.ScreenPointToRay(mousePos);
-            Plane groundPlane = new Plane(Vector3.up, Vector3.up);
-
-            // Correctly sets the position of the tower to hover over the ground
-            if (groundPlane.Raycast(ray, out float distance))
+            // Check if player is touching screen
+            if (Touch.activeTouches.Count > 0)
             {
-                Vector3 worldPosition = ray.GetPoint(distance);
-                if (hitBox.bounds.Contains(worldPosition))
+                // Get position of touch
+                Vector2 mousePos = Touchscreen.current.primaryTouch.position.ReadValue();
+                Ray ray = Camera.main.ScreenPointToRay(mousePos);
+                Plane groundPlane = new Plane(Vector3.up, Vector3.up);
+
+                // Correctly sets the position of the tower to hover over the ground
+                if (groundPlane.Raycast(ray, out float distance))
                 {
-                    if (RelocationManager.instance.relocatedObject == gameObject || RelocationManager.instance.relocatedObject == null)
+                    Vector3 worldPosition = ray.GetPoint(distance);
+                    if (hitBox.bounds.Contains(worldPosition))
                     {
-                        RelocateTower();
-                        isRelocating = true;
+                        if (RelocationManager.instance.relocatedObject == gameObject || RelocationManager.instance.relocatedObject == null)
+                        {
+                            RelocateTower();
+                            isRelocating = true;
+                        }
+                    }
+
+                    if (isRelocating == true)
+                    {
+                        transform.SetParent(null, true);
+                        originalTile.tileObject = null;
+                        transform.position = worldPosition;
+                        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
                     }
                 }
-
-                if (isRelocating == true)
-                {
-                    transform.SetParent(null, true);
-                    originalTile.tileObject = null;
-                    transform.position = worldPosition;
-                    gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-                }
             }
-        }
-        else if (isRelocating == true && TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null) // If touch ends while hovering over a tile and tile is empty
-        {
-            if(RelocationManager.instance.relocatedObject == this.gameObject)
+            else if (isRelocating == true && TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null) // If touch ends while hovering over a tile and tile is empty
+            {
+                if (RelocationManager.instance.relocatedObject == this.gameObject)
+                {
+                    isRelocating = false;
+                    newTile = TouchManager.instance.hoveringTile;
+                    originalTile = newTile;
+                    newTile.tileObject = this.gameObject;
+                    transform.position = newTile.anchorPos.position;
+                    transform.rotation = newTile.anchorPos.rotation;
+                    transform.parent = newTile.anchorPos;
+                    TouchManager.instance.hoveringTile.tileObject = this.gameObject;
+                    RelocationManager.instance.ClearObject();
+                }
+                //Debug.Log(TouchManager.instance.hoveringTile.tileObject);
+                // Place tower
+                SoundManager.Instance.PlaySound("TowerPlacement");
+            }
+            else // If not hovering over tile, reset to original location
             {
                 isRelocating = false;
-                newTile = TouchManager.instance.hoveringTile;
-                originalTile = newTile;
-                newTile.tileObject = this.gameObject;
-                transform.position = newTile.anchorPos.position;
-                transform.rotation = newTile.anchorPos.rotation;
-                transform.parent = newTile.anchorPos;
-                TouchManager.instance.hoveringTile.tileObject = this.gameObject;
-                RelocationManager.instance.ClearObject();
-            }
-            //Debug.Log(TouchManager.instance.hoveringTile.tileObject);
-            // Place tower
+                if (transform.position != originalTile.anchorPos.position)
+                {
+                    transform.position = originalTile.anchorPos.position;
+                    transform.rotation = originalTile.anchorPos.rotation;
+                    transform.parent = originalTile.anchorPos;
+                    gameObject.layer = LayerMask.NameToLayer("Default");
+                }
 
-        }
-        else // If not hovering over tile, reset to original location
-        {
-            isRelocating = false;
-            if (transform.position != originalTile.anchorPos.position)
-            {
-                transform.position = originalTile.anchorPos.position;
-                transform.rotation = originalTile.anchorPos.rotation;
-                transform.parent = originalTile.anchorPos;
-                gameObject.layer = LayerMask.NameToLayer("Default");
-            }
-
-            if (RelocationManager.instance.relocatedObject == this.gameObject)
-            {
-                RelocationManager.instance.ClearObject();
+                if (RelocationManager.instance.relocatedObject == this.gameObject)
+                {
+                    RelocationManager.instance.ClearObject();
+                }
             }
         }
     }

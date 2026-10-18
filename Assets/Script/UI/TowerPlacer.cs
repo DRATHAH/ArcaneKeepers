@@ -30,7 +30,8 @@ public class TowerPlacer : MonoBehaviour
         else if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null) // If touch ends while hovering over a tile
         {
             // Place tower
-           // Debug.Log("Placed");
+            // Debug.Log("Placed");
+            SoundManager.Instance.PlaySound("TowerPlacement");
             GameObject newbie = ObjectPool.pool.Create(tower.towerPrefab, TouchManager.instance.hoveringTile.anchorPos.position, TouchManager.instance.hoveringTile.anchorPos.rotation);
             createdTower = newbie;
             towerButton.createdObject = newbie;
@@ -40,7 +41,7 @@ public class TowerPlacer : MonoBehaviour
             }
             newbie.transform.parent = TouchManager.instance.hoveringTile.anchorPos;
             towerButton.createdObject = newbie;
-            TouchManager.instance.hoveringTile.tileObject = newbie;
+            TouchManager.instance.hoveringTile.SetTileObject(newbie);
             RelocationManager.instance.relocatedObject = null;
             ObjectPool.pool.Destroy(gameObject);
         }

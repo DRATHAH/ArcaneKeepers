@@ -4,8 +4,8 @@ using UnityEngine;
 public class TowerHealth : HealthBase
 {
     [Tooltip("How much health the tower can have.")]
-    [SerializeField] private float maxHealth = 200;
-    [SerializeField] private float currentHealth;
+    [SerializeField] public float maxHealth = 200;
+    [HideInInspector] public float currentHealth;
 
     [Tooltip("Damage resistance modifier.")]
     public float damageResist = 1;
@@ -21,6 +21,8 @@ public class TowerHealth : HealthBase
 
     [HideInInspector] public TowerButton parentButton;
     private TowerRelocate towerRelocate;
+
+    [SerializeField] private float deathCooldown;
 
     private void Start()
     {
@@ -98,7 +100,7 @@ public class TowerHealth : HealthBase
         towerRelocate.DeathReset();
         gameObject.transform.position = transform.position;
         isAttacked = false;
-        parentButton.createdObject = null;
+        parentButton.KillTower(deathCooldown);
         this.transform.parent = null;
         currentHealth = maxHealth;
         GameObject currentGameObject = this.gameObject;

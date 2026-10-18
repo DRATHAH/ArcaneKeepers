@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -29,7 +30,21 @@ public class SceneLoader : MonoBehaviour
         {
             PlayerManager.instance.SaveTowers(Inventory.instance);
         }
-        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+
+        StartCoroutine(LoadSceneAsync(sceneToLoad));
+    }
+
+    IEnumerator LoadSceneAsync(string sceneToLoad)
+    {
+        yield return new WaitForSeconds(0.2f);
+        // Wait for transition to finish
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
+        while (!operation.isDone)
+        {
+            // Progress bar code here if necessary
+            yield return null;
+        }
     }
 
     public void Restart()

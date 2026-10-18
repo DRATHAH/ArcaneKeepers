@@ -34,8 +34,11 @@ public class ClericTower : TowerBase
 
     private TowerRelocate towerRelocate;
 
+    private Animator anim;
+
     private void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         towerRelocate = GetComponent<TowerRelocate>();
     }
 
@@ -68,11 +71,13 @@ public class ClericTower : TowerBase
 
     public override void AbilityClose()
     {
-        if(healingBurstCooldown > 0)
+        anim.SetBool("Charging", true);
+        if (healingBurstCooldown > 0)
         {
+            anim.SetFloat("ChargeAmount", healingBurstCooldown / maxHealingBurstCooldown);
             healingBurstCooldown -= Time.deltaTime;
             if(healingFieldCooldown <= 0)
-            {
+            {   
                 Heal(healingSpeeds[0], false, healingFieldLifeTime);
             }
         }
@@ -87,7 +92,8 @@ public class ClericTower : TowerBase
 
     public override void AbilityFar()
     {
-        if(healingBurstCooldown <= 0)
+        anim.SetBool("Charging", false);
+        if (healingBurstCooldown <= 0)
         {
             Heal(healingAmount, true, 5);
             healingBurstCooldown = maxHealingBurstCooldown;
@@ -100,6 +106,7 @@ public class ClericTower : TowerBase
 
     private void Heal(float healAmount, bool burst, float lifeTime)
     {
+        anim.SetTrigger("Cast");
         healingField = ObjectPool.pool.Create(healingAura, new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z), Quaternion.identity);
         HealingAura aura = healingField.GetComponent<HealingAura>();
         aura.parent = this.gameObject;
