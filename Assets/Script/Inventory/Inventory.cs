@@ -37,8 +37,6 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanged(); // When invoked, calls every method subscribed to this
     public OnItemChanged onItemChangedCallback; // Call after modifying inventory to update it
 
-    [Tooltip("How many of each tower the player can have.")]
-    public int itemSpace = 10;
     [Tooltip("How many unique towers the player can collect.")]
     public int space = 14;
     [Tooltip("The selected towers for a level.")]
@@ -48,41 +46,40 @@ public class Inventory : MonoBehaviour
 
     public bool Add(TowerEntry newTower)
     {
-        // If we have tower overflow (probably won't be needed in the future of the game)
-        if (towerNum.Contains(newTower) && towerNum[towerNum.IndexOf(newTower)].amount >= itemSpace) // Modify item name so that 'towerNum' doesn't have duplicate keys
+        foreach(TowerEntry t in towerNum)
         {
-            Tower tempItem = (Tower)ScriptableObject.CreateInstance(typeof(Tower));
-            tempItem.name = newTower.tower.name;
-            tempItem.towerIcon = newTower.tower.towerIcon;
-            tempItem.towerPrefab = newTower.tower.towerPrefab;
-            tempItem.towerId = newTower.tower.towerId;
+            if (t.tower.towerId == newTower.tower.towerId)
+            {
+                towerNum[towerNum.IndexOf(t)].amount += newTower.amount;
 
-            TowerEntry entry = new TowerEntry();
-            entry.tower = tempItem;
-            entry.amount = newTower.amount;
-            newTower = entry;
+
+                if (onItemChangedCallback != null)
+                {
+                    onItemChangedCallback.Invoke();
+                }
+
+                Debug.Log("Added " + newTower.tower.towerName);
+                return true;
+            }
         }
 
-        if (towerNum.Contains(newTower))
-        {
-            towerNum[towerNum.IndexOf(newTower)].amount++;
-        }
-        else if (towerNum.Count < space)
+        if (towerNum.Count < space)
         {
             towerNum.Add(newTower);
+
+
+            if (onItemChangedCallback != null)
+            {
+                onItemChangedCallback.Invoke();
+            }
+
+            Debug.Log("Added " + newTower.tower.towerName);
+            return true;
         }
-        else if (towerNum.Count > space)
+        else
         {
             return false;
         }
-
-        if (onItemChangedCallback != null)
-        {
-            onItemChangedCallback.Invoke();
-        }
-
-        Debug.Log("Added " + newTower.tower.towerName);
-        return true;
     }
 
     public void Remove(Tower newTower)
@@ -134,6 +131,27 @@ public class Inventory : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void UpgradeTower(Tower tower, int amount)
+    {
+        TowerEntry entry = towerNum[0];
+        foreach(TowerEntry towers in towerNum)
+        {
+            if (towers.tower.towerId == tower.towerId)
+            {
+                entry = towers;
+                break;
+            }
+        }
+
+        entry.level++;
+        entry.amount -= amount;
+
+        if (onItemChangedCallback != null)
+        {
+            onItemChangedCallback.Invoke();
+        }
     }
 
     public void ClearInventory()

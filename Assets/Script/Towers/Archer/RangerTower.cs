@@ -80,7 +80,8 @@ public class RangerTower : TowerBase
             SoundManager.Instance.PlaySound("Arrow");
             anim.SetTrigger("Shoot");
             closeCooldown = maxCCooldown;
-            ObjectPool.pool.Create(strongProjectilePrefab, transform.position, Quaternion.identity);
+            GameObject projectile = ObjectPool.pool.Create(strongProjectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
         }
         else
         {
@@ -99,7 +100,8 @@ public class RangerTower : TowerBase
             SoundManager.Instance.PlaySound("Arrow");
             anim.SetTrigger("Shoot");
             farCooldown = maxFCooldown;
-            ObjectPool.pool.Create(weakProjectilePrefab, transform.position, Quaternion.identity);
+            GameObject projectile = ObjectPool.pool.Create(weakProjectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
         }
         else
         {

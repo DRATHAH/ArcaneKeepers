@@ -90,7 +90,7 @@ public class AssassinTower : TowerBase
             if (hit.collider.tag == "Enemy" && panicAttackCooldown <= 0 && hit.collider.gameObject.activeSelf == true)
             {
                 anim.SetTrigger("Panic");
-                meleeAttack.Attack(panicAttackDamage, false, panicAttackPush, hit.collider.gameObject);
+                meleeAttack.Attack(panicAttackDamage * (1 + 1.1f * (tower.level - 1)), false, panicAttackPush, hit.collider.gameObject);
                 panicAttackCooldown = maxPanicAttackCooldown;
             }
         }
@@ -126,7 +126,7 @@ public class AssassinTower : TowerBase
                     SoundManager.Instance.PlaySound("Stab");
                     backStabCooldown = maxBackStabCooldown;
                     anim.SetTrigger("Stab");
-                    meleeAttack.Attack(stabDamage[stabDamageType], armorPiercing, hit.collider.gameObject);
+                    meleeAttack.Attack(stabDamage[stabDamageType] * Mathf.Clamp(1 + levelScaling * (tower.level - 1), 1, float.MaxValue), armorPiercing, hit.collider.gameObject);
                 }
             }
         }

@@ -4,7 +4,7 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class TowerRelocate : MonoBehaviour
 {
-    Tower tower;
+    TowerEntry tower;
     Vector3 originalPos;
     [SerializeField] public bool isRelocating = false;
 

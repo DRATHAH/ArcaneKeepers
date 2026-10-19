@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class GameInventory : MonoBehaviour
+public class GameInventory : Inventory
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        PlayerManager.instance.LoadTowers(this);
     }
 }

@@ -82,7 +82,8 @@ public class WizardTower : TowerBase
             closeCooldown = maxCCooldown;
             SoundManager.Instance.PlaySound("FireArrow");
             anim.SetTrigger("Shoot");
-            ObjectPool.pool.Create(closeProjectile, transform.position, transform.rotation);
+            GameObject projectile = ObjectPool.pool.Create(closeProjectile, transform.position, transform.rotation);
+            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
         }
         else
         {
@@ -99,9 +100,12 @@ public class WizardTower : TowerBase
             anim.SetTrigger("Firewave");
             SoundManager.Instance.PlaySound("FireWall");
             farCooldown = maxFCooldown;
-            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), transform.rotation);
-            ObjectPool.pool.Create(farProjectile, transform.position, transform.rotation);
-            ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), transform.rotation);
+            GameObject projectile = ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + fireOffset), transform.rotation);
+            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
+            projectile = ObjectPool.pool.Create(farProjectile, transform.position, transform.rotation);
+            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
+            projectile = ObjectPool.pool.Create(farProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z - fireOffset), transform.rotation);
+            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
         }
         else
         {

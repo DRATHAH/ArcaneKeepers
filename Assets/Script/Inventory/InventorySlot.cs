@@ -13,6 +13,7 @@ public class InventorySlot : MonoBehaviour
     public TMP_Text number;
     public int amount = 0;
     public Slider amountSlider;
+    public Button upgradeButton;
     [Tooltip("Optional: shows the tower's name.")]
     public TMP_Text nameText;
     [Tooltip("Optional: shown only while the slot is empty.")]
@@ -26,6 +27,14 @@ public class InventorySlot : MonoBehaviour
         {
             OnButton();
         });
+
+        upgradeButton.onClick.AddListener(() =>
+        {
+            Inventory.instance.UpgradeTower(tower.tower,maxAmount);
+            upgradeButton.gameObject.SetActive(false);
+        });
+
+        upgradeButton.gameObject.SetActive(false);
     }
 
     public void AddItem(TowerEntry newItem)
@@ -34,6 +43,7 @@ public class InventorySlot : MonoBehaviour
         icon.sprite = tower.tower.towerIcon;
         icon.enabled = true;
         amount = tower.amount;
+        maxAmount = RarityCalculation.GetCardReqs(newItem);
 
         number.transform.parent.gameObject.SetActive(true);
         number.text = amount.ToString() + "/" + maxAmount.ToString();
@@ -78,18 +88,26 @@ public class InventorySlot : MonoBehaviour
             }
             else
             {
-                bool containsTower = false;
-                for (int i = 0; i < Inventory.instance.selectedTowers.Length; i++)
+                if (amount >= maxAmount && !upgradeButton.gameObject.activeSelf)
                 {
-                    if (!Inventory.IsEmpty(Inventory.instance.selectedTowers[i]) && Inventory.instance.selectedTowers[i].tower.towerId == tower.tower.towerId)
-                    {
-                        containsTower = true;
-                    }
+                    upgradeButton.gameObject.SetActive(true);
                 }
-
-                if (!containsTower)
+                else
                 {
-                    Inventory.instance.EquipTower(tower);
+                    upgradeButton.gameObject.SetActive(false);
+                    bool containsTower = false;
+                    for (int i = 0; i < Inventory.instance.selectedTowers.Length; i++)
+                    {
+                        if (!Inventory.IsEmpty(Inventory.instance.selectedTowers[i]) && Inventory.instance.selectedTowers[i].tower.towerId == tower.tower.towerId)
+                        {
+                            containsTower = true;
+                        }
+                    }
+
+                    if (!containsTower)
+                    {
+                        Inventory.instance.EquipTower(tower);
+                    }
                 }
             }
         }

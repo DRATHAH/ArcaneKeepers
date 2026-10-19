@@ -4660,19 +4660,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   equippedTowers:
   - tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
+    level: 1
     amount: 1
   - tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
+    level: 1
     amount: 1
   cheatedTowers:
   - tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
-    amount: 1
+    level: 1
+    amount: 500
   - tower: {fileID: 11400000, guid: 1d6809c4ec161ef4d8b1336d4fe3762e, type: 2}
+    level: 1
     amount: 1
   - tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
+    level: 1
     amount: 1
   - tower: {fileID: 11400000, guid: a5c984c30c00f5842a8291acdcc5b6a0, type: 2}
+    level: 1
     amount: 1
   - tower: {fileID: 11400000, guid: f62c4a6a553c0de41ae6d868dd7a8d65, type: 2}
+    level: 1
     amount: 1
   unlockedTowers: []
 --- !u!1 &1446586151
@@ -5267,16 +5274,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1719e4e8159f4f040904ab90e1d5c1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  itemSpace: 100
   space: 5
   selectedTowers:
   - tower: {fileID: 0}
+    level: 1
     amount: 1
   - tower: {fileID: 0}
+    level: 1
     amount: 1
   - tower: {fileID: 0}
+    level: 1
     amount: 1
   - tower: {fileID: 0}
+    level: 1
     amount: 1
   towerNum: []
 --- !u!1001 &1723200570

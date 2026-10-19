@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WinLossManager : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class WinLossManager : MonoBehaviour
 
     [SerializeField] public GameObject winnerCanvas;
     [SerializeField] public GameObject loserCanvas;
-    
+
     void Start()
     {
         winnerCanvas.SetActive(false);

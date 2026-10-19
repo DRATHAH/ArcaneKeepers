@@ -22,6 +22,11 @@ public class TPDamage : DamageBase
         objectsHit.Clear();
     }
 
+    public void Initialize(int level, float levelScaling)
+    {
+        damageAmount *= Mathf.Clamp(1 + levelScaling * (level - 1), 1, float.MaxValue);
+    }
+
 
     private void OnTriggerEnter(Collider hit)
     {

@@ -6,6 +6,8 @@ public class LevelEndObject : MonoBehaviour
 {
     [SerializeField] private Collider hitBox;
 
+    bool wonGame = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,9 +29,12 @@ public class LevelEndObject : MonoBehaviour
             if (groundPlane.Raycast(ray, out float distance))
             {
                 Vector3 worldPosition = ray.GetPoint(distance);
-                if (hitBox.bounds.Contains(worldPosition) && WinLossManager.instance != null)
+                if (hitBox.bounds.Contains(worldPosition) && WinLossManager.instance != null && !wonGame)
                 {
+                    wonGame = true;
                     WinLossManager.instance.winner = true;
+
+                    GameManager.instance.GetMatchReward();
                 }
             }
         }
