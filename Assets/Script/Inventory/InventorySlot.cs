@@ -79,7 +79,10 @@ public class InventorySlot : MonoBehaviour
 
     public void OnButton()
     {
-        SoundManager.Instance.PlaySound("ButtonClick");
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySound("ButtonPop");
+        }
         if (tower != null)
         {
             if (selectedSlot)
