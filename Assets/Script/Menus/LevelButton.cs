@@ -44,7 +44,7 @@ public class LevelButton : MonoBehaviour
         // Levels need the towers picked in the character menu (PlayerManager is created there)
         if (PlayerManager.instance == null || PlayerManager.instance.equippedTowers.Count == 0)
         {
-            SceneManager.LoadScene(characterScene);
+            SceneTransition.Load(characterScene);
             return;
         }
         LoadingScreen.Load(sceneName);

@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class SafeArea : MonoBehaviour
 {
+    [Tooltip("Inset both sides by the larger of the two, so a notch on one side doesn't push the layout off-centre")]
+    public bool symmetric = true;
+
     RectTransform rectTransform;
     Rect appliedArea;
     Vector2Int appliedScreen;
@@ -44,6 +47,14 @@ public class SafeArea : MonoBehaviour
         {
             min = Vector2.zero;
             max = Vector2.one;
+        }
+
+        if (symmetric)
+        {
+            float x = Mathf.Max(min.x, 1 - max.x);
+            float y = Mathf.Max(min.y, 1 - max.y);
+            min = new Vector2(x, y);
+            max = new Vector2(1 - x, 1 - y);
         }
 
         rectTransform.anchorMin = min;

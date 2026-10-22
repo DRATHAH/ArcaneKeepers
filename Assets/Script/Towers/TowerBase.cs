@@ -22,7 +22,9 @@ public class TowerBase : MonoBehaviour
 
     TowerRelocate towerRelocate;
 
-    private void Start()
+    // Awake, not Start: every tower subclass declares its own Start(), which hides this one,
+    // so towerRelocate stayed null and FixedUpdate threw every physics tick.
+    private void Awake()
     {
         towerRelocate = GetComponent<TowerRelocate>();
     }

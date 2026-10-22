@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 46674ab6eaf34bc46a4cf84d84eef1dd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7399391672015851700
+    second: CS_DashRing_0
+  - first:
+      213: 6031837458145966753
+    second: CS_DashRing_1
+  - first:
+      213: -3351023587959990548
+    second: CS_DashRing_2
+  - first:
+      213: -7228140333218993416
+    second: CS_DashRing_3
+  - first:
+      213: -7809055773129486692
+    second: CS_DashRing_4
+  - first:
+      213: 4439152419994111287
+    second: CS_DashRing_5
+  - first:
+      213: 8834380010777370735
+    second: CS_DashRing_6
+  - first:
+      213: 5073019726118892857
+    second: CS_DashRing_7
+  - first:
+      213: 2330384260773147518
+    second: CS_DashRing_8
+  - first:
+      213: -3299323369472945030
+    second: CS_DashRing_9
+  - first:
+      213: -8780108372595081420
+    second: CS_DashRing_10
+  - first:
+      213: -7108743148482953704
+    second: CS_DashRing_11
+  - first:
+      213: 2653826711594136426
+    second: CS_DashRing_12
+  - first:
+      213: -3660612935278648621
+    second: CS_DashRing_13
+  - first:
+      213: 8605105191374392265
+    second: CS_DashRing_14
+  - first:
+      213: -1212118066334403273
+    second: CS_DashRing_15
+  - first:
+      213: 3078757346630249383
+    second: CS_DashRing_16
+  - first:
+      213: -5657338397887607827
+    second: CS_DashRing_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CS_DashRing_0
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 231
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4fe28b5a74105990800000000000000
+      internalID: -7399391672015851700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_1
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 240
+        width: 28
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aa7fabc53465b350800000000000000
+      internalID: 6031837458145966753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_2
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 231
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce690bd1dc5ce71d0800000000000000
+      internalID: -3351023587959990548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_3
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 208
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8faeecbc9ac70bb90800000000000000
+      internalID: -7228140333218993416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 208
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9e47630629a0a390800000000000000
+      internalID: -7809055773129486692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_5
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 174
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73d80993b990b9d30800000000000000
+      internalID: 4439152419994111287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_6
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 174
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f60623130d50a9a70800000000000000
+      internalID: 8834380010777370735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_7
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 135
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 935bdd9109cf66640800000000000000
+      internalID: 5073019726118892857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_8
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 135
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e737b856320375020800000000000000
+      internalID: 2330384260773147518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_9
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 93
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a749b6340e27632d0800000000000000
+      internalID: -3299323369472945030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_10
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 93
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43f790244f9c62680800000000000000
+      internalID: -8780108372595081420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_11
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 55
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81e7e2b25cba85d90800000000000000
+      internalID: -7108743148482953704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_12
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 55
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a63f208655944d420800000000000000
+      internalID: 2653826711594136426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_13
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 25
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d2248c1ee3e23dc0800000000000000
+      internalID: -3660612935278648621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_14
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 7
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cb8dba64997b6770800000000000000
+      internalID: 8605105191374392265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_15
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 7
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 735fd4e6a01bd2fe0800000000000000
+      internalID: -1212118066334403273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_16
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 25
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ab258bae71f9ba20800000000000000
+      internalID: 3078757346630249383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CS_DashRing_17
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 2
+        width: 28
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deb4bb373b81d71b0800000000000000
+      internalID: -5657338397887607827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CS_DashRing_0: -7399391672015851700
+      CS_DashRing_1: 6031837458145966753
+      CS_DashRing_10: -8780108372595081420
+      CS_DashRing_11: -7108743148482953704
+      CS_DashRing_12: 2653826711594136426
+      CS_DashRing_13: -3660612935278648621
+      CS_DashRing_14: 8605105191374392265
+      CS_DashRing_15: -1212118066334403273
+      CS_DashRing_16: 3078757346630249383
+      CS_DashRing_17: -5657338397887607827
+      CS_DashRing_2: -3351023587959990548
+      CS_DashRing_3: -7228140333218993416
+      CS_DashRing_4: -7809055773129486692
+      CS_DashRing_5: 4439152419994111287
+      CS_DashRing_6: 8834380010777370735
+      CS_DashRing_7: 5073019726118892857
+      CS_DashRing_8: 2330384260773147518
+      CS_DashRing_9: -3299323369472945030
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

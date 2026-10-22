@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -655,16 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a86cba4b0bfd74d8b6c61894055b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  enemyPrefabs:
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-  - {fileID: 1970602856523223266, guid: e5c6933202ffb1448b7a9599ce5114ad, type: 3}
-  - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
-  numPerWave: 01000000020000000300000002000000
+  levelWaves: []
   spawnPoints:
   - {x: 8, y: 0.5, z: 0}
   - {x: 8, y: 0.5, z: 2}
@@ -690,8 +681,11 @@ MonoBehaviour:
   incrementTimerBase: 5
   maxGracePeriod: 5
   enemiesSpawned: []
+  enemiesThisWave: []
   incrementHealthMeter: 0
   incrementPercent: 0.5
+  incrementAmount: 0
+  winTrigger: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,6 +986,11 @@ MonoBehaviour:
   gridSize: 10
   lanes: {fileID: 1327520825}
   tile: {fileID: 4884192367321044033, guid: 8a6632616355db54abc126a56987fb7a, type: 3}
+  towerButtonParent: {fileID: 0}
+  towerButtonPrefab: {fileID: 0}
+  lootRolls: 3
+  minTowerDrops: 5
+  towerLoot: []
 --- !u!114 &1241110332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,6 +1003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a621d98ed91761a4c924beb8430b7c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+  holdingPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &1327520822
 GameObject:
   m_ObjectHideFlags: 0

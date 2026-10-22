@@ -11,13 +11,14 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// Builds the SelectMenu + LevelSelect scenes and adds the pause menu to DemoLevel.
+// Builds the LevelSelect + character select scenes and adds the pause menu to DemoLevel.
 // Safe to run again: it rebuilds the generated scenes and replaces the old pause menu.
-public static class MenuBuilder
+public static partial class MenuBuilder
 {
     const string ScenesFolder = "Assets/Scenes/";
     const string UIFolder = "Assets/UserInterface/";
 
+    // Old "Get Ready!" hub, removed: Tap to play goes straight to character select
     const string SelectMenuScene = "SelectMenu";
     const string LevelSelectScene = "LevelSelect";
     const string CharacterScene = "TowerSelect";
@@ -46,12 +47,10 @@ public static class MenuBuilder
 
         EnsureStyleAssets();
         EnsureCritterAssets();
-        BuildSelectMenu();
         BuildLevelSelect();
         AddScenesToBuild();
-        RetargetButtons(MainMenuScene, CharacterScene, SelectMenuScene, null);
-        RetargetButtons(CharacterScene, GameScene, SelectMenuScene, "Done");
-        BuildCharacterSelect();
+        RetargetButtons(MainMenuScene, SelectMenuScene, CharacterScene, null);
+        BuildCharacterSelectScene();
         StyleMainMenu();
         BuildPauseMenu();
 
@@ -59,10 +58,10 @@ public static class MenuBuilder
         {
             EditorSceneManager.OpenScene(startScene);
         }
-        Debug.Log("Menu Builder: SelectMenu, LevelSelect and the DemoLevel pause menu are ready.");
+        Debug.Log("Menu Builder: LevelSelect, character select and the DemoLevel pause menu are ready.");
     }
 
-    // Rebuilds only the select screens (SelectMenu, LevelSelect, TowerSelect); leaves the main menu and pause menu alone
+    // Rebuilds only the select screens (LevelSelect, character select); leaves the main menu and pause menu alone
     [MenuItem("Arcane Keepers/Rebuild Select Screens")]
     public static void BuildSelectScreens()
     {
@@ -80,10 +79,9 @@ public static class MenuBuilder
 
         EnsureStyleAssets();
         EnsureCritterAssets();
-        BuildSelectMenu();
         BuildLevelSelect();
         AddScenesToBuild();
-        BuildCharacterSelect();
+        BuildCharacterSelectScene();
 
         if (!string.IsNullOrEmpty(startScene))
         {
@@ -124,30 +122,6 @@ public static class MenuBuilder
     // Menus are landscape: everything important sits inside a 1920x1080 area that always fits the screen
     // (phones get extra width, tablets extra height), and inside the device's safe area.
 
-    static void BuildSelectMenu()
-    {
-        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-        CreateCameraAndEventSystem();
-        Transform canvas = CreateMenuCanvas("Canvas");
-        SceneLoader loader = canvas.gameObject.AddComponent<SceneLoader>();
-
-        CreateMenuBackground(canvas);
-        Transform safe = CreateSafeArea(canvas);
-        CreateBanner(safe, "Get Ready!");
-
-        Button characters = CreateStepCard(safe, "Step1", 1, new Vector2(-390, -45), "Characters", "Pick Team", "CC_Blue",
-            "Main-Background", "MainMenu-Heroes", "Start here!", "Team: {0}/{1}", GuidePulse.Condition.WhenNoTeam);
-        UnityEventTools.AddStringPersistentListener(characters.onClick, loader.LoadScene, CharacterScene);
-
-        Button levels = CreateStepCard(safe, "Step2", 2, new Vector2(390, -45), "Levels", "Choose Level", "CC_Gold",
-            "LevelBackground", "MainMenu-Skeletons", "Pick a team first", "Ready!", GuidePulse.Condition.WhenTeamReady);
-        UnityEventTools.AddStringPersistentListener(levels.onClick, loader.LoadScene, LevelSelectScene);
-
-        CreateBackButton(safe, loader, MainMenuScene);
-
-        EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), ScenesFolder + SelectMenuScene + ".unity");
-    }
-
     static void BuildLevelSelect()
     {
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -172,10 +146,17 @@ public static class MenuBuilder
         hintStatus.emptyColor = WarnOrange;
         hintStatus.readyColor = OkGreen;
 
-        // One row of level tiles
+        // One row of level tiles, centred in the band between the hint and Change Team and scaled to fit it
+        GameObject band = new GameObject("LevelBand", typeof(RectTransform));
+        band.transform.SetParent(safe, false);
+        RectTransform bandRect = (RectTransform)band.transform;
+        Stretch(bandRect);
+        bandRect.offsetMin = new Vector2(40, 185);
+        bandRect.offsetMax = new Vector2(-40, -322);
+
         GameObject row = new GameObject("LevelRow", typeof(RectTransform));
-        row.transform.SetParent(safe, false);
-        Place(row.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, -30), new Vector2(1800, 430));
+        row.transform.SetParent(band.transform, false);
+        row.AddComponent<ScaleToFit>().size = new Vector2(1800, 430);
         GridLayoutGroup layout = row.AddComponent<GridLayoutGroup>();
         layout.cellSize = new Vector2(310, 420);
         layout.spacing = new Vector2(36, 0);
@@ -190,85 +171,13 @@ public static class MenuBuilder
         // Point the player at the first level
         row.transform.GetChild(0).gameObject.AddComponent<GuidePulse>().amount = 0.03f;
 
-        CreateBackButton(safe, loader, SelectMenuScene);
+        CreateBackButton(safe, loader, CharacterScene);
 
         Button changeTeam = CreateChunkyButton("ChangeTeamButton", safe, "Change Team", "CC_Blue",
             new Vector2(0.5f, 0f), new Vector2(0, 105), new Vector2(400, 120), 56);
         UnityEventTools.AddStringPersistentListener(changeTeam.onClick, loader.LoadScene, CharacterScene);
 
         EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), ScenesFolder + LevelSelectScene + ".unity");
-    }
-
-    // A big tappable card: step badge, picture, title, live team status and a call-to-action pill
-    static Button CreateStepCard(Transform parent, string name, int number, Vector2 pos, string title, string action, string actionSprite,
-        string backdrop, string art, string emptyText, string readyText, GuidePulse.Condition pulse)
-    {
-        Image card = CreatePanel(name, parent, Color.white);
-        Place(card.rectTransform, new Vector2(0.5f, 0.5f), pos, new Vector2(700, 660));
-        ApplyChunky(card, "CC_Stone", 660);
-        Button button = card.gameObject.AddComponent<Button>();
-        SetPressedTint(button);
-        GuidePulse guide = card.gameObject.AddComponent<GuidePulse>();
-        guide.condition = pulse;
-        guide.amount = 0.02f;
-
-        // Picture in a dark frame: backdrop scenery with the characters standing in front
-        Image frame = CreatePanel("Picture", card.transform, Color.white);
-        Place(frame.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, 135), new Vector2(620, 330));
-        ApplyChunky(frame, "CC_Dark", 330);
-        frame.raycastTarget = false;
-        GameObject mask = new GameObject("Mask", typeof(RectTransform));
-        mask.transform.SetParent(frame.transform, false);
-        RectTransform maskRect = (RectTransform)mask.transform;
-        Stretch(maskRect);
-        maskRect.offsetMin = new Vector2(9, 32);
-        maskRect.offsetMax = new Vector2(-9, -9);
-        mask.AddComponent<RectMask2D>();
-
-        Sprite backdropSprite = LoadSprite(backdrop);
-        Image backdropImage = CreateImage("Backdrop", mask.transform, backdropSprite);
-        backdropImage.raycastTarget = false;
-        backdropImage.preserveAspect = false;
-        Place(backdropImage.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(600, 290));
-        AspectRatioFitter fitter = backdropImage.gameObject.AddComponent<AspectRatioFitter>();
-        fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-        fitter.aspectRatio = backdropSprite ? backdropSprite.rect.width / backdropSprite.rect.height : 16f / 9f;
-
-        Sprite artSprite = LoadSprite(art);
-        Image artImage = CreateImage("Art", mask.transform, artSprite);
-        artImage.raycastTarget = false;
-        artImage.rectTransform.anchorMin = artImage.rectTransform.anchorMax = new Vector2(0.5f, 0f);
-        artImage.rectTransform.pivot = new Vector2(0.5f, 0f);
-        artImage.rectTransform.anchoredPosition = new Vector2(0, -6);
-        artImage.rectTransform.sizeDelta = SizeFromHeight(artSprite, 285);
-
-        // Step number badge on the corner
-        Image badge = CreateImage("StepBadge", card.transform, StyleSprite("CC_CircleGold"));
-        badge.raycastTarget = false;
-        Place(badge.rectTransform, new Vector2(0f, 1f), new Vector2(34, -30), new Vector2(124, 124));
-        TextMeshProUGUI badgeNumber = CreateChunkyText("Number", badge.transform, number.ToString(), 72, Color.white);
-        StretchLabel(badgeNumber, 124);
-
-        TextMeshProUGUI titleText = CreateChunkyText("Title", card.transform, title, 76, Color.white);
-        Place(titleText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -88), new Vector2(640, 90));
-
-        TextMeshProUGUI statusText = CreateChunkyText("Status", card.transform, emptyText, 42, WarnOrange);
-        Place(statusText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -150), new Vector2(640, 56));
-        TeamStatusText status = statusText.gameObject.AddComponent<TeamStatusText>();
-        status.emptyText = emptyText;
-        status.readyText = readyText;
-        status.emptyColor = WarnOrange;
-        status.readyColor = OkGreen;
-
-        // Looks like a button; taps go through to the card
-        Image pill = CreatePanel("Action", card.transform, Color.white);
-        Place(pill.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0, -246), new Vector2(420, 116));
-        ApplyChunky(pill, actionSprite, 116);
-        pill.raycastTarget = false;
-        TextMeshProUGUI pillText = CreateChunkyText("Text", pill.transform, action, 58, Color.white);
-        StretchLabel(pillText, 116);
-
-        return button;
     }
 
     static void CreateLevelTile(Transform parent, int number, string sceneName)
@@ -310,216 +219,6 @@ public static class MenuBuilder
         LevelButton levelButton = tile.gameObject.AddComponent<LevelButton>();
         levelButton.sceneName = sceneName;
         levelButton.statusText = status;
-    }
-
-    // Restyles the existing character (tower select) screen: team row on top, all keepers below, Done in the corner
-    static void BuildCharacterSelect()
-    {
-        Scene scene = EditorSceneManager.OpenScene(ScenesFolder + CharacterScene + ".unity");
-        Transform canvas = scene.GetRootGameObjects().First(r => r.name == "Canvas").transform;
-        Transform picker = canvas.GetComponentsInChildren<Transform>(true).First(t => t.name == "TowerSelectUI");
-        Transform done = canvas.GetComponentsInChildren<Button>(true).First(b => b.name == "PlayButton").transform;
-
-        // Undo a previous build: put the kept objects back, then remove everything generated
-        picker.SetParent(canvas, false);
-        done.SetParent(canvas, false);
-        foreach (Transform t in canvas.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith("Guide_") || t.name.StartsWith("CC_")).ToList())
-        {
-            if (t)
-            {
-                Object.DestroyImmediate(t.gameObject);
-            }
-        }
-        RemoveMissingListeners(done.GetComponent<Button>());
-
-        CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
-        scaler.referenceResolution = new Vector2(1920, 1080);
-        scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-
-        // The old front view (single keeper + open-picker button) is replaced by the always-visible picker
-        Transform frontView = canvas.Find("MainMenuUI");
-        if (frontView)
-        {
-            frontView.gameObject.SetActive(false);
-        }
-
-        CreateMenuBackground(canvas, "CC_");
-        Transform safe = CreateSafeArea(canvas, "CC_Safe");
-        CreateBanner(safe, "Choose Your Team", "CC_Banner");
-
-        SerializedObject ui = new SerializedObject(canvas.GetComponent<InventoryUI>());
-        ui.FindProperty("towerSelectionCanvas").objectReferenceValue = null;
-        ui.ApplyModifiedPropertiesWithoutUndo();
-
-        picker.gameObject.SetActive(true);
-        picker.SetParent(safe, false);
-        Stretch((RectTransform)picker);
-        Transform close = picker.Find("CloseButton");
-        if (close)
-        {
-            close.gameObject.SetActive(false);
-        }
-
-        // Your team: dark tray with 4 slots
-        RectTransform team = (RectTransform)picker.Find("EquippedTowers");
-        Place(team, new Vector2(0.5f, 0.5f), new Vector2(0, 198), new Vector2(1480, 250));
-        ApplyChunky(team.GetComponent<Image>(), "CC_Dark", 250);
-        GridLayoutGroup teamGrid = team.GetComponent<GridLayoutGroup>();
-        teamGrid.cellSize = new Vector2(180, 180);
-        teamGrid.spacing = new Vector2(30, 0);
-        teamGrid.padding = new RectOffset(400, 40, 14, 34);
-        teamGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-        teamGrid.constraintCount = 1;
-        teamGrid.childAlignment = TextAnchor.MiddleCenter;
-
-        TextMeshProUGUI teamLabel = CreateChunkyText("CC_TeamLabel", team, "YOUR TEAM", 60, TextGold);
-        Place(teamLabel.rectTransform, new Vector2(0f, 0.5f), new Vector2(220, 34), new Vector2(340, 74));
-        teamLabel.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
-        TextMeshProUGUI teamHint = CreateChunkyText("CC_TeamHint", team, "tap to remove", 36, Color.white);
-        Place(teamHint.rectTransform, new Vector2(0f, 0.5f), new Vector2(220, -28), new Vector2(340, 50));
-        teamHint.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
-
-        foreach (InventorySlot slot in team.GetComponentsInChildren<InventorySlot>(true))
-        {
-            StyleSlot(slot, true);
-        }
-
-        // All keepers: stone panel with a card per keeper
-        RectTransform keepers = (RectTransform)picker.Find("UnlockedTowers");
-        Place(keepers, new Vector2(0.5f, 0.5f), new Vector2(0, -142), new Vector2(1480, 400));
-        ApplyChunky(keepers.GetComponent<Image>(), "CC_Stone", 400);
-        GridLayoutGroup keeperGrid = keepers.GetComponent<GridLayoutGroup>();
-        keeperGrid.cellSize = new Vector2(220, 286);
-        keeperGrid.spacing = new Vector2(34, 0);
-        keeperGrid.padding = new RectOffset(30, 30, 70, 36);
-        keeperGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-        keeperGrid.constraintCount = 1;
-        keeperGrid.childAlignment = TextAnchor.MiddleCenter;
-
-        TextMeshProUGUI keepersLabel = CreateChunkyText("CC_KeepersLabel", keepers, "Tap a keeper to add  (max 4)", 46, Color.white);
-        Place(keepersLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0, -44), new Vector2(1300, 60));
-        keepersLabel.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
-
-        foreach (InventorySlot slot in keepers.GetComponentsInChildren<InventorySlot>(true))
-        {
-            StyleSlot(slot, false);
-        }
-
-        // Done: big gold button in the bottom-right corner, with the team status next to it
-        done.SetParent(safe, false);
-        Place((RectTransform)done, new Vector2(1f, 0f), new Vector2(-205, 100), new Vector2(340, 130));
-        ApplyChunky(done.GetComponent<Image>(), "CC_Gold", 130);
-        Outline oldBorder = done.GetComponent<Outline>();
-        if (oldBorder)
-        {
-            Object.DestroyImmediate(oldBorder);
-        }
-        SetPressedTint(done.GetComponent<Button>());
-        TextMeshProUGUI doneLabel = done.GetComponentInChildren<TextMeshProUGUI>(true);
-        doneLabel.text = "Done";
-        doneLabel.color = Color.white;
-        doneLabel.fontSize = 68;
-        doneLabel.fontSharedMaterial = chunkyMaterial;
-        doneLabel.font = styleFont;
-        doneLabel.fontStyle = FontStyles.Normal;
-        doneLabel.alignment = TextAlignmentOptions.Center;
-        StretchLabel(doneLabel, 130);
-        if (!done.GetComponent<GuidePulse>())
-        {
-            done.gameObject.AddComponent<GuidePulse>().condition = GuidePulse.Condition.WhenTeamReady;
-        }
-
-        TextMeshProUGUI status = CreateChunkyText("CC_Status", safe, "Pick at least 1 keeper", 46, WarnOrange);
-        Place(status.rectTransform, new Vector2(0.5f, 0f), new Vector2(-120, 100), new Vector2(1000, 64));
-        TeamStatusText teamStatus = status.gameObject.AddComponent<TeamStatusText>();
-        teamStatus.emptyText = "Pick at least 1 keeper";
-        teamStatus.readyText = "{0}/{1} keepers ready - tap Done!";
-        teamStatus.emptyColor = WarnOrange;
-        teamStatus.readyColor = OkGreen;
-
-        EditorSceneManager.MarkSceneDirty(scene);
-        EditorSceneManager.SaveScene(scene);
-    }
-
-    // Team slots are dark wells with a "+" while empty; keeper slots are blue cards with name and upgrade bar
-    static void StyleSlot(InventorySlot slot, bool teamSlot)
-    {
-        ApplyChunky(slot.GetComponent<Image>(), teamSlot ? "CC_Slot" : "CC_Blue", teamSlot ? 180 : 286);
-        SetPressedTint(slot.GetComponent<Button>());
-
-        RectTransform icon = slot.icon.rectTransform;
-        Stretch(icon);
-        icon.offsetMin = teamSlot ? new Vector2(18, 44) : new Vector2(20, 104);
-        icon.offsetMax = teamSlot ? new Vector2(-18, -14) : new Vector2(-20, -16);
-        slot.icon.preserveAspect = true;
-
-        RectTransform bar = (RectTransform)slot.amountSlider.transform;
-        bar.anchorMin = new Vector2(0, 0);
-        bar.anchorMax = new Vector2(1, 0);
-        bar.pivot = new Vector2(0.5f, 0);
-        bar.anchoredPosition = new Vector2(0, teamSlot ? 22 : 30);
-        bar.sizeDelta = teamSlot ? new Vector2(-36, 28) : new Vector2(-40, 36);
-        foreach (Image part in bar.GetComponentsInChildren<Image>(true))
-        {
-            bool fill = part.name == "Fill";
-            part.sprite = StyleSprite(fill ? "CC_BarFill" : "CC_BarBg");
-            part.type = Image.Type.Sliced;
-            part.color = Color.white;
-            part.pixelsPerUnitMultiplier = 2f;
-            Stretch(part.rectTransform);
-        }
-        Transform fillArea = bar.Find("Fill Area");
-        if (fillArea)
-        {
-            Stretch((RectTransform)fillArea);
-            ((RectTransform)fillArea).offsetMin = new Vector2(4, 4);
-            ((RectTransform)fillArea).offsetMax = new Vector2(-4, -4);
-        }
-        TMP_Text number = slot.number;
-        number.font = styleFont;
-        number.fontSharedMaterial = chunkyMaterial;
-        number.color = Color.white;
-        number.fontSize = teamSlot ? 22 : 26;
-        number.enableAutoSizing = false;
-        number.alignment = TextAlignmentOptions.Center;
-        Stretch(number.rectTransform);
-
-        SerializedObject so = new SerializedObject(slot);
-        if (teamSlot)
-        {
-            TextMeshProUGUI plus = CreateChunkyText("CC_Empty", slot.transform, "+", 110, new Color(1, 1, 1, 0.4f));
-            StretchLabel(plus, 180);
-            plus.transform.SetSiblingIndex(0);
-            so.FindProperty("emptyMarker").objectReferenceValue = plus.gameObject;
-        }
-        else
-        {
-            TextMeshProUGUI keeperName = CreateChunkyText("CC_Name", slot.transform, "", 36, Color.white);
-            Place(keeperName.rectTransform, new Vector2(0.5f, 0f), new Vector2(0, 86), new Vector2(200, 46));
-            so.FindProperty("nameText").objectReferenceValue = keeperName;
-        }
-        so.ApplyModifiedPropertiesWithoutUndo();
-
-        // The slots are prefab instances: direct edits are only saved once recorded as overrides
-        foreach (Component part in slot.GetComponentsInChildren<Component>(true))
-        {
-            if (PrefabUtility.IsPartOfPrefabInstance(part))
-            {
-                PrefabUtility.RecordPrefabInstancePropertyModifications(part);
-            }
-        }
-    }
-
-    // Drops persistent onClick calls whose target was deleted (e.g. guide objects from a previous build)
-    static void RemoveMissingListeners(Button button)
-    {
-        for (int i = button.onClick.GetPersistentEventCount() - 1; i >= 0; i--)
-        {
-            if (button.onClick.GetPersistentTarget(i) == null)
-            {
-                UnityEventTools.RemovePersistentListener(button.onClick, i);
-            }
-        }
     }
 
     static void BuildPauseMenu()
@@ -625,7 +324,8 @@ public static class MenuBuilder
         List<EditorBuildSettingsScene> scenes = EditorBuildSettings.scenes.ToList();
         int insertAt = scenes.FindIndex(s => s.path.EndsWith("/" + MainMenuScene + ".unity")) + 1;
 
-        foreach (string name in new[] { SelectMenuScene, LevelSelectScene })
+        scenes.RemoveAll(s => s.path == ScenesFolder + SelectMenuScene + ".unity");
+        foreach (string name in new[] { LevelSelectScene })
         {
             string path = ScenesFolder + name + ".unity";
             if (scenes.Any(s => s.path == path))
@@ -647,9 +347,10 @@ public static class MenuBuilder
             Debug.LogWarning("Menu Builder: no StartButton in " + MainMenuScene);
             return;
         }
-        TextMeshProUGUI label = start.GetComponentInChildren<TextMeshProUGUI>(true);
+        // The label lives in Background/Stage (scaled to fit the screen), tinted via targetGraphic
+        TextMeshProUGUI label = start.targetGraphic as TextMeshProUGUI ?? start.GetComponentInChildren<TextMeshProUGUI>(true);
         label.color = Color.white;
-        label.fontSize = 34;
+        label.fontSize = 40;
         ApplyFont(label, true);
         EditorUtility.SetDirty(label);
         EditorSceneManager.MarkSceneDirty(scene);
@@ -872,7 +573,7 @@ public static class MenuBuilder
 
     #region Style (matches the pause menu art)
 
-    const string StyleFolder = "Assets/UserInterface/Generated/";
+    const string StyleFolder = "Assets/UserInterface/Fonts/Generated/";
     const string FontFile = "Assets/UserInterface/Fonts/LilitaOne-Regular.ttf";
 
     enum ButtonStyle { Blue, Gold, Gray }
@@ -889,7 +590,7 @@ public static class MenuBuilder
     {
         if (!AssetDatabase.IsValidFolder(StyleFolder.TrimEnd('/')))
         {
-            AssetDatabase.CreateFolder("Assets/UserInterface", "Generated");
+            AssetDatabase.CreateFolder("Assets/UserInterface/Fonts", "Generated");
         }
 
         // Same palette as the pause menu: blue / gold buttons, purple banner, round gold + purple icon button
@@ -1098,6 +799,7 @@ public static class MenuBuilder
         WriteBar("CC_Slash", redTop, redBottom, 4);
         WriteMusicIcon("CC_IconMusic");
         WriteSoundIcon("CC_IconSound");
+        WriteRelocateIcon("CC_IconRelocate");
         WriteBanner("CC_Banner", blueTop, blueBottom, blueLip);
         WriteLock("CC_Lock");
         WriteBar("CC_BarBg", new Color32(24, 20, 52, 255), new Color32(24, 20, 52, 255), 3);
@@ -1531,6 +1233,36 @@ public static class MenuBuilder
             bool wave1 = facing && Mathf.Abs(d - 24) < 6;
             bool wave2 = facing && Mathf.Abs(d - 44) < 6;
             return box || cone || wave1 || wave2;
+        });
+    }
+
+    // Two curved arrows chasing each other round a circle (tower relocate)
+    static void WriteRelocateIcon(string name)
+    {
+        const float cx = 64, cy = 64, radius = 34, half = 8, headWidth = 40, headLength = 24;
+        WriteIcon(name, (px, py) =>
+        {
+            Vector2 p = new Vector2(px - cx, py - cy);
+            float angle = Mathf.Atan2(p.y, p.x) * Mathf.Rad2Deg;
+            // Each arc runs anticlockwise from start to start + 120 and points clockwise at its start
+            foreach (float start in new[] { 30f, 210f })
+            {
+                float along = Mathf.DeltaAngle(start, angle);
+                if (along >= 0 && along <= 120 && Mathf.Abs(p.magnitude - radius) < half)
+                {
+                    return true;
+                }
+                float rad = start * Mathf.Deg2Rad;
+                Vector2 radial = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+                Vector2 forward = new Vector2(radial.y, -radial.x);
+                Vector2 local = p - radial * radius;
+                float ahead = Vector2.Dot(local, forward), side = Mathf.Abs(Vector2.Dot(local, radial));
+                if (ahead >= -2 && ahead <= headLength && side <= headWidth / 2 * (1 - ahead / headLength))
+                {
+                    return true;
+                }
+            }
+            return false;
         });
     }
 

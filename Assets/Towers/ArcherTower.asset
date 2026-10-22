@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd7a4e46f728dc49bdb372539ee3a6e, type: 3}
   m_Name: ArcherTower
   m_EditorClassIdentifier: Assembly-CSharp::Tower
+  rarity: 0
   towerName: Archer
   towerPrefab: {fileID: 3601683227217436569, guid: f6ddec55d4e96e64c9c67c32fa7d38b2, type: 3}
   towerIcon: {fileID: 21300000, guid: f167d70c96174fc47bf36bf2a0b539b6, type: 3}
+  cardArt: {fileID: 21300000, guid: e2219792632fac34097702309a1a9eba, type: 3}
   towerId: 0

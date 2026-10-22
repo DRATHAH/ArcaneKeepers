@@ -10,7 +10,7 @@ public static class RenderMenu
 {
     public static string All(string outDir)
     {
-        string[] scenes = { "SelectMenu", "LevelSelect", "TowerSelect" };
+        string[] scenes = { "LevelSelect", "TowerSelect" };
         int[,] sizes = { { 2340, 1080 }, { 1920, 1080 }, { 2048, 1536 } };
         string[] tags = { "phone", "16x9", "tablet" };
         foreach (string s in scenes)
