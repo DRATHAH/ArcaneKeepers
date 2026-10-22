@@ -96,7 +96,7 @@ public class WaveSpawner : MonoBehaviour
                 //Otherwise spawn the next wave if possible
                 if (currentWave < maxWaves - 1)
                 {
-                    Debug.Log(maxWaves);
+                    //Debug.Log(maxWaves);
                     //Debug.Log("Again!");
                     IncrementWave();
                 }
