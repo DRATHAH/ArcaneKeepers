@@ -40,7 +40,7 @@ public class LoadingScreen : MonoBehaviour
             return;
         }
         targetScene = sceneName;
-        SceneManager.LoadScene(LoadingSceneName);
+        SceneTransition.Load(LoadingSceneName);
     }
 
     private void Start()

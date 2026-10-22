@@ -40,14 +40,9 @@ public class SceneLoader : MonoBehaviour
         //Debug.Log(Time.timeScale);
         yield return new WaitForSecondsRealtime(0.2f);
         //Debug.Log("Change Scene");
-        // Wait for transition to finish
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
-        while (!operation.isDone)
-        {
-            // Progress bar code here if necessary
-            yield return null;
-        }
+        // Slides the new screen in (loads the scene asynchronously itself)
+        SceneTransition.Load(sceneToLoad);
     }
 
     public void Restart()

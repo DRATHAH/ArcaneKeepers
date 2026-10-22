@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd7a4e46f728dc49bdb372539ee3a6e, type: 3}
   m_Name: KnightTower
   m_EditorClassIdentifier: Assembly-CSharp::Tower
+  rarity: 0
   towerName: Knight
   towerPrefab: {fileID: 4483944384165000995, guid: e6171b2650626b740aec9db7162f5c91, type: 3}
   towerIcon: {fileID: 21300000, guid: 11e2ac9efe1ceac448713cf438d5fb5d, type: 3}
+  cardArt: {fileID: 21300000, guid: 18d7802fe13ce4f47be8ebc278b82e9b, type: 3}
   towerId: 2

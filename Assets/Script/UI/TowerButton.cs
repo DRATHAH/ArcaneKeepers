@@ -18,6 +18,11 @@ public class TowerButton : MonoBehaviour
     private float deathCooldown;
     private float maxDeathCooldown;
 
+    private TowerCard card;
+
+    // 1 right after the tower falls, counting down to 0 when it can be placed again
+    public float CooldownFraction => deathCooldown > 0 && maxDeathCooldown != 0 ? Mathf.Clamp01(deathCooldown / maxDeathCooldown) : 0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,27 +35,35 @@ public class TowerButton : MonoBehaviour
         if(deathCooldown > 0 && maxDeathCooldown != 0)
         {
             deathCooldown -= Time.deltaTime;
-            deathCooldownSlider.value = deathCooldown/ maxDeathCooldown;
+            if (deathCooldownSlider)
+            {
+                deathCooldownSlider.value = deathCooldown/ maxDeathCooldown;
+            }
         }
 
-        if(createdObject != null)
+        // The card (if any) handles dimming the art
+        if (card == null)
         {
-            icon.color = Color.gray;
-            towerHealthBar.gameObject.SetActive(true);
+            icon.color = createdObject != null ? Color.gray : Color.white;
         }
-        else
-        {
-            icon.color = Color.white;
-            towerHealthBar.gameObject.SetActive(false);
-        }
+        towerHealthBar.gameObject.SetActive(createdObject != null);
     }
 
     public void Initialize(Tower newTower)
     {
         tower = newTower;
-        if (newTower.towerIcon != null)
+        card = GetComponent<TowerCard>();
+        Sprite art = newTower.cardArt != null ? newTower.cardArt : newTower.towerIcon;
+        if (art != null)
         {
-            icon.sprite = newTower.towerIcon;
+            if (card)
+            {
+                card.SetArt(art);
+            }
+            else
+            {
+                icon.sprite = art;
+            }
         }
     }
 
@@ -67,6 +80,10 @@ public class TowerButton : MonoBehaviour
                 placer.Initialize(tower);
                 placer.towerButton = this;
                 towerPlacer.transform.SetParent(transform.root, true);
+                if (card)
+                {
+                    card.OnPicked();
+                }
             }
         }
     }

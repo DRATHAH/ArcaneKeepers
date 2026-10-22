@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd7a4e46f728dc49bdb372539ee3a6e, type: 3}
   m_Name: WizardTower
   m_EditorClassIdentifier: Assembly-CSharp::Tower
+  rarity: 0
   towerName: Wizard
   towerPrefab: {fileID: 4668225259355750822, guid: 2facd9511c2681749b80c7baa54aece4, type: 3}
   towerIcon: {fileID: 21300000, guid: d260f15a3a125d34c9c3127392a587ec, type: 3}
+  cardArt: {fileID: 21300000, guid: 9e7d9cbac2670844faa85257e06d5f8f, type: 3}
   towerId: 3

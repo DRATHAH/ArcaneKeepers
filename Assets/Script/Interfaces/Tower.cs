@@ -15,6 +15,8 @@ public class Tower : ScriptableObject
     public string towerName = "";
     public GameObject towerPrefab;
     public Sprite towerIcon;
+    [Tooltip("Card shown in the in-level tower stack (falls back to towerIcon).")]
+    public Sprite cardArt;
     public int towerId = 0;
 }
 

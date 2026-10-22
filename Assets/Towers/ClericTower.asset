@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd7a4e46f728dc49bdb372539ee3a6e, type: 3}
   m_Name: ClericTower
   m_EditorClassIdentifier: Assembly-CSharp::Tower
+  rarity: 0
   towerName: Cleric
   towerPrefab: {fileID: 8958499418853621945, guid: dcbf199147776404c905a1a207777f20, type: 3}
   towerIcon: {fileID: 2582370341602735420, guid: 2d507276fb769ae4ab67cf6ce26165ee, type: 3}
+  cardArt: {fileID: 21300000, guid: c1b9b5e06d2b4ad4493c211950b27561, type: 3}
   towerId: 1

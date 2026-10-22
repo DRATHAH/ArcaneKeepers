@@ -3,11 +3,12 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Swaps the main menu title art for ArcaneKeepers-Logo.png (cut out from ArcaneKeepers-LOGO-TEST.png)
+// Swaps the main menu title art for ArcaneKeepers-HATFONT-Logo.png (cut out from ArcaneKeepers-HATFONT.png
+// with AgentScripts/CutoutLogo.py)
 // and pins it to the sky area of the background, between the heroes and skeletons.
 public static class SetMainMenuLogo
 {
-    const string LogoPath = "Assets/UserInterface/ArcaneKeepers-Logo.png";
+    const string LogoPath = "Assets/UserInterface/ArcaneKeepers-HATFONT-Logo.png";
 
     // Background-relative band the logo lives in (the background is an envelope fitter,
     // so anchoring to it keeps the logo in the same place relative to the characters).
@@ -18,7 +19,9 @@ public static class SetMainMenuLogo
         imp.textureType = TextureImporterType.Sprite;
         imp.spriteImportMode = SpriteImportMode.Single;
         imp.alphaIsTransparency = true;
-        imp.mipmapEnabled = false;
+        // Mipmaps + trilinear keep the edges anti-aliased when the canvas scales the logo down.
+        imp.mipmapEnabled = true;
+        imp.filterMode = FilterMode.Trilinear;
         imp.maxTextureSize = 2048;
         imp.textureCompression = TextureImporterCompression.Uncompressed;
         imp.SaveAndReimport();
@@ -27,10 +30,12 @@ public static class SetMainMenuLogo
         var scene = EditorSceneManager.OpenScene("Assets/Scenes/MainMenu.unity", OpenSceneMode.Single);
         var canvas = GameObject.Find("MainMenuCanvas").transform;
         var background = (RectTransform)canvas.Find("Background");
-        var logo = (RectTransform)canvas.Find("Logo") ?? (RectTransform)background.Find("Logo");
+        // Logo sits in Background/Stage (FitMainMenu) when present, so it scales to fit the screen
+        var holder = background.Find("Stage") ?? background;
+        var logo = (RectTransform)(canvas.Find("Logo") ?? holder.Find("Logo") ?? background.Find("Logo"));
         var title = (RectTransform)logo.Find("Title");
 
-        logo.SetParent(background, false);
+        logo.SetParent(holder, false);
         logo.SetAsLastSibling();
         logo.anchorMin = new Vector2(0.5f, bottom);
         logo.anchorMax = new Vector2(0.5f, top);
