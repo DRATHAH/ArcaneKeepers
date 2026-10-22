@@ -2122,14 +2122,14 @@ MonoBehaviour:
   - waveEnemies:
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-    wavePosition: 0100000001000000
+    wavePosition: 0300000003000000
     spawnDelay:
     - 0
     - 6
   - waveEnemies:
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-    wavePosition: 0000000000000000
+    wavePosition: 0100000001000000
     spawnDelay:
     - 0
     - 6
@@ -2152,12 +2152,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
   currentWave: -1
-  incrementTimerBase: 1
+  incrementTimerBase: 12
   maxGracePeriod: 0
   enemiesSpawned: []
   enemiesThisWave: []
   incrementHealthMeter: 0
-  incrementPercent: 0
+  incrementPercent: 0.5
   incrementAmount: 0
   winTrigger: {fileID: 828887486275161208, guid: 2bbeab867b06df945834da91a2df7fb4, type: 3}
 --- !u!1 &619394800
