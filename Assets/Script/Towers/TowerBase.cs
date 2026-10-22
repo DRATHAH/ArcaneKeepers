@@ -7,30 +7,23 @@ public class TowerBase : MonoBehaviour
     [Tooltip("How much power a tower gains per level. 0.5 = 50% more base power")]
     public float levelScaling = 0.5f;
 
-    public enum AttackType
-    {
-        Melee,
-        Ranged,
-        Wall
-    };
-    public AttackType attack;
     public float range = 20;
     [Tooltip("List of lanes tower can hit (Ex: -1 = lane below, 1 = lane above)")]
     public List<int> lanes = new List<int>();
     [Tooltip("Dividing line for ability transistion")]
     public int farLimit = 5;
-
-    TowerRelocate towerRelocate;
+    public string attackSoundName;
 
     // Awake, not Start: every tower subclass declares its own Start(), which hides this one,
     // so towerRelocate stayed null and FixedUpdate threw every physics tick.
     private void Awake()
     {
-        towerRelocate = GetComponent<TowerRelocate>();
+
     }
 
     public virtual void AbilityClose()
     {
+        SoundManager.Instance.PlaySound(attackSoundName);
         Debug.Log("Close to Home");
     }
 
@@ -43,8 +36,8 @@ public class TowerBase : MonoBehaviour
     {
         int enemyLayer = 1 << 6;
 
-        if (towerRelocate.isRelocating == false)
-        {
+        //if (towerRelocate.isRelocating == false)
+        //{
             if (Physics.Linecast(transform.position, new Vector3(range, transform.position.y, transform.position.z), out RaycastHit hit, enemyLayer))
             {
                 if (hit.collider.tag == "Enemy")
@@ -59,6 +52,14 @@ public class TowerBase : MonoBehaviour
                     }
                 }
             }
+        //}
+    }
+
+    private void ReduceCooldown(ref float cooldown)
+    {
+        if (cooldown > 0)
+        {
+            cooldown -= Time.deltaTime;
         }
     }
 }
