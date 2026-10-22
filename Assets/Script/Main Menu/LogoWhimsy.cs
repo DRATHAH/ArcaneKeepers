@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// Playful, cartoony main-menu logo animation (Clash of Critters feel):
 /// 1. The logo drops in from above, stretched tall, lands with a jelly squash,
 ///    hops once more and wobbles to rest while little puffs pop out at its feet.
-/// 2. Idle: it floats and rocks gently, gold stars twinkle around it, and every few
+/// 2. Idle: it floats gently up and down, gold stars twinkle around it, and every few
 ///    seconds it does a springy "boing" hop.
 /// Animates the 'title' child (a full-stretch image), so the layout is never touched.
 /// Sprites are generated at runtime, so no extra assets are needed.
@@ -24,8 +24,6 @@ public class LogoWhimsy : MonoBehaviour
     [Header("Idle")]
     [SerializeField] private float floatAmount = 0.025f;  // in logo heights
     [SerializeField] private float floatSpeed = 1.6f;
-    [SerializeField] private float rockDegrees = 1.6f;
-    [SerializeField] private float rockSpeed = 1.1f;
     [SerializeField] private Vector2 boingInterval = new Vector2(4.5f, 7f);
     [SerializeField] private Vector2 twinkleInterval = new Vector2(0.6f, 1.4f);
     [SerializeField] private Color starColor = new Color(1f, 0.88f, 0.4f, 1f);   // warm gold
@@ -34,7 +32,7 @@ public class LogoWhimsy : MonoBehaviour
     // Animation channels, combined every frame in LateUpdate.
     private float hop;                     // extra lift, in logo heights
     private Vector2 squash = Vector2.one;  // jelly scale around the logo's feet
-    private float idleWeight;              // fades the float/rock in after the intro
+    private float idleWeight;              // fades the float in after the intro
     private float idleTime;
     private RectTransform fxLayer;
 
@@ -43,7 +41,7 @@ public class LogoWhimsy : MonoBehaviour
     private void Awake()
     {
         if (title == null) title = (RectTransform)transform.GetChild(0);
-        // Squash and rock around the bottom edge so the logo "sits" on something.
+        // Squash around the bottom edge so the logo "sits" on something.
         // The title is stretched with zero offsets, so moving the pivot keeps its rect.
         title.pivot = new Vector2(0.5f, 0f);
         title.anchoredPosition = Vector2.zero;
@@ -90,10 +88,9 @@ public class LogoWhimsy : MonoBehaviour
     {
         float h = title.rect.height;
         float bob = (Mathf.Sin(idleTime * floatSpeed) * 0.5f + 0.5f) * floatAmount * idleWeight;
-        float rock = Mathf.Sin(idleTime * rockSpeed) * rockDegrees * idleWeight;
         title.anchoredPosition = new Vector2(0f, (hop + bob) * h);
         title.localScale = new Vector3(squash.x, squash.y, 1f);
-        title.localRotation = Quaternion.Euler(0f, 0f, rock);
+        title.localRotation = Quaternion.identity;
     }
 
     // ---- moves ----
