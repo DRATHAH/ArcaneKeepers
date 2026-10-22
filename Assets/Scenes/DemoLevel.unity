@@ -2118,21 +2118,21 @@ MonoBehaviour:
     wavePosition: 0200000002000000
     spawnDelay:
     - 0
-    - 1
+    - 6
   - waveEnemies:
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-    wavePosition: 0200000001000000
+    wavePosition: 0100000001000000
     spawnDelay:
     - 0
-    - 0
+    - 6
   - waveEnemies:
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
     - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
-    wavePosition: 0200000000000000
+    wavePosition: 0000000000000000
     spawnDelay:
     - 0
-    - 1
+    - 6
   spawnPoints:
   - {x: 16, y: 0.5, z: 4}
   - {x: 16, y: 0.5, z: 2}
@@ -2151,13 +2151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29a281737fba4e47b60e7c6588063a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
-  currentWave: 0
-  incrementTimerBase: 15
-  maxGracePeriod: 2
+  currentWave: -1
+  incrementTimerBase: 1
+  maxGracePeriod: 0
   enemiesSpawned: []
   enemiesThisWave: []
   incrementHealthMeter: 0
-  incrementPercent: 0.5
+  incrementPercent: 0
   incrementAmount: 0
   winTrigger: {fileID: 828887486275161208, guid: 2bbeab867b06df945834da91a2df7fb4, type: 3}
 --- !u!1 &619394800
@@ -3871,6 +3871,7 @@ GameObject:
   - component: {fileID: 1241110332}
   - component: {fileID: 1241110334}
   - component: {fileID: 1241110333}
+  - component: {fileID: 1241110335}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3975,6 +3976,69 @@ MonoBehaviour:
   loser: 0
   winnerCanvas: {fileID: 1193799862}
   loserCanvas: {fileID: 2028436000}
+--- !u!114 &1241110335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241110329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881172d595a65a748bb816f404735960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  sounds:
+  - name: TowerPlacement
+    clip: {fileID: 8300000, guid: 5e92171cbd25e3f43ae623cbe8fd22e3, type: 3}
+    volume: 0.5
+    pitch: 0.1
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyDamage
+    clip: {fileID: 8300000, guid: 6126d282157ad974fb64e4ac44cd4c7c, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: FireArrow
+    clip: {fileID: 8300000, guid: d0d979572a914b841b1d4a0c0a9ab874, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: HealPool
+    clip: {fileID: 8300000, guid: bedf287d45456fc48834da327938b4c1, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Stab
+    clip: {fileID: 8300000, guid: 7e52bf34350aa1e499a5aa94a2e245db, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: TowerDamage
+    clip: {fileID: 8300000, guid: d78e7fc79144e4641b57d6afd356a827, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: FireWall
+    clip: {fileID: 8300000, guid: cb35b80cfe423d94c93c5e033ea25a78, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Arrow
+    clip: {fileID: 8300000, guid: ef269e5a43f42764a992edaf31b6f935, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  musicEnabled: 1
+  soundObject: {fileID: 1065167290980725948, guid: 7414e72a28216d34db0b0a787efd2d40, type: 3}
 --- !u!1 &1263167761
 GameObject:
   m_ObjectHideFlags: 0

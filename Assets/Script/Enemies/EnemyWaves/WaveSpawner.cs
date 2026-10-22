@@ -39,6 +39,8 @@ public class WaveSpawner : MonoBehaviour
 
     private bool spawning = false;
 
+    private IEnumerator spawnWave;
+
     private void Awake()
     {
         //Create Singleton conditions
@@ -92,8 +94,9 @@ public class WaveSpawner : MonoBehaviour
             else
             {
                 //Otherwise spawn the next wave if possible
-                if (currentWave < maxWaves)
+                if (currentWave < maxWaves - 1)
                 {
+                    Debug.Log(maxWaves);
                     //Debug.Log("Again!");
                     IncrementWave();
                 }
@@ -109,14 +112,26 @@ public class WaveSpawner : MonoBehaviour
     //Helper func for incrementing a wave
     private void IncrementWave()
     {
-        enemiesThisWave.Clear(); //Clear enemies spawned list
-        incrementTimer = incrementTimerBase; //Set the increment timer
-        gracePeriod = 0; //Clear the grace period
+        if(spawnWave == null)
+        {
+            //Increase the current wave
+            currentWave++;
 
-        //Create an enemy from the object pool, and try to get their health component
-        StartCoroutine(spawnEnemy());
-        
+            enemiesThisWave.Clear(); //Clear enemies spawned list
+            incrementTimer = incrementTimerBase; //Set the increment timer
+            gracePeriod = 0; //Clear the grace period
+
+            //Create an enemy from the object pool, and try to get their health component
+            spawnWave = spawnEnemy();
+            StartCoroutine(spawnWave);
+        }
+
     }
+
+    private void ResetIncrementHealth()
+    {
+    }
+
 
     private IEnumerator spawnEnemy()
     {
@@ -139,10 +154,12 @@ public class WaveSpawner : MonoBehaviour
             }
         }
 
+        incrementHealthMeter = 0;
         //For each enemy in enemy spawned add their health to the health meter
-        for (int i = 0; i < enemiesSpawned.Count; i++)
+        for (int i = 0; i < enemiesThisWave.Count; i++)
         {
-            incrementHealthMeter += enemiesSpawned[i].currentHealth;
+            Debug.Log(enemiesThisWave[i]);
+            incrementHealthMeter += enemiesThisWave[i].currentHealth;
         }
         //Set the increment amount equal to the meter amount
         incrementAmount = incrementHealthMeter * incrementPercent;
@@ -150,7 +167,6 @@ public class WaveSpawner : MonoBehaviour
 
         spawning = false;
 
-        //Increase the current wave
-        currentWave++;
+        spawnWave = null;
     }
 }
