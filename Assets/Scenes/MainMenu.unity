@@ -145,7 +145,7 @@ RectTransform:
   m_GameObject: {fileID: 15988684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8248772, y: 0.8248772, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1328595013}
@@ -670,8 +670,6 @@ MonoBehaviour:
   landSquash: 0.24
   floatAmount: 0.025
   floatSpeed: 1.6
-  rockDegrees: 1.6
-  rockSpeed: 1.1
   boingInterval: {x: 4.5, y: 7}
   twinkleInterval: {x: 0.6, y: 1.4}
   starColor: {r: 1, g: 0.88, b: 0.4, a: 1}

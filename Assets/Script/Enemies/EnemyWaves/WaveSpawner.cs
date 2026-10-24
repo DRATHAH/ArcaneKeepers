@@ -59,6 +59,7 @@ public class WaveSpawner : MonoBehaviour
         gracePeriod = maxGracePeriod; //Set the grace period
         waveManager = WaveManager.instance; //reference the wavemanager singleton for convenience sake
         maxWaves = waveManager.levelWaves.Count; //Set the maximum waves for the level
+        Debug.Log(maxWaves);
     }
 
     void Update()
@@ -69,7 +70,7 @@ public class WaveSpawner : MonoBehaviour
             //If the incremental health meter is below a certain point or if there are no enemies to spawn
             if ((incrementHealthMeter <= incrementAmount || enemiesSpawned.Count == 0) && spawning == false)
             {
-                if (currentWave < maxWaves)
+                if (currentWave < maxWaves - 1)
                 {
                     //Debug.Log("Armed and Dangerous!");
                     IncrementWave();
@@ -127,11 +128,6 @@ public class WaveSpawner : MonoBehaviour
         }
 
     }
-
-    private void ResetIncrementHealth()
-    {
-    }
-
 
     private IEnumerator spawnEnemy()
     {
