@@ -11,6 +11,18 @@ public class PauseMenu : MonoBehaviour
     [Tooltip("Scene loaded when the player gives up.")]
     [SerializeField] private string giveUpScene = "LevelSelect";
 
+    PauseMenuAnimator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<PauseMenuAnimator>();
+        if (!animator)
+        {
+            animator = gameObject.AddComponent<PauseMenuAnimator>();
+        }
+        animator.Setup(pausePanel, pauseButton);
+    }
+
     private void Start()
     {
         SetPaused(false);
@@ -45,11 +57,13 @@ public class PauseMenu : MonoBehaviour
             return;
         }
         SetPaused(true);
+        animator.Open();
     }
 
+    // The menu folds away first; the game resumes once it is gone
     public void Continue()
     {
-        SetPaused(false);
+        animator.Close(() => SetPaused(false));
     }
 
     public void Restart()
