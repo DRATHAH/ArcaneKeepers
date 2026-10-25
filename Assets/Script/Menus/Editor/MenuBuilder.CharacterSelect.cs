@@ -139,7 +139,60 @@ public static partial class MenuBuilder
         Stretch((RectTransform)fly.transform);
         screen.flyLayer = (RectTransform)fly.transform;
 
+        AddCharacterSelectFx(canvas, screen);
+
         EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), ScenesFolder + CharacterScene + ".unity");
+    }
+
+    // Adds the effect layers to the open character select scene without rebuilding it (keeps button
+    // sounds and other hand-made changes). Safe to re-run.
+    public static void ApplyCharacterSelectFx()
+    {
+        Scene scene = EditorSceneManager.OpenScene(ScenesFolder + CharacterScene + ".unity", OpenSceneMode.Single);
+        CharacterSelectScreen screen = Object.FindAnyObjectByType<CharacterSelectScreen>();
+        AddCharacterSelectFx(screen.transform, screen);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
+    //   Canvas
+    //     Background, Shade
+    //     AmbientFx    MagicMotes (a few small motes behind the keepers)
+    //     Safe ...
+    //     Fx           CharacterSelectFx (bursts, trail, DEPLOY twinkles)
+    //     FlyLayer
+    static void AddCharacterSelectFx(Transform canvas, CharacterSelectScreen screen)
+    {
+        foreach (string old in new[] { "AmbientFx", "Fx" })
+        {
+            Transform t = canvas.Find(old);
+            if (t)
+            {
+                Object.DestroyImmediate(t.gameObject);
+            }
+        }
+
+        RectTransform ambient = FxLayer("AmbientFx", canvas);
+        ambient.SetSiblingIndex(canvas.Find("Safe").GetSiblingIndex());
+        MagicMotes motes = ambient.gameObject.AddComponent<MagicMotes>();
+        SerializedObject so = new SerializedObject(motes);
+        so.FindProperty("count").intValue = 8;
+        so.FindProperty("appearDelay").floatValue = 0.4f;
+        so.FindProperty("appearTime").floatValue = 1.2f;
+        so.ApplyModifiedPropertiesWithoutUndo();
+
+        RectTransform fx = FxLayer("Fx", canvas);
+        fx.SetSiblingIndex(screen.flyLayer.GetSiblingIndex());
+        screen.fx = fx.gameObject.AddComponent<CharacterSelectFx>();
+        EditorUtility.SetDirty(screen);
+    }
+
+    static RectTransform FxLayer(string name, Transform parent)
+    {
+        RectTransform rt = (RectTransform)new GameObject(name, typeof(RectTransform)).transform;
+        rt.SetParent(parent, false);
+        Stretch(rt);
+        return rt;
     }
 
     static void LoadStyleAssets()
