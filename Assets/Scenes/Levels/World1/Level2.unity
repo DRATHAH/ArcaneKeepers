@@ -2185,7 +2185,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268274, y: -0, z: -0, w: 0.9238798}
-  m_LocalPosition: {x: -1, y: 15, z: -16}
+  m_LocalPosition: {x: -0.5, y: 12, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2330,16 +2330,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a86cba4b0bfd74d8b6c61894055b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  levelWaves: []
+  levelWaves:
+  - waveEnemies:
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 02000000
+    spawnDelay:
+    - 0
+  - waveEnemies:
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 0300000001000000
+    spawnDelay:
+    - 0
+    - 0
+  - waveEnemies:
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 0400000000000000
+    spawnDelay:
+    - 0
+    - 0
+  - waveEnemies:
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 010000000100000002000000
+    spawnDelay:
+    - 0
+    - 4
+    - 0
+  - waveEnemies:
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    wavePosition: 000000000300000004000000
+    spawnDelay:
+    - 0
+    - 0
+    - 0
+  - waveEnemies:
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    - {fileID: 3898671156306584144, guid: 1df0f6c832871e148b2051bda3b5c12f, type: 3}
+    wavePosition: 0000000001000000020000000300000004000000
+    spawnDelay:
+    - 0
+    - 0.1
+    - 0.2
+    - 0.1
+    - 0
   spawnPoints:
-  - {x: 16, y: 0.5, z: 0}
-  - {x: 16, y: 0.5, z: 0}
-  - {x: 16, y: 0.5, z: 0}
   - {x: 16, y: 0.5, z: 4}
-  - {x: 16, y: 0.5, z: -2}
-  - {x: 16, y: 0.5, z: 0}
-  - {x: 16, y: 0.5, z: 0}
   - {x: 16, y: 0.5, z: 2}
+  - {x: 16, y: 0.5, z: 0}
+  - {x: 16, y: 0.5, z: -2}
+  - {x: 16, y: 0.5, z: -4}
 --- !u!114 &590115529
 MonoBehaviour:
   m_ObjectHideFlags: 0
