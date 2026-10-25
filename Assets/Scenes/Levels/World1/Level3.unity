@@ -3547,6 +3547,7 @@ GameObject:
   - component: {fileID: 1241110332}
   - component: {fileID: 1241110334}
   - component: {fileID: 1241110333}
+  - component: {fileID: 1241110335}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3636,6 +3637,69 @@ MonoBehaviour:
   loser: 0
   winnerCanvas: {fileID: 1193799862}
   loserCanvas: {fileID: 2028436000}
+--- !u!114 &1241110335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241110329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881172d595a65a748bb816f404735960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  sounds:
+  - name: TowerPlacement
+    clip: {fileID: 8300000, guid: 5e92171cbd25e3f43ae623cbe8fd22e3, type: 3}
+    volume: 0.5
+    pitch: 0.1
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyDamage
+    clip: {fileID: 8300000, guid: 6126d282157ad974fb64e4ac44cd4c7c, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: FireArrow
+    clip: {fileID: 8300000, guid: d0d979572a914b841b1d4a0c0a9ab874, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: HealPool
+    clip: {fileID: 8300000, guid: bedf287d45456fc48834da327938b4c1, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Stab
+    clip: {fileID: 8300000, guid: 7e52bf34350aa1e499a5aa94a2e245db, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: TowerDamage
+    clip: {fileID: 8300000, guid: d78e7fc79144e4641b57d6afd356a827, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: FireWall
+    clip: {fileID: 8300000, guid: cb35b80cfe423d94c93c5e033ea25a78, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Arrow
+    clip: {fileID: 8300000, guid: ef269e5a43f42764a992edaf31b6f935, type: 3}
+    volume: 0.5
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  musicEnabled: 1
+  soundObject: {fileID: 1065167290980725948, guid: 7414e72a28216d34db0b0a787efd2d40, type: 3}
 --- !u!1 &1263167761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4746,7 +4810,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1241110332}
         m_TargetAssemblyTypeName: RelocationManager, Assembly-CSharp
         m_MethodName: EnableRelocate
         m_Mode: 1
