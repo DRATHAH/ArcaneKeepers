@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,9 +22,10 @@ public class EnemyHealth : HealthBase
     [SerializeField]private Animator healthAnim;
     [SerializeField]private Animator armorAnim;
 
-
+    private BoxCollider col;
     void Start()
     {
+        col = GetComponent<BoxCollider>();
         damageFlash = GetComponent<ColorFlash>();
         enemyMovement = GetComponent<EnemyMovement>();
     }
@@ -31,6 +33,10 @@ public class EnemyHealth : HealthBase
     void OnEnable()
     {
         //Reset health and armor for re-use
+        if(col != null)
+        {
+            col.enabled = true;
+        }
         currentHealth = maxHealth;
         currentArmorHealth = maxArmorHealth;
         AnimUpdate();
@@ -72,6 +78,13 @@ public class EnemyHealth : HealthBase
         {
             deathAbility.OnDeathAbility(); //Trigger the death ability if there is one
         }
+        StartCoroutine(DeathAnim());
+    }
+
+    private IEnumerator DeathAnim()
+    {
+        col.enabled = false;
+        yield return new WaitForSeconds(0.375f);
         ObjectPool.pool.Destroy(this.gameObject); //Return this item to the object pool
     }
 

@@ -57,6 +57,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
+            anim.SetBool("Attacking", false);
             pushed = false;
         }
 
