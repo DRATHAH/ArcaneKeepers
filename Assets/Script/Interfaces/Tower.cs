@@ -13,6 +13,16 @@ public class Tower : ScriptableObject
     }
     public TowerRarity rarity = TowerRarity.Common;
     public string towerName = "";
+    [Header("Stats")]
+    public int health = 10;
+    public int farLimit = 10;
+    [Tooltip("How much power a tower gains per level. 0.5 = 50% more base power")]
+    public float levelScaling = 0.5f;
+    [Header("Close Attack")]
+    public Attack closeAttack;
+    [Header("Far Attack")]
+    public Attack farAttack;
+    [Header("Visuals")]
     public GameObject towerPrefab;
     public Sprite towerIcon;
     [Tooltip("Card shown in the in-level tower stack (falls back to towerIcon).")]

@@ -14,6 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   rarity: 0
   towerName: Cleric
+  health: 10
+  farLimit: 10
+  levelScaling: 0.5
+  closeAttackRate: 2
+  closeAttack:
+    attackType: 1
+    damage: 100
+    special: 0
+    range: 5.5
+    attackPrefab: {fileID: 3456134524809666570, guid: 509ab590ce0019041acf7643855e53d7, type: 3}
+  farAttackRate: 2
+  farAttack:
+    attackType: 1
+    damage: 50
+    special: 1
+    range: 5.5
+    attackPrefab: {fileID: 3456134524809666570, guid: 509ab590ce0019041acf7643855e53d7, type: 3}
   towerPrefab: {fileID: 8958499418853621945, guid: dcbf199147776404c905a1a207777f20, type: 3}
   towerIcon: {fileID: 2582370341602735420, guid: 2d507276fb769ae4ab67cf6ce26165ee, type: 3}
   cardArt: {fileID: 21300000, guid: c1b9b5e06d2b4ad4493c211950b27561, type: 3}

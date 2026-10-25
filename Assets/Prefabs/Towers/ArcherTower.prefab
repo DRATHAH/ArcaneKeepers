@@ -125,9 +125,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3805005244484667546}
   - component: {fileID: 4118237290638323801}
-  - component: {fileID: 2059193530043033756}
   - component: {fileID: 2369378130788539762}
   - component: {fileID: 257723592566320609}
+  - component: {fileID: -4204625905506754157}
   - component: {fileID: 507032523565395887}
   - component: {fileID: 284430827769508813}
   m_Layer: 0
@@ -145,14 +145,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3601683227217436569}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 2.3, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7399796802848726128}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &4118237290638323801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,24 +174,6 @@ MonoBehaviour:
   flashDelay: 0.5
   parentButton: {fileID: 0}
   deathCooldown: 15
---- !u!114 &2059193530043033756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3601683227217436569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab3afd650271174f98bea1e46c34e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RangerTower
-  tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
-  swapLimit: 0
-  maxFCooldown: 0.75
-  maxCCooldown: 3
-  weakProjectilePrefab: {fileID: 1286918116579938344, guid: a913c4a2b3bfd7c4b8226bc279710635, type: 3}
-  strongProjectilePrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
 --- !u!114 &2369378130788539762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +200,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
+--- !u!114 &-4204625905506754157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601683227217436569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2187be4329bc449387a11e7e5eade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerBase
+  tower:
+    tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
+    level: 1
+    amount: 1
+  lanes: 
+  farLimit: 5
+  attackSoundName: 
 --- !u!65 &507032523565395887
 BoxCollider:
   m_ObjectHideFlags: 0

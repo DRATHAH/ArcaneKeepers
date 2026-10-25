@@ -6,30 +6,30 @@ public class Attack
 {
     public enum AttackType
     {
-        Melee,
-        Ranged,
+        Damage,
+        Healing,
         Wall
     }
     public AttackType attackType;
+    public int damage = 100;
+    public float attackRate = 2f;
+    [Tooltip("If attack is special. Damage = Ignore Armor, Healing = Burst")]
+    public bool special = false;
+    public float range = 5f;
+    [Tooltip("List of lanes move can hit (Ex: -1 = lane below, 1 = lane above)")]
+    public int[] lanes = {0};
+    public GameObject attackPrefab;
 
-    public void RunAttack()
+    public static GameObject CreateAttack(GameObject prefab, Vector3 spawnPos, Quaternion tower)
     {
-        switch (attackType)
-        {
-            case AttackType.Melee:
-                break;
-
-            case AttackType.Ranged:
-                break;
-
-            default:
-                break;
-        }
+        GameObject projectile = ObjectPool.pool.Create(prefab, spawnPos, Quaternion.identity);
+        projectile.transform.rotation = tower;
+        return projectile;
     }
 
-    public GameObject CreateProjectile(int damage, GameObject prefab, Transform tower)
+    public static GameObject CreateHeal(GameObject prefab, Transform tower)
     {
-        GameObject projectile = ObjectPool.pool.Create(prefab, tower.position, Quaternion.identity);
-        return projectile;
+        GameObject healingField = ObjectPool.pool.Create(prefab, new Vector3(tower.position.x, 0, tower.position.z), Quaternion.identity);
+        return healingField;
     }
 }

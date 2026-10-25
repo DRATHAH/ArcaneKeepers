@@ -33,6 +33,7 @@ public class EnemyDamage : DamageBase
                     Attack(damageAmount * Time.deltaTime, hit.gameObject);
                     anim.SetBool("Attacking", true);
                     enemyMove.PauseMovement();
+                    Debug.Log(damageAmount * Time.deltaTime);
                 }
             }
         }
