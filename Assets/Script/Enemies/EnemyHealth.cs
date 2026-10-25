@@ -19,8 +19,9 @@ public class EnemyHealth : HealthBase
     private ColorFlash damageFlash;
     [SerializeField] private float flashLength = 0.5f;
 
+    [Header("Animator Vars")]
     [SerializeField]private Animator healthAnim;
-    [SerializeField]private Animator armorAnim;
+    [SerializeField] private int armorType;
 
     private BoxCollider col;
     void Start()
@@ -28,6 +29,7 @@ public class EnemyHealth : HealthBase
         col = GetComponent<BoxCollider>();
         damageFlash = GetComponent<ColorFlash>();
         enemyMovement = GetComponent<EnemyMovement>();
+        healthAnim.SetInteger("ArmorType", armorType);
     }
 
     void OnEnable()
@@ -139,9 +141,9 @@ public class EnemyHealth : HealthBase
             healthAnim.SetFloat("Health", currentHealth / maxHealth);
         }
 
-        if (armorAnim != null)
+        if (healthAnim != null)
         {
-            armorAnim.SetFloat("Health", currentArmorHealth / maxArmorHealth);
+            healthAnim.SetFloat("ArmorHealth", currentArmorHealth / maxArmorHealth);
         }
     }
 

@@ -82,12 +82,12 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -631352051940752068, guid: a434ca162c991534baa266e6a7e2a34a, type: 3}
+  m_Sprite: {fileID: 1359587434494167141, guid: 2326c0553fc2fbe49bbd7a6f5fefa384, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.17, y: 1.87}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -219,7 +219,7 @@ MonoBehaviour:
   currentArmorHealth: 0
   flashLength: 0.5
   healthAnim: {fileID: 5629920517515884411}
-  armorAnim: {fileID: 0}
+  armorType: 0
 --- !u!114 &8442656604616977429
 MonoBehaviour:
   m_ObjectHideFlags: 0
