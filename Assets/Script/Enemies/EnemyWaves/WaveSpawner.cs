@@ -78,7 +78,7 @@ public class WaveSpawner : MonoBehaviour
             }
 
             //If there are no more waves to spawn and all enemies are dead print the debug message
-            if (currentWave >= maxWaves && enemiesSpawned.Count == 0)
+            if (currentWave >= maxWaves - 1 && enemiesSpawned.Count == 0)
             {
                 if (winner == false)
                 {
