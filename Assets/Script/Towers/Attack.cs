@@ -17,6 +17,7 @@ public class Attack
     public bool special = false;
     public float range = 5f;
     [Tooltip("List of lanes move can hit (Ex: -1 = lane below, 1 = lane above)")]
+    [Range(-2,2)]
     public int[] lanes;
     public GameObject attackPrefab;
 
