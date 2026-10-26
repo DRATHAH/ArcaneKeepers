@@ -13,6 +13,16 @@ public class SoundObject : MonoBehaviour
         float pitch = Random.Range(-pitchVar, pitchVar);
         sound.pitch = soundToPlay.pitch;
         sound.pitch += pitch;
+        sound.volume = soundToPlay.volume;
+
+        sound.Play();
+        StartCoroutine(DeleteAfterTime());
+    }
+    public void InitializePitchless(Sound soundToPlay)
+    {
+        sound.clip = soundToPlay.clip;
+
+        sound.volume = soundToPlay.volume;
 
         sound.Play();
         StartCoroutine(DeleteAfterTime());
