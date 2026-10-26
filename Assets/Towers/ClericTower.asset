@@ -16,6 +16,7 @@ MonoBehaviour:
   towerName: Cleric
   health: 10
   levelScaling: 0.5
+  attackSoundName: HealPool
   closeAttack:
     attackType: 1
     damage: 100

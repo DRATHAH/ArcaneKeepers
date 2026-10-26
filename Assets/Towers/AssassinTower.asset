@@ -16,6 +16,7 @@ MonoBehaviour:
   towerName: Assassin
   health: 10
   levelScaling: 0.5
+  attackSoundName: Stab
   closeAttack:
     attackType: 0
     damage: 100

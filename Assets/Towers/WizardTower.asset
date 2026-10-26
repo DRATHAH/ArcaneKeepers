@@ -16,6 +16,7 @@ MonoBehaviour:
   towerName: Wizard
   health: 10
   levelScaling: 0.5
+  attackSoundName: FireArrow
   closeAttack:
     attackType: 0
     damage: 50
