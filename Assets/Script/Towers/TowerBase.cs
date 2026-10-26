@@ -61,8 +61,20 @@ public class TowerBase : MonoBehaviour
                 break;
 
             case Attack.AttackType.Healing:
-                GameObject healing = Attack.CreateHeal(attackType.attackPrefab, transform);
-                healing.GetComponent<HealingAura>().Initialize(attackType.damage, tower.level, tower.tower.levelScaling, attackType.special, attackType.range, attackType.attackRate);
+                if (attackType.lanes.Length == 0)
+                {
+                    GameObject healing = Attack.CreateHeal(attackType.attackPrefab, transform.position);
+                    healing.GetComponent<HealingAura>().Initialize(attackType.damage, tower.level, tower.tower.levelScaling, attackType.special, attackType.range, attackType.attackRate);
+                }
+                else
+                {
+                    foreach (int i in attackType.lanes)
+                    {
+                        Vector3 projPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + i * 2);
+                        GameObject healing = Attack.CreateHeal(attackType.attackPrefab, projPosition);
+                        healing.GetComponent<HealingAura>().Initialize(attackType.damage, tower.level, tower.tower.levelScaling, attackType.special, attackType.range, attackType.attackRate);
+                    }
+                }
                 break;
 
             default:
@@ -78,7 +90,7 @@ public class TowerBase : MonoBehaviour
         int enemyLayer = 1 << 6;
         float range = tower.tower.farAttack.range;
 
-        if (transform.position.x < tower.tower.farLimit)
+        if (transform.position.x < 0)
         {
             range = tower.tower.closeAttack.range;
         }

@@ -15,21 +15,22 @@ MonoBehaviour:
   rarity: 0
   towerName: Cleric
   health: 10
-  farLimit: 10
   levelScaling: 0.5
-  closeAttackRate: 2
   closeAttack:
     attackType: 1
     damage: 100
+    attackRate: 2
     special: 0
     range: 5.5
+    lanes: 
     attackPrefab: {fileID: 3456134524809666570, guid: 509ab590ce0019041acf7643855e53d7, type: 3}
-  farAttackRate: 2
   farAttack:
     attackType: 1
     damage: 50
+    attackRate: 2
     special: 1
-    range: 5.5
+    range: 1
+    lanes: 0000000001000000fffffffffeffffff02000000
     attackPrefab: {fileID: 3456134524809666570, guid: 509ab590ce0019041acf7643855e53d7, type: 3}
   towerPrefab: {fileID: 8958499418853621945, guid: dcbf199147776404c905a1a207777f20, type: 3}
   towerIcon: {fileID: 2582370341602735420, guid: 2d507276fb769ae4ab67cf6ce26165ee, type: 3}

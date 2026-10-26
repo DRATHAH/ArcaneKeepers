@@ -15,7 +15,6 @@ MonoBehaviour:
   rarity: 0
   towerName: Test
   health: 250
-  farLimit: 5
   levelScaling: 0.5
   closeAttack:
     attackType: 0
@@ -23,6 +22,7 @@ MonoBehaviour:
     attackRate: 2
     special: 0
     range: 10
+    lanes: 
     attackPrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
   farAttack:
     attackType: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
     attackRate: 2
     special: 0
     range: 2
+    lanes: 
     attackPrefab: {fileID: 1853767432744584437, guid: a764bac2601b57e4389a4a6c9bf0fb15, type: 3}
   towerPrefab: {fileID: 4483944384165000995, guid: db9a748b0366e3b49bd4a1e6df00ebc3, type: 3}
   towerIcon: {fileID: 0}

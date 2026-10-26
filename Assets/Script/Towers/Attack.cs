@@ -17,7 +17,7 @@ public class Attack
     public bool special = false;
     public float range = 5f;
     [Tooltip("List of lanes move can hit (Ex: -1 = lane below, 1 = lane above)")]
-    public int[] lanes = {0};
+    public int[] lanes;
     public GameObject attackPrefab;
 
     public static GameObject CreateAttack(GameObject prefab, Vector3 spawnPos, Quaternion tower)
@@ -27,9 +27,9 @@ public class Attack
         return projectile;
     }
 
-    public static GameObject CreateHeal(GameObject prefab, Transform tower)
+    public static GameObject CreateHeal(GameObject prefab, Vector3 spawnPos)
     {
-        GameObject healingField = ObjectPool.pool.Create(prefab, new Vector3(tower.position.x, 0, tower.position.z), Quaternion.identity);
+        GameObject healingField = ObjectPool.pool.Create(prefab, new Vector3(spawnPos.x, 0, spawnPos.z), Quaternion.identity);
         return healingField;
     }
 }

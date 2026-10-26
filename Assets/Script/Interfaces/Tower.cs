@@ -15,7 +15,6 @@ public class Tower : ScriptableObject
     public string towerName = "";
     [Header("Stats")]
     public int health = 10;
-    public int farLimit = 10;
     [Tooltip("How much power a tower gains per level. 0.5 = 50% more base power")]
     public float levelScaling = 0.5f;
     [Header("Close Attack")]
