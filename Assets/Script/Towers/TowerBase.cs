@@ -7,7 +7,6 @@ public class TowerBase : MonoBehaviour
 
     [Tooltip("List of lanes tower can hit (Ex: -1 = lane below, 1 = lane above)")]
     public List<int> lanes = new List<int>();
-    public string attackSoundName;
 
     TowerRelocate relocate;
     float timeSinceAttack = 0;
@@ -39,7 +38,7 @@ public class TowerBase : MonoBehaviour
 
     public void DoAttack(Attack attackType)
     {
-        SoundManager.Instance.PlaySound(attackSoundName);
+        SoundManager.Instance.PlaySound(tower.tower.attackSoundName);
         
         switch (attackType.attackType)
         {

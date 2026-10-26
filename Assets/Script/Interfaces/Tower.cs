@@ -17,6 +17,8 @@ public class Tower : ScriptableObject
     public int health = 10;
     [Tooltip("How much power a tower gains per level. 0.5 = 50% more base power")]
     public float levelScaling = 0.5f;
+    [Tooltip("Name of the attack sound in the Sound Manager")]
+    public string attackSoundName;
     [Header("Close Attack")]
     public Attack closeAttack;
     [Header("Far Attack")]
