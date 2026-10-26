@@ -49,9 +49,12 @@ public class TowerBase : MonoBehaviour
                 {
                     foreach (int i in attackType.lanes)
                     {
-                        Vector3 projPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + i * 2);
-                        GameObject attack = Attack.CreateAttack(attackType.attackPrefab, projPosition, transform.rotation);
-                        attack.GetComponent<TPDamage>().Initialize(attackType.damage, tower.level, tower.tower.levelScaling, attackType.special);
+                        if (transform.position.z + i * 2 >= -5 && transform.position.z + i * 2 <= 5)
+                        {
+                            Vector3 projPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + i * 2);
+                            GameObject attack = Attack.CreateAttack(attackType.attackPrefab, projPosition, transform.rotation);
+                            attack.GetComponent<TPDamage>().Initialize(attackType.damage, tower.level, tower.tower.levelScaling, attackType.special);
+                        }
                     }
                 }
                 break;
@@ -66,9 +69,12 @@ public class TowerBase : MonoBehaviour
                 {
                     foreach (int i in attackType.lanes)
                     {
-                        Vector3 projPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + i * 2);
-                        GameObject healing = Attack.CreateHeal(attackType.attackPrefab, projPosition);
-                        healing.GetComponent<HealingAura>().Initialize(attackType.damage, tower.level, tower.tower.levelScaling, attackType.special, attackType.range, attackType.attackRate);
+                        if (transform.position.z + i * 2 >= -5 && transform.position.z + i * 2 <= 5)
+                        {
+                            Vector3 projPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + i * 2);
+                            GameObject healing = Attack.CreateHeal(attackType.attackPrefab, projPosition);
+                            healing.GetComponent<HealingAura>().Initialize(attackType.damage, tower.level, tower.tower.levelScaling, attackType.special, attackType.range, attackType.attackRate);
+                        }
                     }
                 }
                 break;
