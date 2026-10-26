@@ -101,15 +101,15 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Win
     clip: {fileID: 8300000, guid: 4414a3007cfc1b64abd0c16a1c5e192c, type: 3}
-    volume: 0.5
+    volume: 0.05
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: Lose
     clip: {fileID: 8300000, guid: 71a759dea70844840b67e6f44be9acaa, type: 3}
-    volume: 0.5
+    volume: 0.05
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   musicEnabled: 1
   soundObject: {fileID: 1065167290980725948, guid: 7414e72a28216d34db0b0a787efd2d40, type: 3}

@@ -22,9 +22,11 @@ public class WinLossManager : MonoBehaviour
 
     public bool winner;
     public bool loser;
+    private bool gameEnded = false;
 
     [SerializeField] public GameObject winnerCanvas;
     [SerializeField] public GameObject loserCanvas;
+    [SerializeField] private AudioSource backgroundMusic;
 
     void Start()
     {
@@ -34,24 +36,32 @@ public class WinLossManager : MonoBehaviour
 
     void Update()
     {
-        if(winner == true)
+        if (gameEnded == true) return;
+
+        if (winner == true)
         {
+            gameEnded = true;
             Win();
         }
         else if(loser == true)
         {
+            gameEnded = true;
             Lose();
         }
     }
 
     private void Win()
     {
+        backgroundMusic.mute = true;
+        SoundManager.Instance.PlaySound("Win");
         winnerCanvas.SetActive(true);
         Time.timeScale = 0;
     }
 
     private void Lose()
     {
+        backgroundMusic.mute = true;
+        SoundManager.Instance.PlaySound("Lose");
         loserCanvas.SetActive(true);
         Time.timeScale = 0;
     }
