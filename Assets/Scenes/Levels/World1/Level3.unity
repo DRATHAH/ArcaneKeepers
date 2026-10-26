@@ -140,6 +140,54 @@ PrefabInstance:
       propertyPath: m_MaterialTemplate
       value: 
       objectReference: {fileID: 2100000, guid: 1fd5b5fae0e00ca4699049af20ff1e71, type: 2}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[0].spawnDelay.Array.data[2]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[1].spawnDelay.Array.data[2]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[1].spawnDelay.Array.data[3]'
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[2].spawnDelay.Array.data[2]'
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[2].spawnDelay.Array.data[3]'
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[0].waveEnemies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1970602856523223266, guid: e5c6933202ffb1448b7a9599ce5114ad, type: 3}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[1].waveEnemies.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1970602856523223266, guid: e5c6933202ffb1448b7a9599ce5114ad, type: 3}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[2].waveEnemies.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1970602856523223266, guid: e5c6933202ffb1448b7a9599ce5114ad, type: 3}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[0].wavePosition.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[0].wavePosition.Array.data[2]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[2].wavePosition.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478856062809911333, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
+      propertyPath: 'levelWaves.Array.data[2].wavePosition.Array.data[3]'
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5855161757945619032, guid: 20cb6962194a4cc4ea757b0f6027d1e7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
