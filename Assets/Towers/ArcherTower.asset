@@ -19,17 +19,17 @@ MonoBehaviour:
   closeAttack:
     attackType: 0
     damage: 100
-    attackRate: 2
+    attackRate: 4
     special: 0
     range: 10
     lanes: 
     attackPrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
   farAttack:
     attackType: 0
-    damage: 20
+    damage: 30
     attackRate: 2
     special: 0
-    range: 5
+    range: 10
     lanes: 
     attackPrefab: {fileID: 1286918116579938344, guid: a913c4a2b3bfd7c4b8226bc279710635, type: 3}
   towerPrefab: {fileID: 3601683227217436569, guid: f6ddec55d4e96e64c9c67c32fa7d38b2, type: 3}

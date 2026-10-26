@@ -286,7 +286,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: f68ceca3a9acd11478ed77a0500eb65c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.5
   m_Pitch: 1.25
   Loop: 1
   Mute: 0
@@ -4033,7 +4033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelTile
   medal: {fileID: 1987389846}
-  padlock: {fileID: 829132142}
+  padlock: {fileID: 0}
   guide: 0
   bobHeight: 6
   bobSpeed: 1.6
@@ -5407,7 +5407,7 @@ RectTransform:
   m_GameObject: {fileID: 2048950281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0222222, y: 1.0222222, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1424861883}
