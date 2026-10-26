@@ -5,9 +5,6 @@ public class TowerBase : MonoBehaviour
 {
     public TowerEntry tower;
 
-    [Tooltip("List of lanes tower can hit (Ex: -1 = lane below, 1 = lane above)")]
-    public List<int> lanes = new List<int>();
-
     TowerRelocate relocate;
     float timeSinceAttack = 0;
     bool canAttack = true;
@@ -106,9 +103,9 @@ public class TowerBase : MonoBehaviour
                 }
                 else if (tower.tower.closeAttack.attackType == Attack.AttackType.Damage)
                 {
-                    if (lanes.Count == 0)
+                    if (tower.tower.closeAttack.lanes.Length == 0)
                     {
-                        if (Physics.Linecast(transform.position, new Vector3(transform.position.x + transform.right.x * range, transform.position.y, transform.position.z), out RaycastHit hit, enemyLayer))
+                        if (Physics.Linecast(transform.position, transform.position + transform.right * range, out RaycastHit hit, enemyLayer))
                         {
                             if (hit.collider.tag == "Enemy")
                             {
@@ -118,15 +115,23 @@ public class TowerBase : MonoBehaviour
                     }
                     else
                     {
-                        foreach (int i in lanes)
+                        bool hasEnemy = false;
+                        foreach (int i in tower.tower.closeAttack.lanes)
                         {
-                            if (Physics.Linecast(transform.position, new Vector3(transform.position.x + transform.right.x * range, transform.position.y, transform.position.z + i * 2), out RaycastHit hit, enemyLayer))
+                            Vector3 startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + i * 2);
+                            Vector3 endPos = new Vector3(transform.position.x + transform.right.x * range, transform.position.y, transform.position.z + i * 2);
+                            if (Physics.Linecast(startPos, endPos, out RaycastHit hit, enemyLayer))
                             {
                                 if (hit.collider.tag == "Enemy")
                                 {
-                                    AbilityClose();
+                                    hasEnemy = true;
                                 }
                             }
+                        }
+
+                        if (hasEnemy)
+                        {
+                            AbilityClose();
                         }
                     }
                 }
@@ -142,9 +147,33 @@ public class TowerBase : MonoBehaviour
                 }
                 else if (tower.tower.farAttack.attackType == Attack.AttackType.Damage)
                 {
-                    if (Physics.Linecast(transform.position, new Vector3(transform.position.x + transform.right.x * range, transform.position.y, transform.position.z), out RaycastHit hit, enemyLayer))
+                    if (tower.tower.farAttack.lanes.Length == 0)
                     {
-                        if (hit.collider.tag == "Enemy")
+                        if (Physics.Linecast(transform.position, transform.position + transform.right * range, out RaycastHit hit, enemyLayer))
+                        {
+                            if (hit.collider.tag == "Enemy")
+                            {
+                                AbilityFar();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        bool hasEnemy = false;
+                        foreach (int i in tower.tower.farAttack.lanes)
+                        {
+                            Vector3 startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + i * 2);
+                            Vector3 endPos = new Vector3(transform.position.x + transform.right.x * range, transform.position.y, transform.position.z + i * 2);
+                            if (Physics.Linecast(startPos, endPos, out RaycastHit hit, enemyLayer))
+                            {
+                                if (hit.collider.tag == "Enemy")
+                                {
+                                    hasEnemy = true;
+                                }
+                            }
+                        }
+
+                        if (hasEnemy)
                         {
                             AbilityFar();
                         }
