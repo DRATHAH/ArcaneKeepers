@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,19 +19,26 @@ public class EnemyHealth : HealthBase
     private ColorFlash damageFlash;
     [SerializeField] private float flashLength = 0.5f;
 
+    [Header("Animator Vars")]
     [SerializeField]private Animator healthAnim;
-    [SerializeField]private Animator armorAnim;
+    [SerializeField] private int armorType;
 
-
+    private BoxCollider col;
     void Start()
     {
+        col = GetComponent<BoxCollider>();
         damageFlash = GetComponent<ColorFlash>();
         enemyMovement = GetComponent<EnemyMovement>();
+        healthAnim.SetInteger("ArmorType", armorType);
     }
 
     void OnEnable()
     {
         //Reset health and armor for re-use
+        if(col != null)
+        {
+            col.enabled = true;
+        }
         currentHealth = maxHealth;
         currentArmorHealth = maxArmorHealth;
         AnimUpdate();
@@ -72,6 +80,13 @@ public class EnemyHealth : HealthBase
         {
             deathAbility.OnDeathAbility(); //Trigger the death ability if there is one
         }
+        StartCoroutine(DeathAnim());
+    }
+
+    private IEnumerator DeathAnim()
+    {
+        col.enabled = false;
+        yield return new WaitForSeconds(0.375f);
         ObjectPool.pool.Destroy(this.gameObject); //Return this item to the object pool
     }
 
@@ -126,9 +141,9 @@ public class EnemyHealth : HealthBase
             healthAnim.SetFloat("Health", currentHealth / maxHealth);
         }
 
-        if (armorAnim != null)
+        if (healthAnim != null)
         {
-            armorAnim.SetFloat("Health", currentArmorHealth / maxArmorHealth);
+            healthAnim.SetFloat("ArmorHealth", currentArmorHealth / maxArmorHealth);
         }
     }
 

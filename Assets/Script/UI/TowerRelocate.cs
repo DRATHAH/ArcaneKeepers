@@ -84,7 +84,6 @@ public class TowerRelocate : MonoBehaviour
                     originalTile = newTile;
                     newTile.tileObject = this.gameObject;
                     transform.position = newTile.anchorPos.position;
-                    transform.rotation = newTile.anchorPos.rotation;
                     transform.parent = newTile.anchorPos;
                     TouchManager.instance.hoveringTile.tileObject = this.gameObject;
                     RelocationManager.instance.ClearObject();
@@ -99,7 +98,6 @@ public class TowerRelocate : MonoBehaviour
                 if (transform.position != originalTile.anchorPos.position)
                 {
                     transform.position = originalTile.anchorPos.position;
-                    transform.rotation = originalTile.anchorPos.rotation;
                     transform.parent = originalTile.anchorPos;
                     gameObject.layer = LayerMask.NameToLayer("Default");
                 }

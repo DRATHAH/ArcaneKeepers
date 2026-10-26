@@ -14,7 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   rarity: 0
   towerName: Assassin
+  health: 10
+  levelScaling: 0.5
+  closeAttack:
+    attackType: 0
+    damage: 100
+    attackRate: 2
+    special: 0
+    range: 4
+    lanes: 
+    attackPrefab: {fileID: 1853767432744584437, guid: a764bac2601b57e4389a4a6c9bf0fb15, type: 3}
+  farAttack:
+    attackType: 0
+    damage: 100
+    attackRate: 5
+    special: 1
+    range: 3
+    lanes: 
+    attackPrefab: {fileID: 1853767432744584437, guid: a764bac2601b57e4389a4a6c9bf0fb15, type: 3}
   towerPrefab: {fileID: 3573245625740136893, guid: 9bafe0b108e0c5d488e8ff9b8992346f, type: 3}
-  towerIcon: {fileID: 1484555874654870105, guid: f0c89b83a0c425442bfcad7613267781, type: 3}
+  towerIcon: {fileID: 21300000, guid: 66835b82d20516a4b9af5bcf05f395e1, type: 3}
   cardArt: {fileID: 21300000, guid: bb8776d730f95004ab93c10d0203b5e6, type: 3}
   towerId: 4

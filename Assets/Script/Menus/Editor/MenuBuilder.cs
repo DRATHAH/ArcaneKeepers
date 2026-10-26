@@ -168,8 +168,6 @@ public static partial class MenuBuilder
         {
             CreateLevelTile(row.transform, i + 1, LevelScenes[i]);
         }
-        // Point the player at the first level
-        row.transform.GetChild(0).gameObject.AddComponent<GuidePulse>().amount = 0.03f;
 
         CreateBackButton(safe, loader, CharacterScene);
 
@@ -177,7 +175,68 @@ public static partial class MenuBuilder
             new Vector2(0.5f, 0f), new Vector2(0, 105), new Vector2(400, 120), 56);
         UnityEventTools.AddStringPersistentListener(changeTeam.onClick, loader.LoadScene, CharacterScene);
 
+        AddLevelSelectFx(canvas);
+
         EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), ScenesFolder + LevelSelectScene + ".unity");
+    }
+
+    // Adds the tile motion + effect layers to the existing level select without rebuilding it
+    // (keeps button sounds and other hand-made changes). Safe to re-run.
+    public static void ApplyLevelSelectFx()
+    {
+        Scene scene = EditorSceneManager.OpenScene(ScenesFolder + LevelSelectScene + ".unity", OpenSceneMode.Single);
+        AddLevelSelectFx(Object.FindAnyObjectByType<SceneLoader>().transform);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
+    //   Canvas
+    //     Background
+    //     AmbientFx    MagicMotes (a few small motes behind the tiles)
+    //     Safe         ... LevelRow > LevelN (+ LevelTile)
+    //     Fx           LevelSelectFx (tile entrance, medal sparkles, play burst)
+    static void AddLevelSelectFx(Transform canvas)
+    {
+        foreach (string old in new[] { "AmbientFx", "Fx" })
+        {
+            Transform t = canvas.Find(old);
+            if (t)
+            {
+                Object.DestroyImmediate(t.gameObject);
+            }
+        }
+        Transform safe = canvas.Find("Safe");
+        RectTransform row = (RectTransform)safe.Find("LevelBand/LevelRow");
+
+        LevelButton[] levels = row.GetComponentsInChildren<LevelButton>(true);
+        for (int i = 0; i < levels.Length; i++)
+        {
+            GameObject tileObject = levels[i].gameObject;
+            // LevelTile now does the "play this one" pulse
+            Object.DestroyImmediate(tileObject.GetComponent<GuidePulse>());
+            LevelTile tile = tileObject.GetComponent<LevelTile>();
+            if (!tile)
+            {
+                tile = tileObject.AddComponent<LevelTile>();
+            }
+            tile.medal = (RectTransform)tileObject.transform.Find("Medal");
+            tile.padlock = (RectTransform)tileObject.transform.Find("Lock");
+            tile.guide = i == 0;
+            EditorUtility.SetDirty(tile);
+        }
+
+        RectTransform ambient = FxLayer("AmbientFx", canvas);
+        ambient.SetSiblingIndex(safe.GetSiblingIndex());
+        MagicMotes motes = ambient.gameObject.AddComponent<MagicMotes>();
+        SerializedObject so = new SerializedObject(motes);
+        so.FindProperty("count").intValue = 8;
+        so.FindProperty("appearDelay").floatValue = 0.4f;
+        so.FindProperty("appearTime").floatValue = 1.2f;
+        so.ApplyModifiedPropertiesWithoutUndo();
+
+        RectTransform fx = FxLayer("Fx", canvas);
+        fx.SetSiblingIndex(safe.GetSiblingIndex() + 1);
+        fx.gameObject.AddComponent<LevelSelectFx>().row = row;
     }
 
     static void CreateLevelTile(Transform parent, int number, string sceneName)

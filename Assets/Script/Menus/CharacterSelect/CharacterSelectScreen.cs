@@ -46,6 +46,8 @@ public class CharacterSelectScreen : MonoBehaviour
 
     [Header("Feedback")]
     public RectTransform flyLayer;
+    [Tooltip("Optional: recruit / landing / deploy sparkles")]
+    public CharacterSelectFx fx;
     public CanvasGroup screenGroup;
     public Color readyColor = new Color32(150, 240, 110, 255);
     public Color pendingColor = new Color32(255, 222, 99, 255);
@@ -163,6 +165,10 @@ public class CharacterSelectScreen : MonoBehaviour
         squad[slot] = index;
         cards[index].SetSelected(true, slot + 1, true);
         slots[slot].Reserve();
+        if (fx)
+        {
+            fx.Recruit(cards[index], characters[index].accent);
+        }
         flights[slot] = StartCoroutine(FlyToSlot(index, slot));
         counterPunch = 1;
         Refresh();
@@ -186,6 +192,10 @@ public class CharacterSelectScreen : MonoBehaviour
             Destroy(flyers[slot]);
         }
         cards[index].SetSelected(false, 0, true);
+        if (fx && slots[slot].IsFilled)
+        {
+            fx.Puff(slots[slot].disc.rectTransform);
+        }
         slots[slot].Clear(true);
         counterPunch = 1;
         Refresh();
@@ -221,20 +231,33 @@ public class CharacterSelectScreen : MonoBehaviour
             rt.anchoredPosition = p;
             rt.sizeDelta = Vector2.Lerp(startSize, endSize, e);
             image.color = new Color(1, 1, 1, t < 0.75f ? 1 : Mathf.InverseLerp(1f, 0.75f, t));
+            if (fx && t < 0.75f)
+            {
+                fx.Trail(rt);
+            }
             if (!landed && t >= 0.75f)
             {
                 landed = true;
-                slots[slot].Fill(characters[index], true);
+                Land(index, slot);
             }
             yield return null;
         }
         if (!landed)
         {
-            slots[slot].Fill(characters[index], true);
+            Land(index, slot);
         }
         Destroy(go);
         flyers[slot] = null;
         flights[slot] = null;
+    }
+
+    void Land(int index, int slot)
+    {
+        slots[slot].Fill(characters[index], true);
+        if (fx)
+        {
+            fx.Land(slots[slot].disc.rectTransform, characters[index].accent);
+        }
     }
 
     void GetRect(RectTransform target, out Vector2 centre, out Vector2 size)
@@ -258,6 +281,10 @@ public class CharacterSelectScreen : MonoBehaviour
         if (full && !wasFull)
         {
             playPunch = 1; // DEPLOY just unlocked: pop it so the eye goes there
+        }
+        if (fx && full != wasFull)
+        {
+            fx.SetDeployReady((RectTransform)playButton.transform, full, full);
         }
         wasFull = full;
         playButton.interactable = full;
@@ -447,6 +474,10 @@ public class CharacterSelectScreen : MonoBehaviour
             return;
         }
         leaving = true;
+        if (fx)
+        {
+            fx.SetDeployReady((RectTransform)playButton.transform, false, false);
+        }
         SaveSquad();
         Leave(playScene, true);
     }

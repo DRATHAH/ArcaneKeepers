@@ -256,6 +256,135 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69881239}
   m_CullTransparentMesh: 1
+--- !u!1 &70211976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70211978}
+  - component: {fileID: 70211977}
+  m_Layer: 0
+  m_Name: Menu Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &70211977
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70211976}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: f68ceca3a9acd11478ed77a0500eb65c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.25
+  m_Pitch: 1.25
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &70211978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70211976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 563.17487, y: 380.92258, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &83922209
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +674,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131504094}
   m_CullTransparentMesh: 1
+--- !u!1 &133171456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 133171457}
+  - component: {fileID: 133171459}
+  - component: {fileID: 133171458}
+  m_Layer: 0
+  m_Name: AmbientFx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &133171457
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133171456}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1832829096}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &133171458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133171456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17aac225029d1f4f87f8fe4d661b2c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MagicMotes
+  appearDelay: 0.4
+  appearTime: 1.2
+  count: 8
+  colors:
+  - {r: 1, g: 0.86, b: 0.4, a: 1}
+  - {r: 1, g: 0.95, b: 0.7, a: 1}
+  - {r: 0.55, g: 0.85, b: 1, a: 1}
+--- !u!225 &133171459
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133171456}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &183917693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1250,7 @@ GameObject:
   - component: {fileID: 268059004}
   - component: {fileID: 268059003}
   - component: {fileID: 268059002}
+  - component: {fileID: 268059006}
   m_Layer: 0
   m_Name: Level2
   m_TagString: Untagged
@@ -1097,6 +1295,7 @@ MonoBehaviour:
   sceneName: Level2
   statusText: {fileID: 213829719}
   characterScene: TowerSelect
+  loadDelay: 0.25
 --- !u!114 &268059003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,6 +1390,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268059000}
   m_CullTransparentMesh: 1
+--- !u!114 &268059006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268059000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6e0fae11366ef4ba1cb3e41a22bb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelTile
+  medal: {fileID: 1870537669}
+  padlock: {fileID: 0}
+  guide: 0
+  bobHeight: 6
+  bobSpeed: 1.6
 --- !u!1 &360230238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,6 +1982,7 @@ GameObject:
   - component: {fileID: 537971057}
   - component: {fileID: 537971056}
   - component: {fileID: 537971055}
+  - component: {fileID: 537971059}
   m_Layer: 0
   m_Name: Level5
   m_TagString: Untagged
@@ -1811,6 +2028,7 @@ MonoBehaviour:
   sceneName: Level5
   statusText: {fileID: 1786991336}
   characterScene: TowerSelect
+  loadDelay: 0.25
 --- !u!114 &537971056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,6 +2123,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537971053}
   m_CullTransparentMesh: 1
+--- !u!114 &537971059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537971053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6e0fae11366ef4ba1cb3e41a22bb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelTile
+  medal: {fileID: 1490633327}
+  padlock: {fileID: 468067664}
+  guide: 0
+  bobHeight: 6
+  bobSpeed: 1.6
+--- !u!1 &650529559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 650529560}
+  - component: {fileID: 650529561}
+  m_Layer: 0
+  m_Name: Fx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &650529560
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650529559}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1832829096}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &650529561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650529559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f0b4a99c7d72642b373d61f00be7d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSelectFx
+  row: {fileID: 2048950282}
+  gold: {r: 1, g: 0.86, b: 0.38, a: 1}
+  stagger: 0.06
+  twinkleInterval: 1.4
 --- !u!1 &716991101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +2205,7 @@ GameObject:
   - component: {fileID: 716991105}
   - component: {fileID: 716991104}
   - component: {fileID: 716991103}
+  - component: {fileID: 716991107}
   m_Layer: 0
   m_Name: Level4
   m_TagString: Untagged
@@ -1963,6 +2251,7 @@ MonoBehaviour:
   sceneName: Level4
   statusText: {fileID: 183917695}
   characterScene: TowerSelect
+  loadDelay: 0.25
 --- !u!114 &716991104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,6 +2346,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716991101}
   m_CullTransparentMesh: 1
+--- !u!114 &716991107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716991101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6e0fae11366ef4ba1cb3e41a22bb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelTile
+  medal: {fileID: 1294556630}
+  padlock: {fileID: 1194140328}
+  guide: 0
+  bobHeight: 6
+  bobSpeed: 1.6
 --- !u!1 &750264328
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,7 +3504,7 @@ GameObject:
   - component: {fileID: 1424861887}
   - component: {fileID: 1424861886}
   - component: {fileID: 1424861885}
-  - component: {fileID: 1424861884}
+  - component: {fileID: 1424861889}
   m_Layer: 0
   m_Name: Level1
   m_TagString: Untagged
@@ -3228,21 +3534,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1424861884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424861882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d741c22ee69a8c4aa5eae3e6154eb5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GuidePulse
-  condition: 0
-  amount: 0.03
-  speed: 3
 --- !u!114 &1424861885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3258,6 +3549,7 @@ MonoBehaviour:
   sceneName: DemoLevel
   statusText: {fileID: 83922211}
   characterScene: TowerSelect
+  loadDelay: 0.25
 --- !u!114 &1424861886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3352,6 +3644,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424861882}
   m_CullTransparentMesh: 1
+--- !u!114 &1424861889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424861882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6e0fae11366ef4ba1cb3e41a22bb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelTile
+  medal: {fileID: 402140182}
+  padlock: {fileID: 0}
+  guide: 1
+  bobHeight: 6
+  bobSpeed: 1.6
 --- !u!1 &1430438530
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,6 +3880,7 @@ GameObject:
   - component: {fileID: 1632842235}
   - component: {fileID: 1632842234}
   - component: {fileID: 1632842233}
+  - component: {fileID: 1632842237}
   m_Layer: 0
   m_Name: Level3
   m_TagString: Untagged
@@ -3615,6 +3925,7 @@ MonoBehaviour:
   sceneName: Level3
   statusText: {fileID: 69881241}
   characterScene: TowerSelect
+  loadDelay: 0.25
 --- !u!114 &1632842234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,6 +4020,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632842231}
   m_CullTransparentMesh: 1
+--- !u!114 &1632842237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632842231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6e0fae11366ef4ba1cb3e41a22bb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelTile
+  medal: {fileID: 1987389846}
+  padlock: {fileID: 829132142}
+  guide: 0
+  bobHeight: 6
+  bobSpeed: 1.6
 --- !u!1 &1641075793
 GameObject:
   m_ObjectHideFlags: 0
@@ -4540,7 +4868,9 @@ RectTransform:
   m_Children:
   - {fileID: 1422922806}
   - {fileID: 953027413}
+  - {fileID: 133171457}
   - {fileID: 1564741091}
+  - {fileID: 650529560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5077,7 +5407,7 @@ RectTransform:
   m_GameObject: {fileID: 2048950281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: 1.0222222, y: 1.0222222, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1424861883}
@@ -5489,3 +5819,4 @@ SceneRoots:
   - {fileID: 921992185}
   - {fileID: 1260541039}
   - {fileID: 1832829096}
+  - {fileID: 70211978}

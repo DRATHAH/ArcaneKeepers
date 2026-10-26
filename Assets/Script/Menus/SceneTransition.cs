@@ -81,6 +81,12 @@ public class SceneTransition : MonoBehaviour
     IEnumerator Run(string sceneName)
     {
         busy = true;
+        if (SceneManager.GetActiveScene().name == "MainMenu" && sceneName == "TowerSelect")
+        {
+            yield return RunClouds(sceneName);
+            busy = false;
+            yield break;
+        }
         bool back = System.Array.IndexOf(MenuOrder, sceneName) >= 0
             && System.Array.IndexOf(MenuOrder, sceneName) < System.Array.IndexOf(MenuOrder, SceneManager.GetActiveScene().name);
 
@@ -120,6 +126,32 @@ public class SceneTransition : MonoBehaviour
         newShot.Release();
         Destroy(newShot);
         busy = false;
+    }
+
+    // Main menu -> character select: clouds roll over the live menu, the scene loads behind them,
+    // then they part over the live character select (no pictures needed, nothing shows through)
+    IEnumerator RunClouds(string sceneName)
+    {
+        CloudWipe clouds = GetComponent<CloudWipe>();
+        if (!clouds)
+        {
+            clouds = gameObject.AddComponent<CloudWipe>();
+        }
+        ShowScreen(oldScreen, null);
+        ShowScreen(newScreen, null);
+        canvas.enabled = true;
+        yield return clouds.Close();
+
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        while (!op.isDone)
+        {
+            yield return null;
+        }
+        yield return null;
+        yield return null;
+
+        yield return clouds.Open();
+        canvas.enabled = false;
     }
 
     // A RawImage with no texture draws solid white, so hide it until it has a picture

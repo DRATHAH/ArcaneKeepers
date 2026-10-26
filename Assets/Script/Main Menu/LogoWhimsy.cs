@@ -232,7 +232,7 @@ public class LogoWhimsy : MonoBehaviour
         if (starSprite != null) return;
 
         // Chunky rounded four-point star with a bright core.
-        starSprite = MakeSprite(64, (x, y) =>
+        starSprite = FxKit.MakeSprite(64, (x, y) =>
         {
             float dx = Mathf.Abs(x - 0.5f) * 2f, dy = Mathf.Abs(y - 0.5f) * 2f;
             float star = Mathf.Pow(dx, 0.6f) + Mathf.Pow(dy, 0.6f);
@@ -240,23 +240,11 @@ public class LogoWhimsy : MonoBehaviour
         });
 
         // Soft round puff.
-        puffSprite = MakeSprite(64, (x, y) =>
+        puffSprite = FxKit.MakeSprite(64, (x, y) =>
         {
             float d = Vector2.Distance(new Vector2(x, y), Vector2.one * 0.5f) * 2f;
             return Mathf.Clamp01((1f - d) / 0.25f);
         });
-    }
-
-    private static Sprite MakeSprite(int size, System.Func<float, float, float> alpha)
-    {
-        var tex = new Texture2D(size, size, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
-        var px = new Color32[size * size];
-        for (int y = 0; y < size; y++)
-        for (int x = 0; x < size; x++)
-            px[y * size + x] = new Color(1f, 1f, 1f, alpha((x + 0.5f) / size, (y + 0.5f) / size));
-        tex.SetPixels32(px);
-        tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100f);
     }
 
     // ---- helpers (unscaled time so it works even if the game is paused) ----

@@ -115,11 +115,11 @@ public class ClericTower : TowerBase
         aura.lifeTime = lifeTime;
         if (burst == false)
         {
-            aura.healingAmount = healAmount * Time.deltaTime * Mathf.Clamp(1 + levelScaling * (tower.level - 1),1,float.MaxValue);
+            //aura.healingAmount = healAmount * Time.deltaTime * Mathf.Clamp(1 + levelScaling * (tower.level - 1),1,float.MaxValue);
         }
         else
         {
-            aura.healingAmount = healAmount * Mathf.Clamp(1 + levelScaling * (tower.level - 1), 1, float.MaxValue);
+            //aura.healingAmount = healAmount * Mathf.Clamp(1 + levelScaling * (tower.level - 1), 1, float.MaxValue);
         }
         aura.burstHeal = burst;
         healingFieldCooldown = maxHealingFieldCooldown;

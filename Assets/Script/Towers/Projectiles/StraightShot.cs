@@ -20,7 +20,7 @@ public class StraightShot : MonoBehaviour
         {
             rb = GetComponent<Rigidbody>();
         }
-        rb.linearVelocity = new Vector2(projectileSpeed, 0);
+        rb.linearVelocity = new Vector2(transform.right.x * projectileSpeed, 0);
     }
 
     void Update()

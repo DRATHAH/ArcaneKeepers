@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8750427720419768183
 Transform:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   currentArmorHealth: 0
   flashLength: 0.5
   healthAnim: {fileID: 8503317876602545871}
-  armorAnim: {fileID: 8410430948117908889}
+  armorType: 2
 --- !u!114 &3373361364134382149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   moveDelay: 0
   moveSpeed: 0.4
   pushed: 0
+  anim: {fileID: 8503317876602545871}
 --- !u!114 &919609050729263091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &777483789976206134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
   damageAmount: 20
   attacking: 0
+  anim: {fileID: 8503317876602545871}
 --- !u!1 &4569744680277013110
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +348,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -631352051940752068, guid: a434ca162c991534baa266e6a7e2a34a, type: 3}
+  m_Sprite: {fileID: 3797609838719689363, guid: fa042ab5ce258c246af553d869f70bab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

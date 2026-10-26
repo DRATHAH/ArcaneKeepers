@@ -25,7 +25,9 @@ public class EnemyMovement : MonoBehaviour
     public bool pushed = false;
     private float pushedCooldown = 0.25f;
 
-    private void OnEnable()
+    [SerializeField] private Animator anim;
+
+    private void Start()
     {
         try
         {
@@ -35,6 +37,10 @@ public class EnemyMovement : MonoBehaviour
         {
             throw new ArgumentException("Unable to find Enemy Health Component!", nameof(EnemyMovement));
         }
+    }
+
+    private void OnEnable()
+    {
 
         pushed = false;
 
@@ -51,6 +57,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
+            anim.SetBool("Attacking", false);
             pushed = false;
         }
 
@@ -80,12 +87,14 @@ public class EnemyMovement : MonoBehaviour
         if(livingStatus == Status.ALIVE)
         {
             rb.linearVelocity = Vector2.left * moveSpeed;
+            anim.SetFloat("Movement", moveSpeed);
         }
         else
         {
             if (!pushed)
             {
                 rb.linearVelocity = Vector2.zero;
+                anim.SetFloat("Movement", 0);
             }
         }
     }

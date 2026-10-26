@@ -8,6 +8,8 @@ public class EnemyDamage : DamageBase
     private EnemyMovement enemyMove;
     [HideInInspector]public bool attacking = false;
 
+    [SerializeField] private Animator anim;
+
     private void Start()
     {
         try
@@ -29,7 +31,9 @@ public class EnemyDamage : DamageBase
                 if(relocator.isRelocating == false)
                 {
                     Attack(damageAmount * Time.deltaTime, hit.gameObject);
+                    anim.SetBool("Attacking", true);
                     enemyMove.PauseMovement();
+                    Debug.Log(damageAmount * Time.deltaTime);
                 }
             }
         }
