@@ -2188,7 +2188,7 @@ MonoBehaviour:
   tile: {fileID: 4884192367321044033, guid: 8a6632616355db54abc126a56987fb7a, type: 3}
   towerButtonParent: {fileID: 750028402313668389}
   towerButtonPrefab: {fileID: 3825128874313599067, guid: a1ddde2ddf155b24096d09012d85837e, type: 3}
-  lootRolls: 3
+  lootRolls: 1
   minTowerDrops: 5
   towerLoot:
   - tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}

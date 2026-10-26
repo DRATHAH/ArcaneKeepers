@@ -119,6 +119,68 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &226973847
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5191612583992045332}
+    m_Modifications:
+    - target: {fileID: 5013807071086421936, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.66727
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.05578
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.62508
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+--- !u!4 &226973848 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8278811628367725017, guid: 00df2d7f362b323489fdecca44de1cab, type: 3}
+  m_PrefabInstance: {fileID: 226973847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1806943563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,9 +2158,24 @@ MonoBehaviour:
   tile: {fileID: 4884192367321044033, guid: 8a6632616355db54abc126a56987fb7a, type: 3}
   towerButtonParent: {fileID: 750028402313668389}
   towerButtonPrefab: {fileID: 3825128874313599067, guid: a1ddde2ddf155b24096d09012d85837e, type: 3}
-  lootRolls: 3
+  lootRolls: 2
   minTowerDrops: 5
-  towerLoot: []
+  towerLoot:
+  - tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
+    level: 0
+    amount: 20
+  - tower: {fileID: 11400000, guid: f62c4a6a553c0de41ae6d868dd7a8d65, type: 2}
+    level: 0
+    amount: 20
+  - tower: {fileID: 11400000, guid: 1d6809c4ec161ef4d8b1336d4fe3762e, type: 2}
+    level: 0
+    amount: 20
+  - tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
+    level: 0
+    amount: 20
+  - tower: {fileID: 11400000, guid: a5c984c30c00f5842a8291acdcc5b6a0, type: 2}
+    level: 0
+    amount: 20
 --- !u!114 &2585021624563872280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,6 +4005,7 @@ Transform:
   - {fileID: 1886169870397653081}
   - {fileID: 1289143025100670858}
   - {fileID: 5591470746378768473}
+  - {fileID: 226973848}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5252426299221765673
