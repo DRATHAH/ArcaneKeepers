@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class TestDeathAbility : OnDeathBase
+public class TestDeathAbility : MonoBehaviour, IDeathAbility
 {
-    public override void OnDeathAbility()
+    public void OnDeathAbility()
     {
         Debug.Log("Test Death Ability");
     }

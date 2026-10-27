@@ -20,7 +20,7 @@ public class RangerTower : TowerBase
     [Tooltip("Prefab for the close ability projectile.")]
     [SerializeField] private GameObject strongProjectilePrefab;
 
-    private float mapBorder = 9f;
+    private float mapBorder = 11f;
 
     private TowerRelocate towerRelocate;
 

@@ -33,14 +33,16 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField]private float incrementAmount; //Total amount of health spawned in a wave multiplied by the increment percent
 
     [Header("Game End Vars")]
-    [SerializeField] private GameObject winTrigger;
-    private Vector3 winTriggerSpawn = new Vector3(0, 1.25f, 0);
-    private bool winner = false;
+    [Tooltip("Prefab for the object that should be awarded at the end of the level.")]
+    [SerializeField] private GameObject winTrigger; 
+    private Vector3 winTriggerSpawn = new Vector3(0, 1.25f, 0); //Where the win trigger for the level spawns in
+    private bool winner = false; //Has the player finished the level
 
-    private bool spawning = false;
+    private bool spawning = false; //Is the enemy actively spawning in enemies?
 
-    private IEnumerator spawnWave;
+    private IEnumerator spawnWave; //coroutine for spawning in an enemy
 
+    //Singleton setup
     private void Awake()
     {
         //Create Singleton conditions
@@ -59,7 +61,7 @@ public class WaveSpawner : MonoBehaviour
         gracePeriod = maxGracePeriod; //Set the grace period
         waveManager = WaveManager.instance; //reference the wavemanager singleton for convenience sake
         maxWaves = waveManager.levelWaves.Count; //Set the maximum waves for the level
-        Debug.Log(maxWaves);
+        //Debug.Log(maxWaves); //Debug message for checking the current wave count
     }
 
     void Update()
@@ -82,8 +84,8 @@ public class WaveSpawner : MonoBehaviour
             {
                 if (winner == false)
                 {
-                    winner = true;
-                    ObjectPool.pool.Create(winTrigger, winTriggerSpawn, Quaternion.identity);
+                    winner = true; //Don't trigger this again
+                    ObjectPool.pool.Create(winTrigger, winTriggerSpawn, Quaternion.identity); //Create a win trigger at its spawn point
                 }
             }
 
@@ -129,16 +131,20 @@ public class WaveSpawner : MonoBehaviour
 
     }
 
+    //Coroutine for spawning a wave
     private IEnumerator spawnEnemy()
     {
-        spawning = true;
+        spawning = true; //The coroutine is currently spawning enemies
 
+        //For each enemy in a wave
         for (int i = 0; i < waveManager.levelWaves[currentWave].waveEnemies.Length; i++)
         {
-            yield return new WaitForSeconds(waveManager.levelWaves[currentWave].spawnDelay[i]);
-            //Create an enemy from the object pool, and try to get their health component
+            yield return new WaitForSeconds(waveManager.levelWaves[currentWave].spawnDelay[i]); //Wait for spawnDelay seconds
+           
+            //Create an enemy from the object pool
             GameObject newbie = ObjectPool.pool.Create(waveManager.levelWaves[currentWave].waveEnemies[i], waveManager.spawnPoints[waveManager.levelWaves[currentWave].wavePosition[i]], Quaternion.identity);
 
+            //Try to get the enemy's health component and add it to the various lists needed for operation
             if (newbie.TryGetComponent<EnemyHealth>(out EnemyHealth newbieHealth))
             {
                 enemiesSpawned.Add(newbieHealth);
@@ -146,11 +152,13 @@ public class WaveSpawner : MonoBehaviour
             }
             else
             {
+                //If the enemy has no health component, say so
                 Debug.LogWarning("Enemy created has no health component!");
             }
         }
 
-        incrementHealthMeter = 0;
+        incrementHealthMeter = 0; //Reset the increment health
+
         //For each enemy in enemy spawned add their health to the health meter
         for (int i = 0; i < enemiesThisWave.Count; i++)
         {
@@ -161,8 +169,8 @@ public class WaveSpawner : MonoBehaviour
         incrementAmount = incrementHealthMeter * incrementPercent;
 
 
-        spawning = false;
+        spawning = false; //No longer spawning
 
-        spawnWave = null;
+        spawnWave = null; //Clear the coroutine so it can be run again
     }
 }

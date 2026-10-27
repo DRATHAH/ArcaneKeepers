@@ -25,7 +25,7 @@ public class WizardTower : TowerBase
 
     [SerializeField] private float fireWaveRange = 3;
 
-    private float mapBorder = 9f; //Range limit for aiming
+    private float mapBorder = 11f; //Range limit for aiming
 
     private Animator anim;
 

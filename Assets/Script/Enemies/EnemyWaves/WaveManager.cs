@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    #region Singleton Setup
     public static WaveManager instance { get; private set; }
-
-    //[Tooltip("List of enemies to spawn in throughout the level. Make a unique entry for each enemy.")]
-    //public List<GameObject> enemyPrefabs = new List<GameObject>();
-
-    public List<Wave> levelWaves = new List<Wave>();
-
-    public List<Vector3> spawnPoints = new List<Vector3>();
-
-    //[Tooltip("Number of enemies to spawn in per wave.")]
-    //public List<int> numPerWave = new List<int>();
-
 
     private void Awake()
     {
@@ -29,7 +19,16 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    #endregion
 
+    [Tooltip("Waves of enemies in the level.")]
+    public List<Wave> levelWaves = new List<Wave>();
+
+    [Tooltip("The different places enemies can spawn from.")]
+    public List<Vector3> spawnPoints = new List<Vector3>();
+
+
+    //Warning for if there are no waves currently loaded
     void Start()
     {
         if(levelWaves.Count == 0)

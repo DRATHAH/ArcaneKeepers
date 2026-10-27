@@ -76,7 +76,7 @@ public class EnemyHealth : HealthBase
             WaveSpawner.instance.enemiesSpawned.Remove(this); //remove this from the enemy spawned pool
             WaveSpawner.instance.enemiesThisWave.Remove(this); //remove this from the enemy spawned pool
         }
-        if (TryGetComponent<OnDeathBase>(out OnDeathBase deathAbility))
+        if (TryGetComponent<IDeathAbility>(out IDeathAbility deathAbility))
         {
             deathAbility.OnDeathAbility(); //Trigger the death ability if there is one
         }
