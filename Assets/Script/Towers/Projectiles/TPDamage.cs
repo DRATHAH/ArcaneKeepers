@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,11 +22,11 @@ public class TPDamage : DamageBase
         objectsHit.Clear();
     }
 
-    public void Initialize(int level, float levelScaling)
+    public void Initialize(int damage, int level, float levelScaling, bool ignoreArmor)
     {
-        damageAmount *= Mathf.Clamp(1 + levelScaling * (level - 1), 1, float.MaxValue);
+        damageAmount = damage * Mathf.Clamp(1 + levelScaling * (level - 1), 1, float.MaxValue);
+        armorPiercing = ignoreArmor;
     }
-
 
     private void OnTriggerEnter(Collider hit)
     {
@@ -42,7 +42,7 @@ public class TPDamage : DamageBase
 
         if (hitCount <= 0)
         {
-            ObjectPool.pool.Destroy(this.gameObject);
+            ObjectPool.pool.Destroy(gameObject);
         }
     }
 }

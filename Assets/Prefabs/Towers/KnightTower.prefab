@@ -124,9 +124,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8926067926141929282}
-  - component: {fileID: 7749043369650434887}
   - component: {fileID: 4900465432934324430}
   - component: {fileID: 5262910377712666955}
+  - component: {fileID: 6320068935572143808}
   - component: {fileID: 4518364333664289075}
   - component: {fileID: 8105776268271884445}
   - component: {fileID: 2968592893126040821}
@@ -145,32 +145,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4483944384165000995}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4582522486026683667}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7749043369650434887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4483944384165000995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361fd1a5cd95d5c448f658db1fd9363a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WallTower
-  tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
-  swapLimit: 0
-  regenRate: 25
-  damageResists:
-  - 1
-  - 2
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &4900465432934324430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +188,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
   isRelocating: 0
   hitBox: {fileID: 4518364333664289075}
+--- !u!114 &6320068935572143808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483944384165000995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2187be4329bc449387a11e7e5eade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerBase
+  tower:
+    tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
+    level: 1
+    amount: 1
+  lanes: 
+  farLimit: 5
+  attackSoundName: 
 --- !u!65 &4518364333664289075
 BoxCollider:
   m_ObjectHideFlags: 0

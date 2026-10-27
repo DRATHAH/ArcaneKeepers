@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 5255191165919699121}
   - component: {fileID: 5168410817144044975}
   - component: {fileID: 3035939981556831126}
-  - component: {fileID: 628975894836745155}
   - component: {fileID: 7275769355318474813}
   - component: {fileID: 6059828474297919890}
   - component: {fileID: 5090302899812428184}
-  - component: {fileID: 2076364242848321526}
+  - component: {fileID: -171629487808844062}
   m_Layer: 0
   m_Name: AssassinTower
   m_TagString: Tower
@@ -31,14 +30,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3573245625740136893}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.92387956, z: 0.38268343, w: 0}
   m_LocalPosition: {x: 0.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6238348566128589604}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 180, z: 0}
 --- !u!65 &5168410817144044975
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -87,33 +86,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &628975894836745155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3573245625740136893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b796ac333bcc7ee44bae6d4029a869ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AssassinTower
-  tower: {fileID: 11400000, guid: f62c4a6a553c0de41ae6d868dd7a8d65, type: 2}
-  swapLimit: 0
-  stabRange: 2
-  maxBackStabCooldown: 3
-  stabDamage:
-  - 250
-  - 400
-  armorPiercing: 0
-  panicAttackRange: 0.5
-  maxPanicAttackCooldown: 3
-  panicAttackDamage: 25
-  panicAttackPush: {x: 3, y: 0, z: 0}
-  damageResists:
-  - 0.9
-  - 1.25
 --- !u!114 &7275769355318474813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerRelocate
   isRelocating: 0
   hitBox: {fileID: 5168410817144044975}
---- !u!114 &2076364242848321526
+--- !u!114 &-171629487808844062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,9 +142,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3573245625740136893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d47efdcdbbc5fb41822091748f36905, type: 3}
+  m_Script: {fileID: 11500000, guid: 72c2187be4329bc449387a11e7e5eade, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
+  m_EditorClassIdentifier: Assembly-CSharp::TowerBase
+  tower:
+    tower: {fileID: 11400000, guid: f62c4a6a553c0de41ae6d868dd7a8d65, type: 2}
+    level: 1
+    amount: 1
+  lanes: 
+  farLimit: 5
+  attackSoundName: 
 --- !u!1 &7429784594387430212
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +236,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1484555874654870105, guid: f0c89b83a0c425442bfcad7613267781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}

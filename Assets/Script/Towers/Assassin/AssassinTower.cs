@@ -126,7 +126,7 @@ public class AssassinTower : TowerBase
                     SoundManager.Instance.PlaySound("Stab");
                     backStabCooldown = maxBackStabCooldown;
                     anim.SetTrigger("Stab");
-                    meleeAttack.Attack(stabDamage[stabDamageType] * Mathf.Clamp(1 + levelScaling * (tower.level - 1), 1, float.MaxValue), armorPiercing, hit.collider.gameObject);
+                    //meleeAttack.Attack(stabDamage[stabDamageType] * Mathf.Clamp(1 + levelScaling * (tower.level - 1), 1, float.MaxValue), armorPiercing, hit.collider.gameObject);
                 }
             }
         }

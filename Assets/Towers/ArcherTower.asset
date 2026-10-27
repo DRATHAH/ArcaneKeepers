@@ -14,7 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   rarity: 0
   towerName: Archer
+  health: 10
+  levelScaling: 0.5
+  attackSoundName: Arrow
+  closeAttack:
+    attackType: 0
+    damage: 100
+    attackRate: 4
+    special: 0
+    range: 10
+    lanes: 
+    attackPrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
+  farAttack:
+    attackType: 0
+    damage: 30
+    attackRate: 2
+    special: 0
+    range: 10
+    lanes: 
+    attackPrefab: {fileID: 1286918116579938344, guid: a913c4a2b3bfd7c4b8226bc279710635, type: 3}
   towerPrefab: {fileID: 3601683227217436569, guid: f6ddec55d4e96e64c9c67c32fa7d38b2, type: 3}
-  towerIcon: {fileID: 21300000, guid: f167d70c96174fc47bf36bf2a0b539b6, type: 3}
+  towerIcon: {fileID: -4663032777365917008, guid: 3f742dfdbd8fdba4e974e588b4036fb4, type: 3}
   cardArt: {fileID: 21300000, guid: e2219792632fac34097702309a1a9eba, type: 3}
   towerId: 0

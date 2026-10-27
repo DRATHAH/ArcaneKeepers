@@ -55,7 +55,7 @@ public class WallTower : TowerBase
         if(towerHealth.attackedTimer <= 0)
         {
             anim.SetBool("Healing", true);
-            towerHealth.RecoverHealth(regenRate * Time.deltaTime * Mathf.Clamp(1 + levelScaling * (tower.level - 1), 1, float.MaxValue));
+            //towerHealth.RecoverHealth(regenRate * Time.deltaTime * Mathf.Clamp(1 + levelScaling * (tower.level - 1), 1, float.MaxValue));
         }
         else
         {

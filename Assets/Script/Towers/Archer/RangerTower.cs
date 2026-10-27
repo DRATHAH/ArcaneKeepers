@@ -81,7 +81,7 @@ public class RangerTower : TowerBase
             anim.SetTrigger("Shoot");
             closeCooldown = maxCCooldown;
             GameObject projectile = ObjectPool.pool.Create(strongProjectilePrefab, transform.position, Quaternion.identity);
-            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
+            //projectile.GetComponent<TPDamage>().Initialize(tower.tower.damage, tower.level, levelScaling);
         }
         else
         {
@@ -101,7 +101,7 @@ public class RangerTower : TowerBase
             anim.SetTrigger("Shoot");
             farCooldown = maxFCooldown;
             GameObject projectile = ObjectPool.pool.Create(weakProjectilePrefab, transform.position, Quaternion.identity);
-            projectile.GetComponent<TPDamage>().Initialize(tower.level, levelScaling);
+            //projectile.GetComponent<TPDamage>().Initialize(tower.tower.damage, tower.level, levelScaling);
         }
         else
         {

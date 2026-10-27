@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HealingAura : MonoBehaviour
 {
-    [HideInInspector] public float lifeTime;
+    [HideInInspector] public float lifeTime = 1;
     [HideInInspector] public float healingAmount;
     [HideInInspector] public bool burstHeal = false;
 
@@ -30,6 +30,14 @@ public class HealingAura : MonoBehaviour
         }
         healingVFX.Clear();
         objectTimers.Clear();
+    }
+
+    public void Initialize(int healing, int level, float levelScaling, bool burst, float scale, float duration)
+    {
+        healingAmount = healing * Mathf.Clamp(1 + levelScaling * (level - 1), 1, float.MaxValue);
+        burstHeal = burst;
+        transform.localScale = new Vector3(scale, scale, scale);
+        lifeTime = duration / 2f;
     }
 
     private void Update()

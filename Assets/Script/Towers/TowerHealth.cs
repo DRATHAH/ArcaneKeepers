@@ -5,7 +5,7 @@ public class TowerHealth : HealthBase
 {
     [Tooltip("How much health the tower can have.")]
     [SerializeField] public float maxHealth = 200;
-    [HideInInspector] public float currentHealth;
+    public float currentHealth;
 
     [Tooltip("Damage resistance modifier.")]
     public float damageResist = 1;
@@ -24,10 +24,13 @@ public class TowerHealth : HealthBase
 
     [SerializeField] private float deathCooldown;
 
+    Animator anim;
+
     private void Start()
     {
         damageFlash = GetComponent<ColorFlash>();
         towerRelocate = GetComponent<TowerRelocate>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -42,6 +45,11 @@ public class TowerHealth : HealthBase
 
     private void Update()
     {
+        if (anim != null)
+        {
+            anim.SetFloat("Health", currentHealth / maxHealth);
+        }
+
         if(attackedTimer > 0)
         {
             attackedTimer -= Time.deltaTime;
@@ -74,12 +82,14 @@ public class TowerHealth : HealthBase
 
     public override void TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount / damageResist;
+        Debug.Log("Took " + damageAmount + " with " + currentHealth + " health");
+        currentHealth -= damageAmount;
         isAttacked = true;
         attackedTimer = maxAttackedTimer;
         parentButton.UpdateHealthBar(currentHealth/maxHealth);
         if (currentHealth <= 0)
         {
+            Debug.Log(currentHealth + " health");
             Die();
         }
     }
