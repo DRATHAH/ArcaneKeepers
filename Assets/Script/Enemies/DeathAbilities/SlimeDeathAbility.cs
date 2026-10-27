@@ -6,25 +6,21 @@ public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
 
     [SerializeField] private GameObject bSlimePrefab;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private Vector3 newbiePushForce = new Vector3(50, 0, 0);
 
     public void OnDeathAbility()
     {
         if(WaveManager.instance != null)
         {
+            Debug.Log(currentTile);
             if (currentTile == 0)
             {
+                GameObject newBaby = ObjectPool.pool.Create(bSlimePrefab, transform.position, Quaternion.identity);
+
+                if (newBaby.TryGetComponent<EnemyMovement>(out EnemyMovement move))
+                {
+                    move.Push(newbiePushForce);
+                }
                 Debug.Log("One same, one below");
             }
             else if (currentTile == WaveManager.instance.spawnPoints.Count - 1)
@@ -33,8 +29,19 @@ public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
             }
             else
             {
-                Debug.Log("One above, one same");
+                GameObject newBaby = ObjectPool.pool.Create(bSlimePrefab, transform.position, Quaternion.identity);
+
+                if (newBaby.TryGetComponent<EnemyMovement>(out EnemyMovement move))
+                {
+                    move.Push(newbiePushForce);
+                }
+                Debug.Log("One above, one below");
             }
         }
+    }
+
+    public void SetTile(int newTile)
+    {
+        currentTile = newTile;
     }
 }

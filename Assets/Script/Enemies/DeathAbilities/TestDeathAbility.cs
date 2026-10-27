@@ -6,4 +6,9 @@ public class TestDeathAbility : MonoBehaviour, IDeathAbility
     {
         Debug.Log("Test Death Ability");
     }
+
+    public void SetTile(int newTile)
+    {
+        Debug.Log("Set Tile");
+    }
 }

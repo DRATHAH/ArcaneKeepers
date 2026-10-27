@@ -278,4 +278,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d21a896f7b61fd4787aebd48c9d1bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeDeathAbility
-  bSlimePrefab: {fileID: 0}
+  bSlimePrefab: {fileID: 4969344108722984119, guid: a4324a5cc552c8841a0f283b4291539c, type: 3}

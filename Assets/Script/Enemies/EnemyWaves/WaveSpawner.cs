@@ -147,6 +147,7 @@ public class WaveSpawner : MonoBehaviour
             //Try to get the enemy's health component and add it to the various lists needed for operation
             if (newbie.TryGetComponent<EnemyHealth>(out EnemyHealth newbieHealth))
             {
+                newbieHealth.SetTile(waveManager.levelWaves[currentWave].wavePosition[i]);
                 enemiesSpawned.Add(newbieHealth);
                 enemiesThisWave.Add(newbieHealth);
             }

@@ -139,11 +139,15 @@ public class EnemyHealth : HealthBase
         if (healthAnim != null)
         {
             healthAnim.SetFloat("Health", currentHealth / maxHealth);
-        }
-
-        if (healthAnim != null)
-        {
             healthAnim.SetFloat("ArmorHealth", currentArmorHealth / maxArmorHealth);
+        }
+    }
+
+    public void SetTile(int newTile)
+    {
+        if (TryGetComponent<IDeathAbility>(out IDeathAbility deathAbility))
+        {
+            deathAbility.SetTile(newTile); //Trigger the death ability if there is one
         }
     }
 
