@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class EnemyHealth : HealthBase
     [SerializeField] private float maxArmorHealth = 0;
     [SerializeField]private float currentArmorHealth; //current armor health this enemy has
 
-    private EnemyMovement enemyMovement;
+    private IMovement enemyMovement;
     private ColorFlash damageFlash;
     [SerializeField] private float flashLength = 0.5f;
 
@@ -28,7 +29,7 @@ public class EnemyHealth : HealthBase
     {
         col = GetComponent<BoxCollider>();
         damageFlash = GetComponent<ColorFlash>();
-        enemyMovement = GetComponent<EnemyMovement>();
+        enemyMovement = GetComponent<IMovement>();
         healthAnim.SetInteger("ArmorType", armorType);
     }
 
@@ -139,6 +140,7 @@ public class EnemyHealth : HealthBase
         if (healthAnim != null)
         {
             healthAnim.SetFloat("Health", currentHealth / maxHealth);
+
             healthAnim.SetFloat("ArmorHealth", currentArmorHealth / maxArmorHealth);
         }
     }

@@ -82,14 +82,14 @@ public class TowerHealth : HealthBase
 
     public override void TakeDamage(float damageAmount)
     {
-        Debug.Log("Took " + damageAmount + " with " + currentHealth + " health");
+        //Debug.Log("Took " + damageAmount + " with " + currentHealth + " health");
         currentHealth -= damageAmount;
         isAttacked = true;
         attackedTimer = maxAttackedTimer;
         parentButton.UpdateHealthBar(currentHealth/maxHealth);
         if (currentHealth <= 0)
         {
-            Debug.Log(currentHealth + " health");
+            //Debug.Log(currentHealth + " health");
             Die();
         }
     }

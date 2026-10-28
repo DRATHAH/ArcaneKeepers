@@ -5,7 +5,7 @@ public class EnemyDamage : DamageBase
 
     [Tooltip("How much damage this enemy does.")]
     [SerializeField] private float damageAmount;
-    private EnemyMovement enemyMove;
+    private IMovement enemyMove;
     [HideInInspector]public bool attacking = false;
 
     [SerializeField] private Animator anim;
@@ -14,7 +14,7 @@ public class EnemyDamage : DamageBase
     {
         try
         {
-            enemyMove = GetComponent<EnemyMovement>();
+            enemyMove = GetComponent<IMovement>();
         }
         catch
         {
@@ -33,7 +33,7 @@ public class EnemyDamage : DamageBase
                     Attack(damageAmount * Time.deltaTime, hit.gameObject);
                     anim.SetBool("Attacking", true);
                     enemyMove.PauseMovement();
-                    Debug.Log(damageAmount * Time.deltaTime);
+                    //Debug.Log(damageAmount * Time.deltaTime);
                 }
             }
         }

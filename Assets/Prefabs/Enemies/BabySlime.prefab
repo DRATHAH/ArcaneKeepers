@@ -127,9 +127,9 @@ GameObject:
   - component: {fileID: 9184392717399805983}
   - component: {fileID: 4478316392809318419}
   - component: {fileID: 7689758007720901451}
-  - component: {fileID: 8442656604616977429}
   - component: {fileID: 1388336338512232713}
   - component: {fileID: 4590120532560721705}
+  - component: {fileID: 8906659462981921834}
   m_Layer: 6
   m_Name: BabySlime
   m_TagString: Enemy
@@ -213,31 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253dd9cca107fe544941efecf757c82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 200
+  maxHealth: 75
   currentHealth: 0
   maxArmorHealth: 0
   currentArmorHealth: 0
   flashLength: 0.5
   healthAnim: {fileID: 5629920517515884411}
   armorType: 0
---- !u!114 &8442656604616977429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4969344108722984119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f20974ca266aa44ba4c08b362f93ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  livingStatus: 0
-  maxMoveDelay: 0.5
-  moveDelay: 0
-  moveSpeed: 0.4
-  pushed: 0
-  anim: {fileID: 5629920517515884411}
 --- !u!114 &1388336338512232713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,4 +246,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
   damageAmount: 20
   attacking: 0
+  anim: {fileID: 5629920517515884411}
+--- !u!114 &8906659462981921834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969344108722984119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9997a6139495e4b87b6d752c845325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoppingEnemy
+  livingStatus: 0
+  maxMoveDelay: 0.5
+  moveDelay: 0
+  moveSpeed: 2
+  moveDuration: 0.75
+  maxHopDelay: 1.5
+  pushed: 0
   anim: {fileID: 5629920517515884411}

@@ -1,12 +1,15 @@
-using UnityEngine;
 using System;
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class EnemyMovement : MonoBehaviour
+public class HoppingEnemy : MonoBehaviour, IMovement
 {
     Rigidbody rb;
 
-    [HideInInspector] public enum Status
+    [HideInInspector]
+    public enum Status
     {
         ALIVE,
         STOPPED
@@ -17,8 +20,19 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float maxMoveDelay = 0.5f;
     [SerializeField] private float moveDelay;
 
+    [Header("Hop Variables")]
     [Tooltip("How fast the enemy moves. Negative number moves left, positive number moves right")]
     [SerializeField] private float moveSpeed;
+
+    [SerializeField] private float moveDuration = 2;
+    private float hopDelay = 2f;
+    [SerializeField] private float maxHopDelay = 2f;
+    private float windupLength = 0.375f;
+
+
+    private bool hopping = false;
+
+    private IEnumerator hopCoroutine = null;
 
     private EnemyHealth enemyHealth;
 
@@ -51,7 +65,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        if(moveDelay > 0)
+        if (moveDelay > 0)
         {
             moveDelay -= Time.deltaTime;
         }
@@ -79,12 +93,13 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
+        Hop();
         CalcMovement();
     }
 
     void CalcMovement()
     {
-        if(livingStatus == Status.ALIVE)
+        if (livingStatus == Status.ALIVE && hopping)
         {
             rb.linearVelocity = Vector2.left * moveSpeed;
             anim.SetFloat("Movement", moveSpeed);
@@ -99,6 +114,23 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    private void Hop()
+    {
+        if(hopCoroutine == null)
+        {
+            if(hopDelay <= 0)
+            {
+                hopCoroutine = moveTimer();
+                StartCoroutine(hopCoroutine);
+            }
+            else
+            {
+                hopDelay -= Time.deltaTime;
+            }
+        }
+    }
+
+
     public void PauseMovement()
     {
         moveDelay = maxMoveDelay;
@@ -111,4 +143,14 @@ public class EnemyMovement : MonoBehaviour
         rb.linearVelocity = pushForce;
     }
 
+    private IEnumerator moveTimer()
+    {
+        anim.SetTrigger("Hop");
+        yield return new WaitForSeconds(windupLength);
+        hopping = true;
+        yield return new WaitForSeconds(moveDuration);
+        hopDelay = maxHopDelay;
+        hopping = false;
+        hopCoroutine = null;
+    }
 }
