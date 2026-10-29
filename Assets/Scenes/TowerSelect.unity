@@ -5555,6 +5555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
   selectScreen: {fileID: 947854134}
+  lineup: {fileID: 1063089164}
   towersParent: {fileID: 508844065}
   cardPrefab: {fileID: 7605318876911939505, guid: 7304d85935f26aa4f9723f7a7e3c8f7b, type: 3}
 --- !u!1 &948847905
