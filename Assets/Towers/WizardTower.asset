@@ -20,7 +20,7 @@ MonoBehaviour:
   closeAttack:
     attackType: 0
     damage: 50
-    attackRate: 5
+    attackRate: 3
     special: 0
     range: 10
     lanes: 

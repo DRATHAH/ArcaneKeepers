@@ -174,4 +174,20 @@ public class WaveSpawner : MonoBehaviour
 
         spawnWave = null; //Clear the coroutine so it can be run again
     }
+
+    public void BonusSpawn(GameObject newbies)
+    {
+        //Try to get the enemy's health component and add it to the various lists needed for operation
+        if (newbies.TryGetComponent<EnemyHealth>(out EnemyHealth newbieHealth))
+        {
+            enemiesSpawned.Add(newbieHealth);
+            enemiesThisWave.Add(newbieHealth);
+        }
+        else
+        {
+            //If the enemy has no health component, say so
+            Debug.LogWarning("Enemy created has no health component!");
+        }
+    }
+
 }
