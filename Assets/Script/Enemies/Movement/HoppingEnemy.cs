@@ -41,6 +41,8 @@ public class HoppingEnemy : MonoBehaviour, IMovement
 
     [SerializeField] private Animator anim;
 
+
+
     private void Start()
     {
         try
@@ -110,6 +112,10 @@ public class HoppingEnemy : MonoBehaviour, IMovement
             {
                 rb.linearVelocity = Vector2.zero;
                 anim.SetFloat("Movement", 0);
+                if (enemyHealth != null)
+                {
+                    enemyHealth.ToggleInvincible(false);
+                }
             }
         }
     }
@@ -142,7 +148,16 @@ public class HoppingEnemy : MonoBehaviour, IMovement
         pushed = true;
         rb.linearVelocity = pushForce;
     }
-
+    public void Push(Vector3 pushForce, bool invincible)
+    {
+        moveDelay = pushedCooldown;
+        pushed = true;
+        rb.linearVelocity = pushForce;
+        if (enemyHealth != null)
+        {
+            enemyHealth.ToggleInvincible(invincible);
+        }
+    }
     private IEnumerator moveTimer()
     {
         anim.SetTrigger("Hop");

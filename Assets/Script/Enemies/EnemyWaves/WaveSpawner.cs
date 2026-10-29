@@ -79,15 +79,6 @@ public class WaveSpawner : MonoBehaviour
                 }
             }
 
-            //If there are no more waves to spawn and all enemies are dead print the debug message
-            if (currentWave >= maxWaves - 1 && enemiesSpawned.Count == 0)
-            {
-                if (winner == false)
-                {
-                    winner = true; //Don't trigger this again
-                    ObjectPool.pool.Create(winTrigger, winTriggerSpawn, Quaternion.identity); //Create a win trigger at its spawn point
-                }
-            }
 
             //If the time between waves is greater than a certain amount decrease it
             if (incrementTimer > 0)
@@ -102,6 +93,16 @@ public class WaveSpawner : MonoBehaviour
                     //Debug.Log(maxWaves);
                     //Debug.Log("Again!");
                     IncrementWave();
+                }
+            }
+
+            //If there are no more waves to spawn and all enemies are dead print the debug message
+            if (currentWave >= maxWaves - 1 && enemiesSpawned.Count == 0)
+            {
+                if (winner == false)
+                {
+                    winner = true; //Don't trigger this again
+                    ObjectPool.pool.Create(winTrigger, winTriggerSpawn, Quaternion.identity); //Create a win trigger at its spawn point
                 }
             }
         }

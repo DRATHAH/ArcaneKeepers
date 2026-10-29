@@ -88,6 +88,10 @@ public class EnemyMovement : MonoBehaviour, IMovement
         {
             rb.linearVelocity = Vector2.left * moveSpeed;
             anim.SetFloat("Movement", moveSpeed);
+            if (enemyHealth != null)
+            {
+                enemyHealth.ToggleInvincible(false);
+            }
         }
         else
         {
@@ -95,6 +99,10 @@ public class EnemyMovement : MonoBehaviour, IMovement
             {
                 rb.linearVelocity = Vector2.zero;
                 anim.SetFloat("Movement", 0);
+                if (enemyHealth != null)
+                {
+                    enemyHealth.ToggleInvincible(false);
+                }
             }
         }
     }
@@ -111,4 +119,11 @@ public class EnemyMovement : MonoBehaviour, IMovement
         rb.linearVelocity = pushForce;
     }
 
+    public void Push(Vector3 pushForce, bool invincible)
+    {
+        moveDelay = pushedCooldown;
+        pushed = true;
+        rb.linearVelocity = pushForce;
+        enemyHealth.ToggleInvincible(invincible);
+    }
 }

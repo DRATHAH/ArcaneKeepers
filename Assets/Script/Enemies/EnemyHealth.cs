@@ -25,6 +25,8 @@ public class EnemyHealth : HealthBase
     [SerializeField] private int armorType;
 
     private BoxCollider col;
+
+    private bool invincible = false;
     void Start()
     {
         col = GetComponent<BoxCollider>();
@@ -48,24 +50,31 @@ public class EnemyHealth : HealthBase
     //Taking damage func
     public override void TakeDamage(float damageAmount, bool armorPiercing)
     {
-        SoundManager.Instance.PlaySound("EnemyDamage");
-        CalcDamage(damageAmount, armorPiercing);
-        //If the current health is less than 0, die.
-        if (currentHealth <= 0)
+        if (!invincible)
         {
-            Die();
+            SoundManager.Instance.PlaySound("EnemyDamage");
+            CalcDamage(damageAmount, armorPiercing);
+            //If the current health is less than 0, die.
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
         }
     }
 
     public override void TakeDamage(float damageAmount, bool armorPiercing, Vector3 knockback)
     {
-        CalcDamage(damageAmount, armorPiercing);
-
-        enemyMovement.Push(knockback);
-
-        if (currentHealth <= 0)
+        if (!invincible)
         {
-            Die();
+            SoundManager.Instance.PlaySound("EnemyDamage");
+            CalcDamage(damageAmount, armorPiercing);
+
+            enemyMovement.Push(knockback);
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
         }
     }
 
@@ -151,6 +160,11 @@ public class EnemyHealth : HealthBase
         {
             deathAbility.SetTile(newTile); //Trigger the death ability if there is one
         }
+    }
+
+    public void ToggleInvincible(bool isInvincible)
+    {
+        invincible = isInvincible;
     }
 
 }

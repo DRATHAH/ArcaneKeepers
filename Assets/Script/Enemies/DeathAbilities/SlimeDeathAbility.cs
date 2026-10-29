@@ -7,7 +7,7 @@ public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
     [SerializeField] private GameObject bSlimePrefab;
 
     private float newbiePushForce = 6;
-    private float separationForce = 8.333335f;
+    private float separationForce = 8.3333f;
 
     public void OnDeathAbility()
     {
@@ -18,19 +18,19 @@ public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
             {
                 SpawnBaby(new Vector3(newbiePushForce, 0, 0));
                 SpawnBaby(new Vector3(newbiePushForce, 0, -separationForce));
-                Debug.Log("One same, one below");
+                //Debug.Log("One same, one below");
             }
             else if (currentTile == WaveManager.instance.spawnPoints.Count - 1)
             {
                 SpawnBaby(new Vector3(newbiePushForce, 0, separationForce));
                 SpawnBaby(new Vector3(newbiePushForce, 0, 0));
-                Debug.Log("One above, one same");
+                //Debug.Log("One above, one same");
             }
             else
             {
                 SpawnBaby(new Vector3(newbiePushForce, 0, separationForce));
                 SpawnBaby(new Vector3(newbiePushForce, 0, -separationForce));
-                Debug.Log("One above, one below");
+                //Debug.Log("One above, one below");
             }
         }
     }
@@ -38,10 +38,10 @@ public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
     private void SpawnBaby(Vector3 spawnPush)
     {
         GameObject newBaby = ObjectPool.pool.Create(bSlimePrefab, transform.position, Quaternion.identity);
-
+        WaveSpawner.instance.BonusSpawn(newBaby);
         if (newBaby.TryGetComponent<IMovement>(out IMovement move))
         {
-            move.Push(spawnPush);
+            move.Push(spawnPush, true);
         }
     }
 
