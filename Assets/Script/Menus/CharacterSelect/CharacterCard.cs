@@ -7,6 +7,7 @@ using UnityEngine.UI;
 // All visual changes ease toward a target so every tap gets a smooth response.
 public class CharacterCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
+    public TowerEntry tower;
     public Button button;
     [Tooltip("Fixed-size box holding the visual, scaled to fit the screen by CharacterSelectLayout")]
     public RectTransform fit;
@@ -53,16 +54,22 @@ public class CharacterCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         hitArea = GetComponent<Graphic>();
     }
 
-    public void Setup(CharacterProfile profile, float idleOffset)
+    public void AddTower(TowerEntry newTower)
     {
-        accent = profile.accent;
-        hero.sprite = profile.heroSprite;
-        nameText.text = profile.displayName;
+        tower = newTower;
+        CharacterProfile profile = newTower.tower.profile;
+    }
+
+    public void Setup(float idleOffset)
+    {
+        accent = tower.tower.profile.accent;
+        hero.sprite = tower.tower.profile.heroSprite;
+        nameText.text = tower.tower.name;
         if (idle)
         {
             idle.timeOffset = idleOffset;
         }
-        Color g = profile.accent;
+        Color g = tower.tower.profile.accent;
         g.a = 0;
         glow.color = g;
         ApplyVisuals();

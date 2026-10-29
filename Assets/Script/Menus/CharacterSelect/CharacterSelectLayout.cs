@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class CharacterSelectLayout : MonoBehaviour
     public RectTransform intelPanel;
     public RectTransform lineup;
     public LineupScroller scroller;
-    public CharacterCard[] cards;
+    public List<CharacterCard> cards = new List<CharacterCard>();
 
     public float headerHeight = 150;
     public float footerHeight = 270;

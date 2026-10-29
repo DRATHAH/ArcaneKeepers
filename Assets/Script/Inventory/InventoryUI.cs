@@ -2,59 +2,41 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Linq;
+using System.Collections.Generic;
 
 public class InventoryUI : MonoBehaviour
 {
-    public GameObject towerSelectionCanvas;
+    public CharacterSelectScreen selectScreen;
+    public LineupScroller lineup;
     public Transform towersParent;
-    public Transform selectedTowersParent;
+    public GameObject cardPrefab;
 
     Inventory inventory;
-    InventorySlot[] slots;
-    InventorySlot[] selectedSlots;
 
     // Start is called before the first frame update
     void Start()
     {
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
-        slots = towersParent.GetComponentsInChildren<InventorySlot>();
-        selectedSlots = selectedTowersParent.GetComponentsInChildren<InventorySlot>();
 
-        // Optional: the picker can also be always visible
-        if (towerSelectionCanvas)
-        {
-            towerSelectionCanvas.SetActive(false);
-        }
         StartCoroutine(WaitToLoadTowers());
     }
 
     void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
+        List<CharacterCard> cardsToAdd = new List<CharacterCard>();
+
+        for (int i = 0; i < inventory.towerNum.Count; i++)
         {
-            if (i < inventory.towerNum.Count)
-            {
-                TowerEntry towerIndex = inventory.towerNum[i];
-                slots[i].AddItem(towerIndex);
-            }
-            else
-            {
-                slots[i].ClearSlot();
-            }
+            TowerEntry towerIndex = inventory.towerNum[i];
+            GameObject card = Instantiate(cardPrefab, towersParent);
+            CharacterCard charCard = card.GetComponent<CharacterCard>();
+            charCard.AddTower(towerIndex);
+            cardsToAdd.Add(charCard);
         }
 
-        for (int i = 0; i < selectedSlots.Length; i++)
-        {
-            if (!Inventory.IsEmpty(inventory.selectedTowers[i]))
-            {
-                selectedSlots[i].AddItem(inventory.selectedTowers[i]);
-            }
-            else
-            {
-                selectedSlots[i].ClearSlot();
-            }
-        }
+        selectScreen.UpdateUI(cardsToAdd);
+        lineup.UpdateCards(cardsToAdd);
     }
 
     IEnumerator WaitToLoadTowers()

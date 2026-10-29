@@ -31,6 +31,7 @@ public class Tower : ScriptableObject
     [Tooltip("Art shown in the character select scene")]
     public Sprite heroArt;
     public int towerId = 0;
+    public CharacterProfile profile;
 }
 
 [Serializable]

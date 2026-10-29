@@ -105,7 +105,6 @@ public static partial class MenuBuilder
             {
                 tower = tower,
                 heroSprite = AssetDatabase.LoadAssetAtPath<Sprite>(HeroFolder + k.hero + ".png"),
-                displayName = tower && !string.IsNullOrEmpty(tower.towerName) ? tower.towerName : k.name,
                 accent = k.accent,
                 health = k.health,
                 power = k.power,
@@ -113,7 +112,7 @@ public static partial class MenuBuilder
             });
             playerManager.cheatedTowers.Add(new TowerEntry { tower = tower, amount = 1 });
         }
-        screen.characters = profiles.ToArray();
+        screen.characters = profiles;
 
         BuildHeader(safe, screen);
         RectTransform intel = BuildNameBlock(safe, screen);
@@ -379,7 +378,7 @@ public static partial class MenuBuilder
         {
             cards.Add(CreateCharacterCard(content, Keepers[i], screen.characters[i]));
         }
-        screen.cards = cards.ToArray();
+        screen.cards = cards;
 
         LineupScroller scroller = root.AddComponent<LineupScroller>();
         scroller.cards = screen.cards;
@@ -445,7 +444,7 @@ public static partial class MenuBuilder
         card.idle = idle;
 
         // Just the name under the platform, no plate; it turns gold while the keeper is in the squad
-        card.nameText = CreateChunkyText("Name", visual, profile.displayName, 50, Color.white);
+        card.nameText = CreateChunkyText("Name", visual, profile.tower.name, 50, Color.white);
         Bottom(card.nameText, new Vector2(0, 0), new Vector2(340, 62));
 
         // Slot number badge on the keeper's shoulder

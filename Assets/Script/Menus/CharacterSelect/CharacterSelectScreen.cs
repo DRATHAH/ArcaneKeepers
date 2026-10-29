@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -11,8 +12,8 @@ public class CharacterSelectScreen : MonoBehaviour
 {
     public const int SquadSize = 4;
 
-    public CharacterProfile[] characters;
-    public CharacterCard[] cards;
+    public List<CharacterProfile> characters;
+    public List<CharacterCard> cards;
     public SquadSlot[] slots;
     public LineupScroller scroller;
 
@@ -81,12 +82,25 @@ public class CharacterSelectScreen : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void UpdateUI(List<CharacterCard> newCards)
     {
-        for (int i = 0; i < cards.Length; i++)
+        characters.Clear();
+        foreach(CharacterCard c in cards)
+        {
+            Destroy(c.gameObject);
+        }
+        cards.Clear();
+
+        foreach (CharacterCard c in newCards)
+        {
+            cards.Add(c);
+            characters.Add(c.tower.tower.profile);
+        }
+
+        for (int i = 0; i < cards.Count; i++)
         {
             int index = i;
-            cards[i].Setup(characters[i], i * 1.37f);
+            cards[i].Setup(i * 1.37f);
             cards[i].button.onClick.AddListener(() => Toggle(index));
             cards[i].Appear(0.06f * i);
         }
@@ -102,7 +116,7 @@ public class CharacterSelectScreen : MonoBehaviour
 
         scroller.FocusChanged += ShowIntel;
         // Start in the middle of the lineup so keepers fill both sides
-        int middle = characters.Length / 2;
+        int middle = characters.Count / 2;
         scroller.ScrollTo(middle, true);
         ShowIntel(middle);
         Refresh();
@@ -162,6 +176,7 @@ public class CharacterSelectScreen : MonoBehaviour
             return;
         }
 
+        // Adds card to squad, which allows it to be saved
         squad[slot] = index;
         cards[index].SetSelected(true, slot + 1, true);
         slots[slot].Reserve();
@@ -349,7 +364,7 @@ public class CharacterSelectScreen : MonoBehaviour
 
     void ShowIntel(int index)
     {
-        if (index == shownIntel || index < 0 || index >= characters.Length)
+        if (index == shownIntel || index < 0 || index >= characters.Count)
         {
             return;
         }
@@ -397,7 +412,7 @@ public class CharacterSelectScreen : MonoBehaviour
     void FillIntel(int index)
     {
         CharacterProfile p = characters[index];
-        intelName.text = p.displayName;
+        intelName.text = p.tower.name;
         if (intelStats != null && intelStats.Length >= 3)
         {
             intelStats[0].Set(p.health, true);
@@ -552,7 +567,7 @@ public class CharacterSelectScreen : MonoBehaviour
 
     int IndexOf(Tower tower)
     {
-        for (int i = 0; i < characters.Length; i++)
+        for (int i = 0; i < characters.Count; i++)
         {
             if (characters[i].tower == tower || (characters[i].tower && tower && characters[i].tower.towerId == tower.towerId))
             {

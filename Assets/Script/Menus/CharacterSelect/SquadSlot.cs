@@ -32,7 +32,7 @@ public class SquadSlot : MonoBehaviour
         IsFilled = true;
         incoming = false;
         portrait.sprite = profile.heroSprite;
-        nameText.text = profile.displayName;
+        nameText.text = profile.tower.name;
         accent = profile.accent;
         disc.color = Color.Lerp(profile.accent, new Color(0.11f, 0.08f, 0.2f), 0.2f);
         if (animate)

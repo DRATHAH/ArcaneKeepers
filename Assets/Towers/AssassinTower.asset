@@ -36,4 +36,12 @@ MonoBehaviour:
   towerPrefab: {fileID: 3573245625740136893, guid: 9bafe0b108e0c5d488e8ff9b8992346f, type: 3}
   towerIcon: {fileID: 21300000, guid: 66835b82d20516a4b9af5bcf05f395e1, type: 3}
   cardArt: {fileID: 21300000, guid: bb8776d730f95004ab93c10d0203b5e6, type: 3}
+  heroArt: {fileID: 0}
   towerId: 4
+  profile:
+    tower: {fileID: 11400000}
+    heroSprite: {fileID: 21300000, guid: 66835b82d20516a4b9af5bcf05f395e1, type: 3}
+    accent: {r: 0.76862746, g: 0.4392157, b: 0.9607843, a: 1}
+    health: 3
+    power: 3
+    range: 3

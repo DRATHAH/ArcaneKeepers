@@ -9,7 +9,6 @@ public class CharacterProfile
     public Tower tower;
     [Tooltip("Full-body art standing on the platform (feet at the bottom edge)")]
     public Sprite heroSprite;
-    public string displayName = "";
     public Color accent = Color.white;
     [Range(1, 5)] public int health = 3;
     [Range(1, 5)] public int power = 3;

@@ -714,6 +714,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b7bcc83eec9a49ad7a9b51b1a0198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCard
+  tower:
+    tower: {fileID: 0}
+    level: 1
+    amount: 1
   button: {fileID: 1396922588814553107}
   fit: {fileID: 2504111519971074939}
   visual: {fileID: 7319778180495501707}

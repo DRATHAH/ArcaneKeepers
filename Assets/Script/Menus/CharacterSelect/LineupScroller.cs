@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ScrollRect))]
 public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
-    public CharacterCard[] cards;
+    public List<CharacterCard> cards = new List<CharacterCard>();
     [Tooltip("Below this speed (canvas units/s) the lineup settles on the nearest keeper")]
     public float snapSpeed = 600f;
     public float snapTime = 0.22f;
@@ -38,6 +39,15 @@ public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         layout = content.GetComponent<HorizontalLayoutGroup>();
     }
 
+    public void UpdateCards(List<CharacterCard> cardsToAdd)
+    {
+        cards.Clear();
+        foreach (CharacterCard card in cardsToAdd)
+        {
+            cards.Add(card);
+        }
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         dragging = true;
@@ -55,7 +65,7 @@ public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
         int best = -1;
         float bestDistance = float.MaxValue;
-        for (int i = 0; i < cards.Length; i++)
+        for (int i = 0; i < cards.Count; i++)
         {
             float d = Mathf.Abs(content.anchoredPosition.x + OffsetFromCentre(i) - landing);
             if (d < bestDistance)
@@ -77,7 +87,7 @@ public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     // Glide the given keeper to the middle
     public void ScrollTo(int index, bool instant = false)
     {
-        if (index < 0 || index >= cards.Length)
+        if (index < 0 || index >= cards.Count)
         {
             return;
         }
@@ -146,7 +156,7 @@ public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         // Edge fade: keepers dissolve as they leave the lineup instead of being cut off by a mask
         float spacing = CardSpacing();
         Rect view = viewport.rect;
-        for (int i = 0; i < cards.Length; i++)
+        for (int i = 0; i < cards.Count; i++)
         {
             float offset = OffsetFromCentre(i);
             cards[i].focus = 1 - Mathf.Clamp01(Mathf.Abs(offset) / spacing);
@@ -168,16 +178,19 @@ public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     // Padding lets the first and last keepers reach the middle too
     void UpdatePadding()
     {
-        float width = viewport.rect.width;
-        if (Mathf.Approximately(width, lastWidth) || cards.Length == 0)
+        if (cards.Count > 0)
         {
-            return;
+            float width = viewport.rect.width;
+            if (Mathf.Approximately(width, lastWidth) || cards.Count == 0)
+            {
+                return;
+            }
+            lastWidth = width;
+            float cardWidth = LayoutUtility.GetPreferredWidth((RectTransform)cards[0].transform);
+            int pad = Mathf.Max(0, Mathf.RoundToInt(width / 2 - cardWidth / 2));
+            layout.padding = new RectOffset(pad, pad, layout.padding.top, layout.padding.bottom);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
         }
-        lastWidth = width;
-        float cardWidth = LayoutUtility.GetPreferredWidth((RectTransform)cards[0].transform);
-        int pad = Mathf.Max(0, Mathf.RoundToInt(width / 2 - cardWidth / 2));
-        layout.padding = new RectOffset(pad, pad, layout.padding.top, layout.padding.bottom);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
     // How far the content must move for this card to sit in the viewport's centre
@@ -193,7 +206,7 @@ public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         int best = -1;
         float bestDistance = float.MaxValue;
-        for (int i = 0; i < cards.Length; i++)
+        for (int i = 0; i < cards.Count; i++)
         {
             float d = Mathf.Abs(OffsetFromCentre(i));
             if (d < bestDistance)
@@ -207,7 +220,7 @@ public class LineupScroller : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     float CardSpacing()
     {
-        if (cards.Length == 0)
+        if (cards.Count == 0)
         {
             return 1;
         }
