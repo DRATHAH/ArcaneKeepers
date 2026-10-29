@@ -16,6 +16,7 @@ MonoBehaviour:
   towerName: Test
   health: 250
   levelScaling: 0.5
+  attackSoundName: 
   closeAttack:
     attackType: 0
     damage: 100
@@ -35,4 +36,12 @@ MonoBehaviour:
   towerPrefab: {fileID: 4483944384165000995, guid: db9a748b0366e3b49bd4a1e6df00ebc3, type: 3}
   towerIcon: {fileID: 0}
   cardArt: {fileID: 0}
+  heroArt: {fileID: 0}
   towerId: 5
+  profile:
+    tower: {fileID: 11400000}
+    heroSprite: {fileID: -631352051940752068, guid: a434ca162c991534baa266e6a7e2a34a, type: 3}
+    accent: {r: 1, g: 1, b: 1, a: 1}
+    health: 3
+    power: 3
+    range: 3
