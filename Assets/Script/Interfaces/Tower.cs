@@ -28,6 +28,8 @@ public class Tower : ScriptableObject
     public Sprite towerIcon;
     [Tooltip("Card shown in the in-level tower stack (falls back to towerIcon).")]
     public Sprite cardArt;
+    [Tooltip("Art shown in the character select scene")]
+    public Sprite heroArt;
     public int towerId = 0;
 }
 
