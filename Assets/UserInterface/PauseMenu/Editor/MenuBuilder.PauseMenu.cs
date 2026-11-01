@@ -24,6 +24,7 @@ public static partial class MenuBuilder
         "Assets/Scenes/DemoLevel.unity",
         "Assets/Scenes/Levels/World1/Level2.unity",
         "Assets/Scenes/Levels/World1/Level3.unity",
+        "Assets/Scenes/Levels/World1/Level4.unity",
         "Assets/Scenes/EnemyTester.unity",
     };
     const string LevelTemplatePath = "Assets/Prefabs/LevelTemplate.prefab";

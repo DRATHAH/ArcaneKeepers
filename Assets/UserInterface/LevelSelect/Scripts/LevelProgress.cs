@@ -5,7 +5,7 @@ using UnityEngine;
 public static class LevelProgress
 {
     // Level number (1-based) -> scene name
-    public static readonly string[] Scenes = { "DemoLevel", "Level2", "Level3" };
+    public static readonly string[] Scenes = { "DemoLevel", "Level2", "Level3", "Level4" };
 
     const string Key = "LevelsBeaten";
 

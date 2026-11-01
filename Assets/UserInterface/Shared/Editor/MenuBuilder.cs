@@ -26,7 +26,7 @@ public static partial class MenuBuilder
     const string GameScene = "DemoLevel";
 
     // Level number -> scene. Levels whose scene isn't in the build show as locked.
-    static readonly string[] LevelScenes = { GameScene, "Level2", "Level3" };
+    static readonly string[] LevelScenes = { GameScene, "Level2", "Level3", "Level4" };
     static readonly Color DarkBrown = new Color32(59, 42, 20, 255);
 
     [MenuItem("Arcane Keepers/Build Select Menus + Pause Menu")]
@@ -128,7 +128,7 @@ public static partial class MenuBuilder
 
         GameObject row = new GameObject("LevelRow", typeof(RectTransform));
         row.transform.SetParent(band.transform, false);
-        row.AddComponent<ScaleToFit>().size = new Vector2(1100, 430);
+        row.AddComponent<ScaleToFit>().size = new Vector2(1450, 430);
         GridLayoutGroup layout = row.AddComponent<GridLayoutGroup>();
         layout.cellSize = new Vector2(310, 420);
         layout.spacing = new Vector2(36, 0);
