@@ -25,7 +25,7 @@ public class HoppingEnemy : MonoBehaviour, IMovement
     [SerializeField] private float moveSpeed;
 
     [SerializeField] private float moveDuration = 2;
-    private float hopDelay = 2f;
+    [SerializeField] private float hopDelay = 2f;
     [SerializeField] private float maxHopDelay = 2f;
     private float windupLength = 0.375f;
 
@@ -59,10 +59,19 @@ public class HoppingEnemy : MonoBehaviour, IMovement
     {
 
         pushed = false;
-
+        hopDelay = maxHopDelay;
+        hopping = false;
         rb = GetComponent<Rigidbody>();
-        CalcMovement();
+        //CalcMovement();
+    }
 
+    private void OnDisable()
+    {
+        if(hopCoroutine != null)
+        {
+            StopCoroutine(hopCoroutine);
+            hopCoroutine = null;
+        }
     }
 
     private void Update()
