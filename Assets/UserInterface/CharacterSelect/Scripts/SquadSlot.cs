@@ -20,11 +20,16 @@ public class SquadSlot : MonoBehaviour
 
     public bool IsFilled { get; private set; }
 
+    const float SaluteTime = 0.28f;
+    const float SaluteHeight = 26f;
+
     bool next;
     bool incoming;
     float fill;     // eased 0..1
     float pop;      // 0..1 once when a keeper lands
     float shake;
+    float salute = -1; // DEPLOY send-off hop: seconds since it started (negative = waiting / off)
+    bool saluting;
     Color accent = Color.white;
 
     public void Fill(CharacterProfile profile, bool animate)
@@ -75,6 +80,13 @@ public class SquadSlot : MonoBehaviour
         shake = 1f;
     }
 
+    // DEPLOY: the keeper hops up and their rim flashes, after `delay` seconds (staggered across the roster)
+    public void Salute(float delay)
+    {
+        saluting = true;
+        salute = -delay;
+    }
+
     private void Update()
     {
         float dt = Time.unscaledDeltaTime;
@@ -95,7 +107,22 @@ public class SquadSlot : MonoBehaviour
         // Landing: a springy pop, rim flashing white before settling to gold
         float s = 1 + (pop > 0 ? Mathf.Sin((1 - pop) * Mathf.PI * 2f) * pop * 0.14f : 0);
         content.localScale = new Vector3(s, s, 1);
-        content.anchoredPosition = new Vector2(Mathf.Sin(shake * 30f) * 10f * shake, 0);
+        // Send-off hop: quick rise, soft landing, a small squash as it lands
+        float hop = 0;
+        if (saluting)
+        {
+            salute += dt;
+            float h = Mathf.Clamp01(salute / SaluteTime);
+            if (salute >= 0 && h < 1)
+            {
+                hop = Mathf.Sin(h * Mathf.PI) * (1 - h * 0.35f);
+                float squash = h > 0.8f ? Mathf.Sin((h - 0.8f) / 0.2f * Mathf.PI) * 0.06f : 0;
+                s *= 1 + hop * 0.08f;
+                content.localScale = new Vector3(s * (1 + squash), s * (1 - squash), 1);
+                rim.color = Color.Lerp(rim.color, Color.white, Mathf.Sin(h * Mathf.PI) * 0.8f);
+            }
+        }
+        content.anchoredPosition = new Vector2(Mathf.Sin(shake * 30f) * 10f * shake, hop * SaluteHeight);
         rim.color = Color.Lerp(new Color(1f, 0.84f, 0.32f), Color.white, pop);
         portrait.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.8f, 1f, fill);
         nameText.color = Color.Lerp(Color.white, Color.Lerp(accent, Color.white, 0.4f), pop);

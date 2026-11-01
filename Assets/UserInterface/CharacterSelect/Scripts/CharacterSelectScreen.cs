@@ -65,6 +65,7 @@ public class CharacterSelectScreen : MonoBehaviour
     float playPunch;
     bool wasFull;
     bool leaving;
+    float deployPress = -1; // seconds since DEPLOY was tapped (negative = not tapped)
     bool wired;
 
     public int Count
@@ -488,6 +489,15 @@ public class CharacterSelectScreen : MonoBehaviour
         playPunch = Mathf.Max(0, playPunch - dt * 2.5f);
         float pop = playPunch > 0 ? Mathf.Sin((1 - playPunch) * Mathf.PI * 2f) * playPunch * 0.18f : 0;
         float p = Count == SquadSize && !leaving ? 1 + Mathf.Sin(Time.unscaledTime * 3f) * 0.025f + pop : 1;
+        if (deployPress >= 0)
+        {
+            // Pressed in, then springs back with a small overshoot that settles before the screen changes
+            deployPress += dt;
+            float t = deployPress;
+            p = t < 0.07f
+                ? Mathf.Lerp(1f, 0.88f, t / 0.07f)
+                : 1 + (0.88f - 1) * Mathf.Exp(-(t - 0.07f) * 11f) * Mathf.Cos((t - 0.07f) * 22f);
+        }
         playButton.transform.localScale = new Vector3(p, p, 1);
 
         // The dot for the keeper in the middle grows; the soft colour glow behind the name breathes
@@ -514,6 +524,19 @@ public class CharacterSelectScreen : MonoBehaviour
             fx.SetDeployReady((RectTransform)playButton.transform, false, false);
         }
         SaveSquad();
+        // Send-off while the next scene loads in the background: DEPLOY springs, the squad hops in turn
+        deployPress = 0;
+        const float stagger = 0.04f;
+        RectTransform[] discs = new RectTransform[slots.Length];
+        for (int s = 0; s < slots.Length; s++)
+        {
+            slots[s].Salute(0.02f + s * stagger);
+            discs[s] = slots[s].disc ? slots[s].disc.rectTransform : (RectTransform)slots[s].transform;
+        }
+        if (fx)
+        {
+            fx.SendOff((RectTransform)playButton.transform, discs, stagger);
+        }
         Leave(playScene, true);
     }
 

@@ -188,6 +188,31 @@ public class CharacterSelectFx : MonoBehaviour
         Sparks(centre, size.y * 1.0f, size.y * 0.24f, 10, gold);
     }
 
+    // DEPLOY tapped: a gold ring + sparks off the button, and a soft ring under each keeper as they hop.
+    // Kept short (all gone by ~0.4s) so the screen is calm when it freezes for the scene change.
+    public void SendOff(RectTransform button, RectTransform[] discs, float stagger)
+    {
+        Measure(button, out Vector2 centre, out Vector2 size);
+        StartCoroutine(Flash(centre, size.y * 1.6f, 0.22f));
+        StartCoroutine(Shockwave(centre, size * 0.95f, size * 1.4f, gold, 0.4f));
+        for (int i = 0; i < discs.Length; i++)
+        {
+            if (discs[i])
+            {
+                StartCoroutine(SendOffRing(discs[i], i * stagger));
+            }
+        }
+    }
+
+    IEnumerator SendOffRing(RectTransform disc, float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        Measure(disc, out Vector2 centre, out Vector2 size);
+        float d = Mathf.Max(size.x, size.y);
+        StartCoroutine(Shockwave(centre, Vector2.one * d * 0.95f, Vector2.one * d * 1.35f, FxKit.WithAlpha(gold, 0.8f), 0.28f));
+        StartCoroutine(Twinkle(layer, centre + new Vector2(d * 0.38f, d * 0.42f), d * 0.22f, gold, 0.24f));
+    }
+
     // ---- building blocks ----
 
     void Sparks(Vector2 centre, float distance, float size, int count, Color color)

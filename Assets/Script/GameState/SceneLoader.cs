@@ -49,9 +49,10 @@ public class SceneLoader : MonoBehaviour
         }
 
         Time.timeScale = 1;
-        // The transition keeps this screen up for 0.2s so the button sound plays, loading the next
-        // scene in the background meanwhile, then slides (or clouds) the new screen in
-        SceneTransition.Load(sceneToLoad, clouds, 0.2f, gentle);
+        // The transition keeps this screen up for 0.2s so the button sound plays (0.42s for DEPLOY, so the
+        // squad's send-off hop finishes), loading the next scene in the background meanwhile, then slides
+        // (or clouds) the new screen in
+        SceneTransition.Load(sceneToLoad, clouds, gentle ? 0.42f : 0.2f, gentle);
     }
 
     public void Restart()
