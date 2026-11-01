@@ -44,4 +44,9 @@ public class InventoryUI : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         PlayerManager.instance.LoadTowers(inventory);
     }
+
+    private void OnDestroy()
+    {
+        inventory.onItemChangedCallback -= UpdateUI;
+    }
 }

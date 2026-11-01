@@ -2,6 +2,18 @@ using UnityEngine;
 
 public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
 {
+    [HideInInspector] public bool triggered
+    {
+        get
+        {
+            return activeAbility;
+        }
+
+
+    }
+
+    private bool activeAbility = false;
+
     private int currentTile = 0;
 
     [SerializeField] private GameObject bSlimePrefab;
@@ -9,8 +21,14 @@ public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
     private float newbiePushForce = 6;
     private float separationForce = 8.3333f;
 
+    private void OnEnable()
+    {
+        activeAbility = false;
+    }
+
     public void OnDeathAbility()
     {
+        activeAbility = true;
         if(WaveManager.instance != null)
         {
             //Debug.Log(currentTile);
@@ -30,7 +48,7 @@ public class SlimeDeathAbility : MonoBehaviour, IDeathAbility
             {
                 SpawnBaby(new Vector3(newbiePushForce, 0, separationForce));
                 SpawnBaby(new Vector3(newbiePushForce, 0, -separationForce));
-                //Debug.Log("One above, one below");
+                Debug.Log("One above, one below");
             }
         }
     }
