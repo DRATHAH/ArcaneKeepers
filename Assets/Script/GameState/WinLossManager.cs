@@ -28,10 +28,22 @@ public class WinLossManager : MonoBehaviour
     [SerializeField] public GameObject loserCanvas;
     [SerializeField] private AudioSource backgroundMusic;
 
+    // Where the match ended (the enemy that broke through / the reward the player tapped).
+    // The end screen centres its effects on it.
+    private Vector3? focusPoint;
+
+    public void SetFocus(Vector3 worldPoint)
+    {
+        if (!gameEnded && !winner && !loser)
+        {
+            focusPoint = worldPoint;
+        }
+    }
+
     void Start()
     {
-        winnerCanvas.SetActive(false);
-        loserCanvas.SetActive(false);
+        if (winnerCanvas) winnerCanvas.SetActive(false);
+        if (loserCanvas) loserCanvas.SetActive(false);
     }
 
     void Update()
@@ -52,17 +64,40 @@ public class WinLossManager : MonoBehaviour
 
     private void Win()
     {
-        backgroundMusic.mute = true;
+        // Opens the next level on the level select
+        LevelProgress.MarkBeaten(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        if (backgroundMusic) backgroundMusic.mute = true;
         SoundManager.Instance.PlaySound("Win");
-        winnerCanvas.SetActive(true);
+
+        // In-level finale (Resources/LevelEndScreen); the old canvas is only a fallback
+        LevelEndScreen screen = CreateEndScreen();
+        if (screen)
+        {
+            screen.PlayWin(focusPoint, GameManager.instance ? GameManager.instance.lastRewards : null);
+            return;
+        }
+        if (winnerCanvas) winnerCanvas.SetActive(true);
         Time.timeScale = 0;
     }
 
     private void Lose()
     {
-        backgroundMusic.mute = true;
+        if (backgroundMusic) backgroundMusic.mute = true;
         SoundManager.Instance.PlaySound("Lose");
-        loserCanvas.SetActive(true);
+
+        LevelEndScreen screen = CreateEndScreen();
+        if (screen)
+        {
+            screen.PlayLose(focusPoint);
+            return;
+        }
+        if (loserCanvas) loserCanvas.SetActive(true);
         Time.timeScale = 0;
+    }
+
+    private LevelEndScreen CreateEndScreen()
+    {
+        LevelEndScreen prefab = Resources.Load<LevelEndScreen>(LevelEndScreen.ResourcePath);
+        return prefab ? Instantiate(prefab) : null;
     }
 }

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public static class BuildLoadingScene
 {
     const string ScenePath = "Assets/Scenes/Loading.unity";
-    const string FramesFolder = "Assets/UserInterface/LoadingFrames";
+    const string FramesFolder = "Assets/UserInterface/Loading/Art/LoadingFrames";
     static readonly Color Bg = new Color32(5, 5, 5, 255);
     static readonly Color TextGold = new Color32(255, 222, 99, 255);
 

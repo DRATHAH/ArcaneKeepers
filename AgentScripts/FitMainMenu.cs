@@ -60,12 +60,6 @@ public static class FitMainMenu
         tmp.raycastTarget = false; // full-screen StartButton stays the tap target
         text.SetAsLastSibling();
 
-        // Logo shake should still move the whole backdrop
-        var logo = stage.Find("Logo").GetComponent<LogoIntro>();
-        var so = new SerializedObject(logo);
-        so.FindProperty("shakeTarget").objectReferenceValue = background;
-        so.ApplyModifiedPropertiesWithoutUndo();
-
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         return $"stage {fit.size}";

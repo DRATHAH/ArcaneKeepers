@@ -13,6 +13,9 @@ public class Tower : ScriptableObject
     }
     public TowerRarity rarity = TowerRarity.Common;
     public string towerName = "";
+    [Tooltip("Short line shown on the tower info screen in the character select")]
+    [TextArea(2, 4)]
+    public string description = "";
     [Header("Stats")]
     public int health = 10;
     [Tooltip("How much power a tower gains per level. 0.5 = 50% more base power")]
@@ -47,6 +50,20 @@ public static class RarityCalculation
     public static int[] commonReqs = { 1, 2, 4, 10, 20, 50, 100, 200, 400, 800 };
     public static int[] rareReqs = { 1, 2, 4, 10, 20, 50, 100, 200 };
     public static int[] epicReqs = { 1, 2, 4, 10, 20 };
+
+    // True once there is no next level to buy (each rarity tops out at the end of its table)
+    public static bool IsMaxLevel(TowerEntry tower)
+    {
+        switch (tower.tower.rarity)
+        {
+            case Tower.TowerRarity.Rare:
+                return Mathf.Max(tower.level, 2) - 2 >= rareReqs.Length;
+            case Tower.TowerRarity.Epic:
+                return Mathf.Max(tower.level, 5) - 5 >= epicReqs.Length;
+            default:
+                return tower.level >= commonReqs.Length;
+        }
+    }
 
     public static int GetCardReqs(TowerEntry tower)
     {

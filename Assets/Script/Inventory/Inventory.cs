@@ -154,6 +154,24 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // Spends the cards for one level. Doesn't fire onItemChangedCallback: the character select rebuilds
+    // every card on that callback (resetting the squad being picked), so the caller refreshes itself.
+    public bool TryUpgrade(TowerEntry entry)
+    {
+        if (IsEmpty(entry) || RarityCalculation.IsMaxLevel(entry))
+        {
+            return false;
+        }
+        int cost = RarityCalculation.GetCardReqs(entry);
+        if (entry.amount < cost)
+        {
+            return false;
+        }
+        entry.amount -= cost;
+        entry.level++;
+        return true;
+    }
+
     public void ClearInventory()
     {
         towerNum.Clear();

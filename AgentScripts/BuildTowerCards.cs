@@ -7,8 +7,8 @@ using UnityEngine.UI;
 // Card PNGs come from: python AgentScripts/CutoutCards.py
 public static class BuildTowerCards
 {
-    const string PrefabPath = "Assets/Prefabs/UI/TowerIcon.prefab";
-    const string CardFolder = "Assets/UserInterface/Cards/";
+    const string PrefabPath = "Assets/UserInterface/LevelHUD/Prefabs/TowerIcon.prefab";
+    const string CardFolder = "Assets/UserInterface/LevelHUD/Art/Cards/";
 
     public static string Run()
     {

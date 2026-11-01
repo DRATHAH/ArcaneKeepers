@@ -9,7 +9,7 @@ using UnityEngine.UI;
 // Run: StyleRelocateButton.Run("Assets/Scenes/DemoLevel.unity,Assets/Scenes/Levels/World1/Level2.unity")
 public static class StyleRelocateButton
 {
-    const string Folder = "Assets/UserInterface/Fonts/Generated/";
+    const string Folder = "Assets/UserInterface/Shared/Style/";
     static readonly Color Ink = new Color32(29, 21, 51, 255);
 
     public static string Run(string scenes)

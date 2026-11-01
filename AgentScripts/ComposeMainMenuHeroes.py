@@ -4,7 +4,7 @@ from PIL import Image
 A = r'C:/Users/phoebe/OneDrive/Desktop/ArcaneKeepers-main/ArcaneKeepers/Assets/UserInterface/'
 SC = 2.0
 def load(n, s):
-    im = Image.open(A + 'Heroes/' + n + '-Hero.png').convert('RGBA')
+    im = Image.open(A + 'Shared/Art/Heroes/' + n + '-Hero.png').convert('RGBA')
     im = im.crop(im.split()[-1].getbbox())
     return im.resize((round(im.width * s * SC), round(im.height * s * SC)), Image.LANCZOS)
 OVERLAP = float(sys.argv[2]) if len(sys.argv) > 2 else 0.22

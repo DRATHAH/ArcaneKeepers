@@ -8,7 +8,7 @@ using UnityEngine.UI;
 // and pins it to the sky area of the background, between the heroes and skeletons.
 public static class SetMainMenuLogo
 {
-    const string LogoPath = "Assets/UserInterface/ArcaneKeepers-HATFONT-Logo.png";
+    const string LogoPath = "Assets/UserInterface/MainMenu/Art/ArcaneKeepers-HATFONT-Logo.png";
 
     // Background-relative band the logo lives in (the background is an envelope fitter,
     // so anchoring to it keeps the logo in the same place relative to the characters).

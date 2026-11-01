@@ -6,14 +6,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// Play mode, on MainMenu: taps StartButton and logs the cloud banks per frame until the wipe ends
+// Play mode: taps buttonName (StartButton on MainMenu, ChangeTeamButton on LevelSelect) and logs the cloud banks per frame until the wipe ends
 public static class TestCloudWipe
 {
-    public static async Task<string> Run()
+    public static async Task<string> Run(string buttonName = "StartButton")
     {
         var log = new StringBuilder();
-        var button = Object.FindObjectsByType<Button>(FindObjectsInactive.Exclude).FirstOrDefault(b => b.name == "StartButton");
-        if (!button) return "no StartButton in " + SceneManager.GetActiveScene().name;
+        var button = Object.FindObjectsByType<Button>(FindObjectsInactive.Exclude).FirstOrDefault(b => b.name == buttonName);
+        if (!button) return "no " + buttonName + " in " + SceneManager.GetActiveScene().name;
         ExecuteEvents.Execute(button.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
 
         float start = Time.realtimeSinceStartup;

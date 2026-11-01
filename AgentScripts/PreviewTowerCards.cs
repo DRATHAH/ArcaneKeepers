@@ -17,10 +17,12 @@ public static class PreviewTowerCards
     {
         Render(outDir + "/cards_settled.png", false);
         Render(outDir + "/cards_dealing.png", true);
+        Render(outDir + "/cards_health.png", false, new[] { 1f, 0.55f, 0.22f, 0.08f });
+        Render(outDir + "/cards_hit.png", false, new[] { 0.8f, 0.45f, 0.2f, 0.6f }, 0.2f);
         return "ok";
     }
 
-    static void Render(string outFile, bool dealing)
+    static void Render(string outFile, bool dealing, float[] healths = null, float ghost = 0f)
     {
         const int width = 1170, height = 540;
         var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
@@ -34,7 +36,6 @@ public static class PreviewTowerCards
             button.Initialize(AssetDatabase.LoadAssetAtPath<Tower>("Assets/Towers/" + names[i] + "Tower.asset"));
             var art = button.icon;
             card.readyGlow.color = new Color(1f, 0.85f, 0.3f, 0f);
-            go.transform.Find("Card/Art/HealthBar").gameObject.SetActive(false);
             if (dealing)
             {
                 float t = Mathf.Clamp01(1f - i * 0.35f);
@@ -42,12 +43,30 @@ public static class PreviewTowerCards
                 card.card.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(-10f, 0f, t));
                 continue;
             }
+            if (healths != null && i < healths.Length)
+            {
+                art.color = card.dimmed;
+                var hb = go.transform.Find("Card/Art/HealthBar").GetComponent<CardHealthBar>();
+                hb.SetShown(true);
+                hb.SetValue(healths[i]);
+                typeof(CardHealthBar).GetMethod("Apply", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(hb, new object[] { 1f });
+                hb.ghost.fillAmount = hb.fill.fillAmount;
+                if (ghost > 0f)
+                {
+                    // fake a hit: ghost chunk + flash
+                    hb.ghost.fillAmount = Mathf.Lerp(hb.fillMin, hb.fillMax, Mathf.Min(1f, healths[i] + ghost));
+                    hb.flash.fillAmount = hb.ghost.fillAmount;
+                    hb.flash.color = new Color(1, 1, 1, 0.5f);
+                }
+                continue;
+            }
             if (i == 0)
             {
                 art.color = card.dimmed;
-                var hb = go.transform.Find("Card/Art/HealthBar");
-                hb.gameObject.SetActive(true);
-                hb.GetComponent<Slider>().value = 0.7f;
+                var hb = go.transform.Find("Card/Art/HealthBar").GetComponent<CardHealthBar>();
+                hb.SetShown(true);
+                hb.SetValue(0.7f);
+                typeof(CardHealthBar).GetMethod("Apply", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(hb, new object[] { 1f });
             }
             if (i == 1) { art.color = card.dimmed; card.shade.fillAmount = 0.5f; }
             if (i == 2) { card.readyGlow.color = new Color(1f, 0.85f, 0.3f, 1f); card.card.localScale = Vector3.one * 1.1f; }

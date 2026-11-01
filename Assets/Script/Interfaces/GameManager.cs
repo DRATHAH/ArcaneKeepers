@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("Based on Common rarity. Rare # is 50% less, Epic # is 25% less")]
     public int minTowerDrops = 5;
     public List<TowerEntry> towerLoot;
+    // What the last GetMatchReward handed out (shown on the victory screen)
+    [System.NonSerialized] public List<TowerEntry> lastRewards = new List<TowerEntry>();
 
     int laneNum = 5;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void GetMatchReward()
     {
+        lastRewards.Clear();
         for (int i = 0;i < lootRolls; i++)
         {
             int r = Random.Range(0, towerLoot.Count);
@@ -87,6 +90,7 @@ public class GameManager : MonoBehaviour
             entry.amount = Random.Range(minTowerDrops, chosenLoot.amount);
             entry.amount = Mathf.Clamp(entry.amount / rarityMult, 1, chosenLoot.amount);
 
+            lastRewards.Add(new TowerEntry { tower = entry.tower, level = entry.level, amount = entry.amount });
             Inventory.instance.Add(entry);
             Debug.Log("Added " +  entry.amount + " " + entry.tower.towerName);
         }

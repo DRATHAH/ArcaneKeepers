@@ -9,7 +9,7 @@ public static class PlaceHeroCluster
 {
     public static string Run(float x0, float y0, float x1, float y1, float sx0, float sy0, float sx1, float sy1)
     {
-        const string path = "Assets/UserInterface/MainMenu-HeroCluster.png";
+        const string path = "Assets/UserInterface/MainMenu/Art/MainMenu-HeroCluster.png";
         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
         var importer = (TextureImporter)AssetImporter.GetAtPath(path);
         importer.textureType = TextureImporterType.Sprite;

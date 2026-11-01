@@ -104,6 +104,7 @@ public class TowerHealth : HealthBase
         else
         {
             currentHealth = maxHealth;
+            parentButton.UpdateHealthBar(1f);
         }
     }
     public override void Die()
@@ -114,6 +115,7 @@ public class TowerHealth : HealthBase
         parentButton.KillTower(deathCooldown);
         this.transform.parent = null;
         currentHealth = maxHealth;
+        parentButton.UpdateHealthBar(1f);
         GameObject currentGameObject = this.gameObject;
         ObjectPool.pool.Destroy(currentGameObject);
     }

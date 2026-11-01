@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5299283903223607244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7110728151616184527}
+  - component: {fileID: 8994556818228850012}
+  m_Layer: 0
+  m_Name: Tutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7110728151616184527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299283903223607244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8994556818228850012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299283903223607244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1364ba9b78db7614c9865786f5a34eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArcaneKeepers.Tutorial.TutorialDirector
+  theme: {fileID: 11400000, guid: e41849e707d89f6488c1db31ba54226b, type: 2}
+  onlyFirstTime: 1
+  battleReactions: 1
+  suggestedTiles:
+  - {x: 2, y: 2}
+  - {x: 2, y: 1}
+  - {x: 2, y: 3}
+  - {x: 1, y: 2}
+  - {x: 3, y: 2}
+  lines:
+    welcome: Woof! Welcome to the castle, Keeper!
+    intro: I'm captain of the guard. Stick with me and I'll show you the ropes!
+    enemies: Monsters march in from the <k>right</k>, one lane at a time...
+    castle: If even one reaches the <k>castle</k> on the left, we lose!
+    meter: This meter tracks the <k>waves</k>. Beat every wave to win!
+    cards: These are your <k>Keeper cards</k>, the squad you picked.
+    drag: Drag a Keeper onto the <k>glowing tile</k>!
+    dragNudge: Go on! Press a card and slide it onto the tile.
+    dragMissed: So close! Let go right on top of a tile.
+    placed: Pawsome! <k>{name}</k> is on guard!
+    cardRests: While a Keeper is out, their card <k>rests</k>. If they fall, it <k>recharges</k>
+      first.
+    second: Let's cover another lane. Drag in one more Keeper!
+    secondPlaced: Two lanes guarded. You're a natural!
+    relocate: Need to move someone? Tap the <k>move</k> button.
+    relocateDrag: Now drag your Keeper to a <k>new tile</k>!
+    relocateDone: Nice footwork!
+    relocateMissed: Hold on to them and drop them on an <k>empty</k> tile.
+    relocateGiveUp: No worries, you'll get the hang of it. Onward!
+    pause: Need a breather? Tap <k>pause</k> any time.
+    go: Here they come! Hold the line, Keeper!
+    skipped: Good luck out there, Keeper!
+    firstKill: Got one! Woof!
+    keeperDown: Ouch! Their card will recharge, hang in there.
+    finalWave: Final wave! Give it everything!

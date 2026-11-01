@@ -9,7 +9,7 @@ using UnityEngine;
 // and makes Lilita One the TMP default font for new text.
 public static class UnifyFonts
 {
-    const string FontPath = "Assets/UserInterface/Fonts/Generated/LilitaOne SDF.asset";
+    const string FontPath = "Assets/UserInterface/Shared/Style/LilitaOne SDF.asset";
 
     public static string Run()
     {

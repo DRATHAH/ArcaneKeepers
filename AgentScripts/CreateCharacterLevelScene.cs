@@ -33,7 +33,7 @@ public static class CreateCharacterLevelScene
         scaler.referenceResolution = new Vector2(1920, 1080);
         scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
 
-        var bgSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/UserInterface/Main-Background.png");
+        var bgSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/UserInterface/Shared/Art/Green.png");
         var bg = Child("Background", canvasGo.transform);
         var bgImg = bg.gameObject.AddComponent<Image>();
         bgImg.sprite = bgSprite;

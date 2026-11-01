@@ -1,8 +1,8 @@
 """Cuts the in-level tower cards out of their black backgrounds.
 
 python AgentScripts/CutoutCards.py
-  reads  Assets/UserInterface/<Art>-Card.png  (RGB, parchment card on black)
-  writes Assets/UserInterface/Cards/<Tower>-Card.png (RGBA, cropped, anti-aliased edge)
+  reads  ArtSource/<Art>-Card.png  (RGB, parchment card on black)
+  writes Assets/UserInterface/LevelHUD/Art/Cards/<Tower>-Card.png (RGBA, cropped, anti-aliased edge)
 The Assassin has no card art, so its card is a blank parchment (character painted out of
 the Goat card) with Heroes/Mouse-Hero.png on top.
 """
@@ -11,8 +11,10 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage
 
-ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "Assets", "UserInterface")
-OUT = os.path.join(ROOT, "Cards")
+REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+SRC = os.path.join(REPO, "ArtSource")
+ROOT = os.path.join(REPO, "Assets", "UserInterface")
+OUT = os.path.join(ROOT, "LevelHUD", "Art", "Cards")
 WIDTH = 640  # cells are 275 wide at 1080 ref; 640 keeps it crisp on 2-3x phones
 
 CARDS = {"Archer": "Archer-Card", "Wizard": "Cat-Card", "Cleric": "Goat-Card", "Knight": "wolf-Card"}
@@ -74,14 +76,14 @@ def blank_card(rgb):
 def main():
     os.makedirs(OUT, exist_ok=True)
     for tower, art in CARDS.items():
-        rgb = np.array(Image.open(os.path.join(ROOT, art + ".png")).convert("RGB"))
+        rgb = np.array(Image.open(os.path.join(SRC, art + ".png")).convert("RGB"))
         save(crop(cutout(rgb)), tower)
 
     # Assassin: blank parchment + Mouse hero, sized like the other characters (~64% of card height)
-    goat = np.array(Image.open(os.path.join(ROOT, "Goat-Card.png")).convert("RGB"))
+    goat = np.array(Image.open(os.path.join(SRC, "Goat-Card.png")).convert("RGB"))
     card = cutout(blank_card(goat))
     base = Image.fromarray((card * 255 + 0.5).astype(np.uint8), "RGBA")
-    hero = Image.open(os.path.join(ROOT, "Heroes", "Mouse-Hero.png")).convert("RGBA")
+    hero = Image.open(os.path.join(ROOT, "Shared", "Art", "Heroes", "Mouse-Hero.png")).convert("RGBA")
     hero = hero.crop(hero.getbbox())
     target_h = 480
     hero = hero.resize((round(hero.width * target_h / hero.height), target_h), Image.LANCZOS)

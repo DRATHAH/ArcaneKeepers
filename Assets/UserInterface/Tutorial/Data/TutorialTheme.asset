@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: addddaeca34eb2f478d50a84c7a48874, type: 3}
+  m_Name: TutorialTheme
+  m_EditorClassIdentifier: Assembly-CSharp::ArcaneKeepers.Tutorial.TutorialTheme
+  font: {fileID: 11400000, guid: 25d329a4452d72a49a20efff2c557b1c, type: 2}
+  chunkyMaterial: {fileID: 2100000, guid: d4338462c858eab48a2defa707010238, type: 2}
+  dog: {fileID: 21300000, guid: 873a3f402087a5249a616900e1a73269, type: 3}
+  dogShadow: {fileID: 21300000, guid: 8e6a690525716a949aa6348dfaa18e15, type: 3}
+  bubble: {fileID: 21300000, guid: 65ed74af5cd76174884fffeade357522, type: 3}
+  bubbleShadow: {fileID: 21300000, guid: dc34b7e88c0c25341902f42f5d23bd50, type: 3}
+  bubbleTail: {fileID: 21300000, guid: d57d42df692fc3d4dbb736321e2a31ff, type: 3}
+  nextArrow: {fileID: 21300000, guid: 6411613b864b1514a96481c904b84d02, type: 3}
+  wand: {fileID: 21300000, guid: 811d1e28fd4692541a208d1727a34af0, type: 3}
+  wandTip: {x: 0.492, y: 0.85}
+  wandGlow: {r: 0.5882353, g: 0.9254902, b: 1, a: 1}
+  glowFrame: {fileID: 21300000, guid: bce57f30b31921b498ef64508b9d0bbd, type: 3}
+  tileGlow: {fileID: 21300000, guid: c888a9529d6452f4683b8e49f4f9e463, type: 3}
+  spotHole: {fileID: 21300000, guid: a7a421629ff7c894197bfabf6edb5fe5, type: 3}
+  chevron: {fileID: 21300000, guid: a70bbac0f6ebf3141968a17815b62056, type: 3}
+  emoteExclaim: {fileID: 21300000, guid: 23c4e0db0a56cf44183c5712b3132f1c, type: 3}
+  emoteQuestion: {fileID: 21300000, guid: c683f55294d22a7468b802bf6a0e0173, type: 3}
+  emoteHeart: {fileID: 21300000, guid: e8f40de3aa6ee974390269fde46ff1b1, type: 3}
+  emoteSweat: {fileID: 21300000, guid: b30cf289aab7f484ebc3642120595523, type: 3}
+  emoteSparkle: {fileID: 21300000, guid: 0886052bf9768024b864ea119d8273e3, type: 3}
+  meterBack: {fileID: 21300000, guid: 9b3b961614174b94b88e5e625ddb6d2c, type: 3}
+  meterFill: {fileID: 21300000, guid: 87473f4ed18d50a42b00973a0a4c86f6, type: 3}
+  skullToken: {fileID: 21300000, guid: 694924736fc92c34cbcc84962aa20cdd, type: 3}
+  waveFlag: {fileID: 21300000, guid: 580e0d8dfce331f4d939cf92a38fec0f, type: 3}
+  skipButton: {fileID: 21300000, guid: 036de1997cd93f64e8ebc2dfe1efd399, type: 3}
+  softGlow: {fileID: 21300000, guid: ca6c5b25c2545f145a48068cc997e841, type: 3}
+  sparkle: {fileID: 21300000, guid: 272ce216370bc4845afb8ae2671f4684, type: 3}
+  ring: {fileID: 21300000, guid: 933334c8054cf8649a310747e457341b, type: 3}
+  puff: {fileID: 21300000, guid: a8e098c2965dc01458d5c35b1e60c2aa, type: 3}
+  starChunk: {fileID: 21300000, guid: 35f43f4075aa8654fb28723d27e212a6, type: 3}
+  ink: {r: 0.11372549, g: 0.08235294, b: 0.2, a: 1}
+  cream: {r: 1, g: 0.95686275, b: 0.87058824, a: 1}
+  gold: {r: 1, g: 0.78431374, b: 0.23529412, a: 1}
+  danger: {r: 0.9254902, g: 0.24313726, b: 0.21960784, a: 1}
+  keyword: {r: 0.14117648, g: 0.40784314, b: 0.87058824, a: 1}
+  popSound: {fileID: 0}
+  talkBlip: {fileID: 0}
+  cheerSound: {fileID: 0}
+  volume: 0.7

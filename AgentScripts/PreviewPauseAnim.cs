@@ -29,7 +29,7 @@ public static class PreviewPauseAnim
 
         pause.Pause();
         float start = Time.unscaledTime;
-        foreach (float at in new[] { 0.05f, 0.12f, 0.2f, 0.3f, 0.45f, 0.8f })
+        foreach (float at in new[] { 0.05f, 0.12f, 0.2f, 0.3f, 0.45f, 0.6f, 0.9f })
         {
             while (Time.unscaledTime - start < at) await Awaitable.NextFrameAsync();
             log.AppendLine($"open {at:0.00} timeScale={Time.timeScale} {State()}");
@@ -44,16 +44,33 @@ public static class PreviewPauseAnim
             log.AppendLine($"close {at:0.00} paused={PauseMenu.IsPaused} timeScale={Time.timeScale} {State()}");
             Shot($"{outDir}/close_{(int)(at * 100):000}.png");
         }
+        // Quick Continue while the menu is still opening: nothing may be left half-shown
+        await Wait(0.5f);
+        pause.Pause();
+        await Wait(0.1f);
+        pause.Continue();
+        await Wait(0.6f);
+        var panel = Object.FindObjectsByType<RectTransform>(FindObjectsInactive.Include).First(t => t.name == "PausePanel");
+        var pauseButton = Object.FindObjectsByType<RectTransform>(FindObjectsInactive.Include).First(t => t.name == "PauseButton");
+        log.AppendLine($"quick-cancel: panelActive={panel.gameObject.activeSelf} paused={PauseMenu.IsPaused} timeScale={Time.timeScale} pauseBtn active={pauseButton.gameObject.activeSelf} scale={pauseButton.localScale.x:0.00}");
+        Shot($"{outDir}/quick_cancel.png");
+
         foreach (var c in canvases) c.renderMode = RenderMode.ScreenSpaceOverlay;
         File.WriteAllText(outDir + "/log.txt", log.ToString());
         return log.ToString();
+    }
+
+    static async Task Wait(float seconds)
+    {
+        float start = Time.unscaledTime;
+        while (Time.unscaledTime - start < seconds) await Awaitable.NextFrameAsync();
     }
 
     static string State()
     {
         var safe = Object.FindObjectsByType<RectTransform>().FirstOrDefault(t => t.name == "Safe" && t.parent && t.parent.name == "PausePanel");
         if (!safe) return "(panel off)";
-        return string.Join(" ", safe.Cast<RectTransform>().Select(t => $"{t.name.Replace("Button", "")}:{t.localScale.x:0.00}/{t.GetComponent<CanvasGroup>()?.alpha:0.00}"));
+        return string.Join(" ", safe.Cast<RectTransform>().Select(t => $"{t.name.Replace("Button", "")}:{t.localScale.x:0.00}/{(t.GetComponent<CanvasGroup>() ? t.GetComponent<CanvasGroup>().alpha : -1):0.00}"));
     }
 
     static void Shot(string file)

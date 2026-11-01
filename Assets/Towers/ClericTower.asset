@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   rarity: 0
   towerName: Cleric
+  description: Heals nearby keepers to keep the squad standing.
   health: 10
   levelScaling: 0.5
   attackSoundName: HealPool

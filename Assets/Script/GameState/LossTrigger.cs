@@ -18,6 +18,7 @@ public class LossTrigger : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
+            WinLossManager.instance.SetFocus(other.bounds.center);
             WinLossManager.instance.loser = true;
         }
     }
