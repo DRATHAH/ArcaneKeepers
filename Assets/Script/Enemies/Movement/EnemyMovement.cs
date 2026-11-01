@@ -22,7 +22,15 @@ public class EnemyMovement : MonoBehaviour, IMovement
 
     private EnemyHealth enemyHealth;
 
-    public bool pushed = false;
+
+    [HideInInspector] public bool pushed
+    { 
+        get
+        {
+            return pushing;
+        }
+    }
+    public bool pushing = false;
     private float pushedCooldown = 0.25f;
 
     [SerializeField] private Animator anim;
@@ -42,7 +50,7 @@ public class EnemyMovement : MonoBehaviour, IMovement
     private void OnEnable()
     {
 
-        pushed = false;
+        pushing = false;
 
         rb = GetComponent<Rigidbody>();
         CalcMovement();
@@ -58,7 +66,7 @@ public class EnemyMovement : MonoBehaviour, IMovement
         else
         {
             anim.SetBool("Attacking", false);
-            pushed = false;
+            pushing = false;
         }
 
         if (enemyHealth != null)
@@ -95,7 +103,7 @@ public class EnemyMovement : MonoBehaviour, IMovement
         }
         else
         {
-            if (!pushed)
+            if (!pushing)
             {
                 rb.linearVelocity = Vector2.zero;
                 anim.SetFloat("Movement", 0);
@@ -115,14 +123,14 @@ public class EnemyMovement : MonoBehaviour, IMovement
     public void Push(Vector3 pushForce)
     {
         moveDelay = pushedCooldown;
-        pushed = true;
+        pushing = true;
         rb.linearVelocity = pushForce;
     }
 
     public void Push(Vector3 pushForce, bool invincible)
     {
         moveDelay = pushedCooldown;
-        pushed = true;
+        pushing = true;
         rb.linearVelocity = pushForce;
         enemyHealth.ToggleInvincible(invincible);
     }

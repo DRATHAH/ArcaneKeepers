@@ -28,7 +28,7 @@ public class EnemyDamage : DamageBase
         {
             if(hit.TryGetComponent<TowerRelocate>(out TowerRelocate relocator))
             {
-                if(relocator.isRelocating == false)
+                if(relocator.isRelocating == false && enemyMove.pushed == false)
                 {
                     Attack(damageAmount * Time.deltaTime, hit.gameObject);
                     anim.SetBool("Attacking", true);

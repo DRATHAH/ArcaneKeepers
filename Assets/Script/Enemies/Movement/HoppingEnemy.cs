@@ -36,9 +36,16 @@ public class HoppingEnemy : MonoBehaviour, IMovement
 
     private EnemyHealth enemyHealth;
 
-    public bool pushed = false;
+    public bool pushing = false;
     private float pushedCooldown = 0.25f;
 
+    [HideInInspector] public bool pushed
+    {
+        get
+        {
+            return pushing;
+        }
+    }
     [SerializeField] private Animator anim;
 
 
@@ -58,7 +65,7 @@ public class HoppingEnemy : MonoBehaviour, IMovement
     private void OnEnable()
     {
 
-        pushed = false;
+        pushing = false;
         hopDelay = maxHopDelay;
         hopping = false;
         rb = GetComponent<Rigidbody>();
@@ -83,7 +90,7 @@ public class HoppingEnemy : MonoBehaviour, IMovement
         else
         {
             anim.SetBool("Attacking", false);
-            pushed = false;
+            pushing = false;
         }
 
         if (enemyHealth != null)
@@ -117,7 +124,7 @@ public class HoppingEnemy : MonoBehaviour, IMovement
         }
         else
         {
-            if (!pushed)
+            if (!pushing)
             {
                 rb.linearVelocity = Vector2.zero;
                 anim.SetFloat("Movement", 0);
@@ -154,13 +161,13 @@ public class HoppingEnemy : MonoBehaviour, IMovement
     public void Push(Vector3 pushForce)
     {
         moveDelay = pushedCooldown;
-        pushed = true;
+        pushing = true;
         rb.linearVelocity = pushForce;
     }
     public void Push(Vector3 pushForce, bool invincible)
     {
         moveDelay = pushedCooldown;
-        pushed = true;
+        pushing = true;
         rb.linearVelocity = pushForce;
         if (enemyHealth != null)
         {
