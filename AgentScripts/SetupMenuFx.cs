@@ -7,6 +7,7 @@ using UnityEngine;
 //   MainMenuCanvas
 //     Background
 //       SkyFx            ShootingStars   (behind the Stage: comets pass behind logo + characters)
+//       CloudFx          SkyDrift        (drifting clouds, no birds; behind the Stage)
 //       Stage
 //         Logo
 //           Glory        LogoGlory       (sunburst behind the title)
@@ -16,6 +17,7 @@ using UnityEngine;
 //     TapFx              TapSparkle
 //     StartButton                        (full-screen tap target, stays last)
 // Usage: run_script AgentScripts/SetupMenuFx.cs SetupMenuFx.Run
+// Clouds only (leaves the other layers alone): run_script AgentScripts/SetupMenuFx.cs SetupMenuFx.AddClouds
 public static class SetupMenuFx
 {
     public static string Run()
@@ -35,6 +37,7 @@ public static class SetupMenuFx
             if (t) Object.DestroyImmediate(t.gameObject);
 
         Layer<ShootingStars>("SkyFx", bg).SetAsFirstSibling();
+        PlaceClouds(bg);
 
         var glory = Layer<LogoGlory>("Glory", logo);
         glory.SetAsFirstSibling();
@@ -51,6 +54,31 @@ public static class SetupMenuFx
         return string.Join(", ", canvas.Cast<Transform>().Select(t => t.name)) + " | bg: "
              + string.Join(", ", bg.Cast<Transform>().Select(t => t.name)) + " | logo: "
              + string.Join(", ", logo.Cast<Transform>().Select(t => t.name));
+    }
+
+    public static string AddClouds()
+    {
+        var scene = EditorSceneManager.OpenScene("Assets/Scenes/MainMenu.unity", OpenSceneMode.Single);
+        var bg = scene.GetRootGameObjects().First(g => g.name == "MainMenuCanvas").transform.Find("Background");
+        PlaceClouds(bg);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        return "bg: " + string.Join(", ", bg.Cast<Transform>().Select(t => t.name));
+    }
+
+    // Same drifting cel-shaded clouds as TowerSelect/LevelSelect, minus the birds, right after SkyFx
+    // so they pass behind the logo and heroes.
+    static void PlaceClouds(Transform bg)
+    {
+        var old = bg.Find("CloudFx");
+        if (old) Object.DestroyImmediate(old.gameObject);
+        var clouds = Layer<SkyDrift>("CloudFx", bg);
+        var sky = bg.Find("SkyFx");
+        clouds.SetSiblingIndex(sky ? sky.GetSiblingIndex() + 1 : 0);
+        var so = new SerializedObject(clouds.GetComponent<SkyDrift>());
+        so.FindProperty("appearDelay").floatValue = 0f;
+        so.FindProperty("flockSize").vector2IntValue = Vector2Int.zero;   // clouds only
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     static RectTransform Layer<T>(string name, Transform parent) where T : Component
