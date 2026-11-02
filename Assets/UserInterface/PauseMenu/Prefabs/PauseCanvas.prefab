@@ -2188,7 +2188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pausePanel: {fileID: 7278167361125532510}
   pauseButton: {fileID: 7974722601990026938}
-  giveUpScene: LevelSelect
+  giveUpScene: MainMenu
 --- !u!114 &2618117974366628917
 MonoBehaviour:
   m_ObjectHideFlags: 0

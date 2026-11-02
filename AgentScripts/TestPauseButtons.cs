@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // Play Mode in a level (Unity focused): pauses, presses Restart (iris reload), then pauses again and
-// presses Give Up (slide to LevelSelect). Logs the state after each step.
+// presses Give Up (slide to MainMenu). Logs the state after each step.
 public static class TestPauseButtons
 {
     public static async Task<string> Run()

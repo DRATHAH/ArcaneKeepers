@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 // In-level pause screen (Assets/UserInterface/PauseMenu/Prefabs/PauseCanvas.prefab).
 // Freezes the game and hands all motion to PauseMenuAnimator.
-// Restart closes an iris on the button and reloads; Give Up slides back to the level select.
+// Restart closes an iris on the button and reloads; Give Up slides back to the main menu.
 public class PauseMenu : MonoBehaviour
 {
     public static bool IsPaused { get; private set; }
@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseButton;
     [Tooltip("Scene loaded when the player gives up.")]
-    [SerializeField] private string giveUpScene = "LevelSelect";
+    [SerializeField] private string giveUpScene = "MainMenu";
 
     static readonly Color Ink = new Color32(29, 21, 51, 255);
 
