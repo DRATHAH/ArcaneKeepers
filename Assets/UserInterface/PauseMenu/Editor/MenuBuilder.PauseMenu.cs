@@ -130,7 +130,7 @@ public static partial class MenuBuilder
         SerializedObject so = new SerializedObject(pause);
         so.FindProperty("pausePanel").objectReferenceValue = panel.gameObject;
         so.FindProperty("pauseButton").objectReferenceValue = pauseButton.gameObject;
-        so.FindProperty("giveUpScene").stringValue = LevelSelectScene;
+        so.FindProperty("giveUpScene").stringValue = MainMenuScene;
         so.ApplyModifiedPropertiesWithoutUndo();
 
         animator.overlay = panel;
