@@ -60,7 +60,7 @@ namespace ArcaneKeepers.Tutorial
             root.anchorMin = root.anchorMax = new Vector2(1f, 0f);
             root.pivot = new Vector2(0.5f, 0f);
             root.sizeDelta = new Vector2(Height, Height);
-            root.anchoredPosition = new Vector2(-330f, 8f);
+            root.anchoredPosition = new Vector2(-420f, 8f); // left of the round MOVE button (bottom-right corner)
 
             shadow = TutorialKit.Img("Shadow", root, theme.dogShadow, TutorialKit.A(theme.ink, 0.35f), new Vector2(250f, 44f));
             shadow.rectTransform.anchorMin = shadow.rectTransform.anchorMax = new Vector2(0.5f, 0f);

@@ -95,6 +95,7 @@ namespace ArcaneKeepers.Tutorial
                 return;
             }
             Build();
+            MoveButton.SuppressHint = true; // the dog stands where the MOVE hint pill would slide out
             flow = StartCoroutine(Run());
         }
 
@@ -102,6 +103,7 @@ namespace ArcaneKeepers.Tutorial
         {
             // never leave the level stuck without waves
             ReleaseWaves();
+            MoveButton.SuppressHint = false;
         }
 
         // ------------------------------------------------------------ building
