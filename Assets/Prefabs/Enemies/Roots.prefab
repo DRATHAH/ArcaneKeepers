@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 4478316392809318419}
   - component: {fileID: 7689758007720901451}
   - component: {fileID: 1388336338512232713}
+  - component: {fileID: 2303825165026844589}
   m_Layer: 6
   m_Name: Roots
   m_TagString: Enemy
@@ -230,3 +231,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852402a9192238d488fac763a2b4bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorFlash
+--- !u!114 &2303825165026844589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969344108722984119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb2d055ef586ba4bbbe838b49595b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FreeTile

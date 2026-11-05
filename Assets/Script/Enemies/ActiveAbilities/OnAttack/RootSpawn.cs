@@ -21,9 +21,17 @@ public class RootSpawn : MonoBehaviour, IAttackAbility
         {
             if (hit.collider.gameObject.TryGetComponent<Tile>(out Tile t))
             {
-                GameObject root = ObjectPool.pool.Create(spawnedEnemy, hit.transform.position, Quaternion.identity);
-                root.transform.parent = t.anchorPos.transform;
-                root.transform.localPosition = Vector3.zero;
+                if(t.tileObject == null)
+                {
+                    GameObject root = ObjectPool.pool.Create(spawnedEnemy, hit.transform.position, Quaternion.identity);
+                    t.tileObject = root;
+                    root.transform.parent = t.anchorPos.transform;
+                    root.transform.localPosition = Vector3.zero;
+                }
+                else
+                {
+                    Debug.Log("Something else occupying the tile.");
+                }
             }
             else
             {

@@ -69,7 +69,7 @@ public class TowerRelocate : MonoBehaviour
                     if (isRelocating == true)
                     {
                         transform.SetParent(null, true);
-                        originalTile.tileObject = null;
+                        //originalTile.tileObject = null;
                         transform.position = worldPosition;
                         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
                     }
@@ -80,6 +80,7 @@ public class TowerRelocate : MonoBehaviour
                 if (RelocationManager.instance.relocatedObject == this.gameObject)
                 {
                     isRelocating = false;
+                    originalTile.tileObject = null;
                     newTile = TouchManager.instance.hoveringTile;
                     originalTile = newTile;
                     newTile.tileObject = this.gameObject;
@@ -112,6 +113,7 @@ public class TowerRelocate : MonoBehaviour
 
     public void DeathReset()
     {
+        originalTile.tileObject = null;
         originalTile = null;
         newTile = null;
     }
