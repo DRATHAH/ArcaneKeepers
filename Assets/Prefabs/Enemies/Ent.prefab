@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920f6710458d0634681e058e2706cdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
-  damageAmount: 20
+  damageAmount: 450
   smash: 1
   attacking: 0
   anim: {fileID: 5629920517515884411}

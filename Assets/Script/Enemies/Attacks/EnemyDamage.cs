@@ -89,10 +89,7 @@ public class EnemyDamage : DamageBase
         yield return new WaitForSeconds(windupDuration);
         if(target != null)
         {
-            if (target.TryGetComponent<HealthBase>(out HealthBase victimHealth))
-            {
-                victimHealth.Die();
-            }
+            Attack(damageAmount, target);
         }
         if(this.gameObject.TryGetComponent<IAttackAbility>(out IAttackAbility attackAbility))
         {
