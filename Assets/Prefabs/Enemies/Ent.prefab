@@ -236,7 +236,7 @@ MonoBehaviour:
   livingStatus: 0
   maxMoveDelay: 3.5
   moveDelay: 0
-  moveSpeed: 0.4
+  moveSpeed: 0.21
   pushing: 0
   anim: {fileID: 5629920517515884411}
 --- !u!114 &1388336338512232713
