@@ -90,10 +90,7 @@ public class EnemyDamage : DamageBase
         anim.SetTrigger("Smash");
         if(target != null)
         {
-            if (target.TryGetComponent<HealthBase>(out HealthBase victimHealth))
-            {
-                victimHealth.Die();
-            }
+            Attack(damageAmount, target);
         }
         if(this.gameObject.TryGetComponent<IAttackAbility>(out IAttackAbility attackAbility))
         {
