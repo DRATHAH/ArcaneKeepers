@@ -87,6 +87,7 @@ public class EnemyDamage : DamageBase
         anim.SetBool("Attacking", true);
         enemyMove.PauseMovement();
         yield return new WaitForSeconds(windupDuration);
+        anim.SetTrigger("Smash");
         if(target != null)
         {
             if (target.TryGetComponent<HealthBase>(out HealthBase victimHealth))
