@@ -21,4 +21,4 @@ First-level tutorial. Dog_Hero stands in the bottom-right corner and walks the p
 - Add the wave meter to another level: drag `Prefabs/WaveMeter.prefab` into the scene.
 
 ## Steps
-Welcome, objective (lanes + castle), wave meter, Keeper cards, **drag the first Keeper onto the glowing tile** (the player has to do it), card rest/recharge, **a second Keeper**, **move a Keeper** (tap the move button, then drag), pause, then "Here they come!". The waves are held until the tutorial ends or the player taps SKIP. During that first battle Dog_Hero pops up for the first kill, a fallen Keeper and the final wave.
+Welcome, objective (lanes + castle), wave meter, Keeper cards, **drag the first Keeper onto the glowing tile** (the player has to do it), card rest/recharge, **a second Keeper**, **move a Keeper** (tap the move button, then drag), then "Here they come!". The waves are held until the tutorial ends or the player taps SKIP. During that first battle Dog_Hero pops up for the first kill, a fallen Keeper and the final wave.

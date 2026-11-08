@@ -38,7 +38,6 @@ namespace ArcaneKeepers.Tutorial
         [TextArea(2, 3)] public string relocateGiveUp = "No worries, you'll get the hang of it. Onward!";
 
         [Header("Wrap up")]
-        [TextArea(2, 3)] public string pause = "Need a breather? Tap <k>pause</k> any time.";
         [TextArea(2, 3)] public string go = "Here they come! Hold the line, Keeper!";
         [TextArea(2, 3)] public string skipped = "Good luck out there, Keeper!";
 

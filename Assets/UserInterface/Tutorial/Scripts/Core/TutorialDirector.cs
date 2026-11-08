@@ -14,7 +14,7 @@ namespace ArcaneKeepers.Tutorial
     /// Flow: Dog_Hero pops up in the bottom-right corner -> shows the objective (lanes, castle) ->
     /// the wave meter -> the Keeper cards -> the player drags their first Keeper onto a glowing tile
     /// (the wand demonstrates until they do) -> card resting / recharging -> a second Keeper ->
-    /// moving a Keeper -> pause -> "Here they come!" and the waves are released.
+    /// moving a Keeper -> "Here they come!" and the waves are released.
     /// Info steps wait for a tap anywhere; action steps wait for the player to actually do it.
     /// During that first battle Dog_Hero pops back up to cheer the first kill, the final wave, or
     /// commiserate when a Keeper falls.
@@ -360,19 +360,6 @@ namespace ArcaneKeepers.Tutorial
             else
             {
                 Debug.LogWarning("Tutorial: no Keeper cards in the level (start from the character menu); skipping the placing lessons.");
-            }
-
-            // ---- pause
-            GameObject pauseBtn = GameObject.Find("PauseButton");
-            if (pauseBtn)
-            {
-                Func<Rect> pauseRect = () => TutorialKit.RectIn(root, (RectTransform)pauseBtn.transform);
-                spot.Show(pauseRect, 16f, 0.4f);
-                glowA.Show(pauseRect, theme.gold, 6f);
-                pointer.PointAt(() => pauseRect().center);
-                yield return Say(lines.pause, DogMood.Point);
-                glowA.Hide();
-                spot.Hide();
             }
 
             // ---- go!

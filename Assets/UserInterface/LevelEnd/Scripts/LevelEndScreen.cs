@@ -16,7 +16,7 @@ using UnityEngine.UI;
 //   moment later, bounces and rolls to a stop with dizzy stars, the neck gushes, the title drops
 //   in letter by letter and the buttons pop up. Try Again closes the iris over the screen and
 //   opens it again on the restarted level.
-// WIN: the reward the player tapped flashes, its light rays fly up behind the title, VICTORY!
+// WIN: the reward that appeared flashes, its light rays fly up behind the title, VICTORY!
 //   bounces in, confetti cannons fire, the reward cards deal in and flip over one by one, then
 //   the buttons pop up.
 // Everything runs on unscaled time.

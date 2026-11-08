@@ -28,7 +28,7 @@ public class WinLossManager : MonoBehaviour
     [SerializeField] public GameObject loserCanvas;
     [SerializeField] private AudioSource backgroundMusic;
 
-    // Where the match ended (the enemy that broke through / the reward the player tapped).
+    // Where the match ended (the enemy that broke through / the reward that appeared).
     // The end screen centres its effects on it.
     private Vector3? focusPoint;
 
