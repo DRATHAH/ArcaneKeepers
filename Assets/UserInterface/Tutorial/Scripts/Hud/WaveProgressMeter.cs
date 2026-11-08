@@ -20,6 +20,8 @@ namespace ArcaneKeepers.Tutorial
         [Tooltip("Where the groove's fill starts / ends across the plank art (0-1), from GenerateTutorialArt")]
         public float fillMin = 70f / 1480f;
         public float fillMax = 1410f / 1480f;
+        [Tooltip("Seconds the bar takes to glide across one wave's share of the plank")]
+        public float secondsPerWave = 8f;
 
         RectTransform bar;
         Image fill;
@@ -211,8 +213,7 @@ namespace ArcaneKeepers.Tutorial
                 label.text = wave < 1 ? "GET READY" : wave >= n ? "FINAL WAVE" : "WAVE " + wave + "/" + n;
                 label.color = wave >= n ? theme.danger : theme.cream;
             }
-            progress = Mathf.MoveTowards(progress, target, Time.unscaledDeltaTime * 0.6f);
-            progress = Mathf.Lerp(progress, target, TutorialKit.Damp(3f));
+            progress = Mathf.MoveTowards(progress, target, Time.unscaledDeltaTime / (n * Mathf.Max(0.01f, secondsPerWave)));
 
             float full = bar.rect.width;
             float inner = (fillMax - fillMin) * full;

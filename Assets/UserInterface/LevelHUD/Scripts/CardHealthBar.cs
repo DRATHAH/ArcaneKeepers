@@ -47,9 +47,12 @@ public class CardHealthBar : MonoBehaviour
     float flashA;
     Color flashColor = Color.white;
     float beatClock;
+    float hitCooldown;     // time until a small damage tick may pulse the hit effects again
 
     const float ShowDuration = 0.35f;
     const float HideDuration = 0.2f;
+    const float BigHitFraction = 0.03f;   // a single hit this size always gets the full effects
+    const float TickPulseInterval = 0.6f; // matches TowerHealth's sprite flash
 
     void Awake()
     {
@@ -79,7 +82,7 @@ public class CardHealthBar : MonoBehaviour
             shown = ghostValue = target;
             showT = 0f;
             squash = bump = -1f;
-            shake = flashA = 0f;
+            shake = flashA = hitCooldown = 0f;
         }
         else
         {
@@ -110,11 +113,27 @@ public class CardHealthBar : MonoBehaviour
             // Hit: drop now, keep the lost chunk as a ghost
             if (ghostValue < shown) ghostValue = shown;
             shown = value;
-            ghostWait = ghostHold;
-            shake = Mathf.Min(1f, shake + 0.35f + -delta * 3f);
-            squash = 0f;
-            flashA = 0.85f;
-            flashColor = Color.white;
+
+            // Constant-damage enemies call this every frame, so small ticks only pulse
+            // the effects now and then; otherwise the flash and ghost hide the real fill
+            bool bigHit = -delta >= BigHitFraction;
+            if (bigHit || hitCooldown <= 0f)
+            {
+                hitCooldown = TickPulseInterval;
+                ghostWait = ghostHold;
+                squash = 0f;
+                flashColor = Color.white;
+                if (bigHit)
+                {
+                    shake = Mathf.Min(1f, shake + 0.35f + -delta * 3f);
+                    flashA = 0.85f;
+                }
+                else
+                {
+                    shake = Mathf.Max(shake, 0.2f);
+                    flashA = Mathf.Max(flashA, 0.3f);
+                }
+            }
         }
         else if (delta > 0.0001f)
         {
@@ -132,6 +151,11 @@ public class CardHealthBar : MonoBehaviour
 
     void Apply(float dt)
     {
+        if (hitCooldown > 0f)
+        {
+            hitCooldown -= dt;
+        }
+
         // Heal grows smoothly; hits already snapped
         if (shown < target)
         {
