@@ -20,8 +20,8 @@ MonoBehaviour:
   bubbleShadow: {fileID: 21300000, guid: dc34b7e88c0c25341902f42f5d23bd50, type: 3}
   bubbleTail: {fileID: 21300000, guid: d57d42df692fc3d4dbb736321e2a31ff, type: 3}
   nextArrow: {fileID: 21300000, guid: 6411613b864b1514a96481c904b84d02, type: 3}
-  wand: {fileID: 21300000, guid: 811d1e28fd4692541a208d1727a34af0, type: 3}
-  wandTip: {x: 0.492, y: 0.85}
+  wand: {fileID: 21300000, guid: bf242aec718605848b962c7a0880fcd8, type: 3}
+  wandTip: {x: 0.635, y: 0.87}
   wandGlow: {r: 0.5882353, g: 0.9254902, b: 1, a: 1}
   glowFrame: {fileID: 21300000, guid: bce57f30b31921b498ef64508b9d0bbd, type: 3}
   tileGlow: {fileID: 21300000, guid: c888a9529d6452f4683b8e49f4f9e463, type: 3}
@@ -34,7 +34,7 @@ MonoBehaviour:
   emoteSparkle: {fileID: 21300000, guid: 0886052bf9768024b864ea119d8273e3, type: 3}
   meterBack: {fileID: 21300000, guid: 9b3b961614174b94b88e5e625ddb6d2c, type: 3}
   meterFill: {fileID: 21300000, guid: 87473f4ed18d50a42b00973a0a4c86f6, type: 3}
-  skullToken: {fileID: 21300000, guid: 694924736fc92c34cbcc84962aa20cdd, type: 3}
+  skullToken: {fileID: 21300000, guid: 695c9f31c3f00de4293254ece87cd97b, type: 3}
   waveFlag: {fileID: 21300000, guid: 580e0d8dfce331f4d939cf92a38fec0f, type: 3}
   skipButton: {fileID: 21300000, guid: 036de1997cd93f64e8ebc2dfe1efd399, type: 3}
   softGlow: {fileID: 21300000, guid: ca6c5b25c2545f145a48068cc997e841, type: 3}

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 811d1e28fd4692541a208d1727a34af0
+guid: 695c9f31c3f00de4293254ece87cd97b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4421300922047078791
-    second: Wand_0
+      213: 1239042622388952931
+    second: SkullHeadToken_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,9 +48,9 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
-  alignment: 9
-  spritePivot: {x: 0.492, y: 0.85}
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wand_0
+      name: SkullHeadToken_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 4
-        width: 124
-        height: 396
+        x: 38
+        y: 18
+        width: 209
+        height: 250
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97ed6488c3264a2c0800000000000000
-      internalID: -4421300922047078791
+      spriteID: 36fdf0943b6f13110800000000000000
+      internalID: 1239042622388952931
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wand_0: -4421300922047078791
+      SkullHeadToken_0: 1239042622388952931
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

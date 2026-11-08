@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 694924736fc92c34cbcc84962aa20cdd
+guid: bf242aec718605848b962c7a0880fcd8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1426831966957236578
-    second: SkullToken_0
+      213: 4901826075149389801
+    second: WizardWand_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.635, y: 0.87}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SkullToken_0
+      name: WizardWand_0
       rect:
         serializedVersion: 2
-        x: 6
+        x: 0
         y: 0
-        width: 100
-        height: 110
+        width: 123
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e9e875fb2efd23ce0800000000000000
-      internalID: -1426831966957236578
+      spriteID: 9efc60828d8c60440800000000000000
+      internalID: 4901826075149389801
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SkullToken_0: -1426831966957236578
+      WizardWand_0: 4901826075149389801
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

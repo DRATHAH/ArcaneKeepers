@@ -72,11 +72,11 @@ namespace ArcaneKeepers.Tutorial.EditorTools
                 imp.ReadTextureSettings(settings);
                 settings.spriteMeshType = SpriteMeshType.FullRect;
                 settings.spriteBorder = new Vector4(b, b, b, b);
-                if (file == "Wand")
+                if (file == "WizardWand")
                 {
                     // pivot at the crystal so positioning the wand = positioning its tip
                     settings.spriteAlignment = (int)SpriteAlignment.Custom;
-                    settings.spritePivot = new Vector2(0.492f, 0.85f);
+                    settings.spritePivot = new Vector2(0.635f, 0.87f);
                 }
                 imp.SetTextureSettings(settings);
                 imp.SaveAndReimport();
@@ -106,7 +106,7 @@ namespace ArcaneKeepers.Tutorial.EditorTools
             theme.bubbleShadow = S("UI", "BubbleShadow");
             theme.bubbleTail = S("UI", "BubbleTail");
             theme.nextArrow = S("UI", "NextArrow");
-            theme.wand = S("UI", "Wand");
+            theme.wand = S("UI", "WizardWand");
             theme.glowFrame = S("UI", "GlowFrame");
             theme.tileGlow = S("UI", "TileGlow");
             theme.spotHole = S("UI", "SpotHole");
@@ -116,11 +116,11 @@ namespace ArcaneKeepers.Tutorial.EditorTools
             theme.emoteHeart = S("UI", "EmoteHeart");
             theme.emoteSweat = S("UI", "EmoteSweat");
             theme.emoteSparkle = S("UI", "EmoteSparkle");
-            theme.skullToken = S("Hud", "SkullToken");
+            theme.skullToken = S("Hud", "SkullHeadToken");
             theme.waveFlag = S("Hud", "WaveFlag");
             theme.meterBack = S("Hud", "MeterFrame");
             theme.meterFill = S("Hud", "MeterFill");
-            theme.wandTip = new Vector2(0.492f, 0.85f);
+            theme.wandTip = new Vector2(0.635f, 0.87f);
             theme.softGlow = S("Fx", "SoftGlow");
             theme.sparkle = S("Fx", "Sparkle");
             theme.ring = S("Fx", "Ring");
