@@ -87,7 +87,7 @@ public class EnemyDamage : DamageBase
         anim.SetBool("Attacking", true);
         enemyMove.PauseMovement();
         yield return new WaitForSeconds(windupDuration);
-        anim.SetTrigger("Smash");
+        anim.SetBool("Smash", true);
         if(target != null)
         {
             Attack(damageAmount, target);
@@ -97,6 +97,8 @@ public class EnemyDamage : DamageBase
             attackAbility.AttackAbility();
         }
         yield return new WaitForSeconds(cooldownDuration);
+        anim.SetBool("Smash", false);
+        anim.SetBool("Attacking", false);
         smashSequence = null;
         target = null;
     }

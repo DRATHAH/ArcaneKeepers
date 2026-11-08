@@ -98,7 +98,7 @@ public class TouchManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(touchPos);
         debugRay = ray;
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit) && isTouching)
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, (1 << 0)) && isTouching)
         {
             // If over a tile, get its transform to store for tower placement
             if (hit.transform.GetComponent<Tile>())
@@ -109,7 +109,6 @@ public class TouchManager : MonoBehaviour
             {
                 hoveringTile = null;
             }
-            
             return hit.transform.gameObject;
         }
 
