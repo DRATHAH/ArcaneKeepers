@@ -22,21 +22,30 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene(string sceneToLoad)
     {
         LoadScene(sceneToLoad, false);
-        PlayerManager.instance.SaveToFile();
+        if (PlayerManager.instance != null)
+        {
+            PlayerManager.instance.SaveToFile();
+        }
     }
 
     // DEPLOY on the character select: the push slide, but longer and gentler
     public void LoadSceneGentle(string sceneToLoad)
     {
         LoadScene(sceneToLoad, false, true);
-        PlayerManager.instance.SaveToFile();
+        if (PlayerManager.instance != null)
+        {
+            PlayerManager.instance.SaveToFile();
+        }
     }
 
     // Like LoadScene, but with the cloud wipe instead of the push slide
     public void LoadSceneWithClouds(string sceneToLoad)
     {
         LoadScene(sceneToLoad, true);
-        PlayerManager.instance.SaveToFile();
+        if (PlayerManager.instance != null)
+        {
+            PlayerManager.instance.SaveToFile();
+        }
     }
 
     void LoadScene(string sceneToLoad, bool clouds, bool gentle = false)
@@ -56,7 +65,10 @@ public class SceneLoader : MonoBehaviour
         // squad's send-off hop finishes), loading the next scene in the background meanwhile, then slides
         // (or clouds) the new screen in
         SceneTransition.Load(sceneToLoad, clouds, gentle ? 0.42f : 0.2f, gentle);
-        PlayerManager.instance.SaveToFile();
+        if (PlayerManager.instance != null)
+        {
+            PlayerManager.instance.SaveToFile();
+        }
     }
 
     public void Restart()
