@@ -56,7 +56,7 @@ public class LevelButton : MonoBehaviour
         LevelTile tile = GetComponent<LevelTile>();
         if (tile)
         {
-            tile.guide = open && LevelNumber == LevelProgress.Beaten + 1;
+            tile.guide = open && LevelNumber == PlayerManager.instance.levelsBeaten + 1;
         }
 
         if (statusText)

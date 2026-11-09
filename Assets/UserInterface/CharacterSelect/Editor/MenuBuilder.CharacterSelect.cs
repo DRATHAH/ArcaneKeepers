@@ -114,7 +114,6 @@ public static partial class MenuBuilder
                 power = k.power,
                 range = k.range,
             });
-            playerManager.cheatedTowers.Add(new TowerEntry { tower = tower, amount = 1 });
         }
         screen.characters = profiles;
 

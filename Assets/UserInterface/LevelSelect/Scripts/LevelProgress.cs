@@ -7,10 +7,6 @@ public static class LevelProgress
     // Level number (1-based) -> scene name
     public static readonly string[] Scenes = { "DemoLevel", "Level2", "Level3", "Level4" };
 
-    const string Key = "LevelsBeaten";
-
-    public static int Beaten => PlayerPrefs.GetInt(Key, 0);
-
     // 1-based level number of a scene, or 0 if it isn't one of the levels
     public static int NumberOf(string sceneName)
     {
@@ -19,23 +15,21 @@ public static class LevelProgress
 
     public static bool IsUnlocked(int levelNumber)
     {
-        return levelNumber >= 1 && levelNumber <= Beaten + 1;
+        return levelNumber >= 1 && levelNumber <= PlayerManager.instance.levelsBeaten + 1;
     }
 
     // Call when a level is won; never lowers progress (replaying an old level changes nothing)
     public static void MarkBeaten(string sceneName)
     {
         int number = NumberOf(sceneName);
-        if (number > Beaten)
+        if (number > PlayerManager.instance.levelsBeaten)
         {
-            PlayerPrefs.SetInt(Key, number);
-            PlayerPrefs.Save();
+            PlayerManager.instance.levelsBeaten = number;
         }
     }
 
     public static void ResetProgress()
     {
-        PlayerPrefs.DeleteKey(Key);
-        PlayerPrefs.Save();
+        PlayerManager.instance.levelsBeaten = 0;
     }
 }

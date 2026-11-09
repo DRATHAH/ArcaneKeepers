@@ -19,7 +19,15 @@ public class InventoryUI : MonoBehaviour
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
 
-        StartCoroutine(WaitToLoadTowers());
+        if (PlayerManager.instance.launched)
+        {
+            StartCoroutine(WaitToLoadTowers(false));
+        }
+        else
+        {
+            PlayerManager.instance.launched = true;
+            StartCoroutine(WaitToLoadTowers(true));
+        }
     }
 
     void UpdateUI()
@@ -39,10 +47,17 @@ public class InventoryUI : MonoBehaviour
         lineup.UpdateCards(cardsToAdd);
     }
 
-    IEnumerator WaitToLoadTowers()
+    IEnumerator WaitToLoadTowers(bool firstLoad)
     {
         yield return new WaitForSeconds(0.1f);
-        PlayerManager.instance.LoadTowers(inventory);
+        if (firstLoad)
+        {
+            FileManager.instance.LoadData();
+        }
+        else
+        {
+            PlayerManager.instance.LoadTowers(inventory);
+        }
     }
 
     private void OnDestroy()
