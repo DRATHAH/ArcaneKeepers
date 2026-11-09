@@ -9,6 +9,8 @@ public class TowerBase : MonoBehaviour
     float timeSinceAttack = 0;
     bool canAttack = true;
 
+    Animator animator;
+
     // Awake, not Start: every tower subclass declares its own Start(), which hides this one,
     // so towerRelocate stayed null and FixedUpdate threw every physics tick.
     private void Awake()
@@ -19,6 +21,7 @@ public class TowerBase : MonoBehaviour
     private void Start()
     {
         relocate = GetComponent<TowerRelocate>();
+        animator = GetComponent<Animator>();
     }
 
     public virtual void AbilityClose()
@@ -36,6 +39,7 @@ public class TowerBase : MonoBehaviour
     public void DoAttack(Attack attackType)
     {
         SoundManager.Instance.PlaySound(tower.tower.attackSoundName);
+        animator.SetTrigger("Attack");
         
         switch (attackType.attackType)
         {
