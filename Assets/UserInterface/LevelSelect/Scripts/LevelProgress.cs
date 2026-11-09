@@ -5,7 +5,7 @@ using UnityEngine;
 public static class LevelProgress
 {
     // Level number (1-based) -> scene name
-    public static readonly string[] Scenes = { "DemoLevel", "Level2", "Level3", "Level4" };
+    public static readonly string[] Scenes = { "DemoLevel", "Level2", "Level3", "Level4", "Level5" };
 
     // 1-based level number of a scene, or 0 if it isn't one of the levels
     public static int NumberOf(string sceneName)

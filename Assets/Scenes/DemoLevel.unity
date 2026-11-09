@@ -2861,6 +2861,22 @@ MonoBehaviour:
     spawnDelay:
     - 0
     - 6
+  - waveEnemies:
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 0000000004000000
+    spawnDelay:
+    - 0
+    - 6
+  - waveEnemies:
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    - {fileID: 4969344108722984119, guid: c3c18b1582d062f49bc0c2ca62ec04e5, type: 3}
+    wavePosition: 020000000100000003000000
+    spawnDelay:
+    - 0
+    - 5
+    - 5
   spawnPoints:
   - {x: 16, y: 0.5, z: 4}
   - {x: 16, y: 0.5, z: 2}
