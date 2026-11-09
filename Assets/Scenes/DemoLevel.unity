@@ -2920,7 +2920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
   currentWave: -1
-  incrementTimerBase: 12
+  incrementTimerBase: 20
   maxGracePeriod: 0
   enemiesSpawned: []
   enemiesThisWave: []
