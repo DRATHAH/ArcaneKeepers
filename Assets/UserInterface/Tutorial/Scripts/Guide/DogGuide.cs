@@ -38,7 +38,11 @@ namespace ArcaneKeepers.Tutorial
         Vector2 reactOffset;
         Vector2 reactScale = Vector2.one;
         float reactAngle;
-        float lean;            // -1 (leans left) .. 1, eased
+        // what's drawn eases quickly toward the react pose, so cutting a reaction short (fast taps) doesn't snap him
+        Vector2 shownOffset;
+        Vector2 shownScale = Vector2.one;
+        float shownAngle;
+        float lean;           // -1 (leans left) .. 1, eased
         float leanTarget;
         float talkKick;        // spikes on every word, decays
         float enter;           // 0 hidden below the screen .. 1 standing in his spot
@@ -342,6 +346,10 @@ namespace ArcaneKeepers.Tutorial
             float dt = Time.unscaledDeltaTime;
             talkKick = Mathf.MoveTowards(talkKick, 0f, dt * 7f);
             lean = Mathf.Lerp(lean, leanTarget, TutorialKit.Damp(6f));
+            float k = TutorialKit.Damp(28f);
+            shownOffset = Vector2.Lerp(shownOffset, reactOffset, k);
+            shownScale = Vector2.Lerp(shownScale, reactScale, k);
+            shownAngle = Mathf.Lerp(shownAngle, reactAngle, k);
             Compose();
         }
 
@@ -357,18 +365,18 @@ namespace ArcaneKeepers.Tutorial
             // talking: quick bob on every word
             float talk = Mathf.Sin(talkKick * Mathf.PI) * 0.05f;
 
-            float sx = reactScale.x * (1f - breathe * 0.6f + talk * 0.4f);
-            float sy = reactScale.y * (1f + breathe - talk * 0.5f);
+            float sx = shownScale.x * (1f - breathe * 0.6f + talk * 0.4f);
+            float sy = shownScale.y * (1f + breathe - talk * 0.5f);
             body.localScale = new Vector3(sx, sy, 1f);
-            body.localEulerAngles = new Vector3(0f, 0f, reactAngle + lean * 5f);
-            body.anchoredPosition = reactOffset + new Vector2(lean * -14f, talk * 60f);
+            body.localEulerAngles = new Vector3(0f, 0f, shownAngle + lean * 5f);
+            body.anchoredPosition = shownOffset + new Vector2(lean * -14f, talk * 60f);
 
             float hidden = -Height - 40f;
             float y = Mathf.LerpUnclamped(hidden, 8f, enter);
             root.anchoredPosition = new Vector2(root.anchoredPosition.x, y);
 
             // shadow shrinks while he's in the air
-            float air = Mathf.Clamp01((reactOffset.y + talk * 60f) / 120f);
+            float air = Mathf.Clamp01((shownOffset.y + talk * 60f) / 120f);
             shadow.rectTransform.localScale = new Vector3(1f - air * 0.35f, 1f - air * 0.35f, 1f);
             shadow.color = TutorialKit.A(theme.ink, 0.35f * (1f - air * 0.5f) * Mathf.Clamp01(enter));
         }

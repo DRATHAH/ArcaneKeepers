@@ -35,13 +35,17 @@ namespace ArcaneKeepers.Tutorial
 
         public void Show(Func<Rect> rect, Color tint, float pad = 18f)
         {
-            target = rect;
-            padding = pad;
-            color = tint;
             if (!showing)
             {
                 t = 0f;
+                if (target != rect)
+                {
+                    visible = 0f; // still fading out of the last target: pop in fresh instead of jumping across
+                }
             }
+            target = rect;
+            padding = pad;
+            color = tint;
             showing = true;
             gameObject.SetActive(true);
             Update();

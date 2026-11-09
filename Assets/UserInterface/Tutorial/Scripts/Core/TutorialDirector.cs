@@ -225,6 +225,7 @@ namespace ArcaneKeepers.Tutorial
             }
             SetBlocking(waitTap);
             tapped = false;
+            tapReadyAt = Time.unscaledTime + 0.2f; // a spam tap can't skip a line the instant it starts
             IEnumerator typing = bubble.Say(line, waitTap);
             bool done = false;
             StartCoroutine(Track(typing, () => done = true));
@@ -394,6 +395,7 @@ namespace ArcaneKeepers.Tutorial
             HashSet<TowerButton> before = new HashSet<TowerButton>(PlacedCards());
             yield return Say(prompt, DogMood.Point, false);
             bool wasHolding = false;
+            float heldFor = 0f;
             float idle = 0f;
             int nudges = 0;
             TowerButton result = null;
@@ -416,14 +418,19 @@ namespace ArcaneKeepers.Tutorial
                 if (holding)
                 {
                     idle = 0f;
+                    heldFor += Time.unscaledDeltaTime;
                     glowB.Hide();
                 }
                 else if (wasHolding)
                 {
-                    // let go somewhere that isn't a free tile
+                    // let go somewhere that isn't a free tile (a quick tap on the card isn't a real attempt)
                     glowB.Show(cardRect, theme.gold, 8f);
-                    yield return Say(lines.dragMissed, DogMood.Worried, false);
+                    if (heldFor > 0.35f)
+                    {
+                        yield return Say(lines.dragMissed, DogMood.Worried, false);
+                    }
                     idle = 0f;
+                    heldFor = 0f;
                 }
                 wasHolding = holding;
 
@@ -501,10 +508,12 @@ namespace ArcaneKeepers.Tutorial
                 yield return Say(lines.relocateDrag, DogMood.Neutral, false);
 
                 bool moved = false;
+                bool grabbed = false;
                 while (rm.canRelocate || rm.relocatedObject != null)
                 {
                     if (rm.relocatedObject != null)
                     {
+                        grabbed = true;
                         pointer.SetDimmed(true);
                     }
                     yield return null;
@@ -543,6 +552,14 @@ namespace ArcaneKeepers.Tutorial
                     yield break;
                 }
 
+                if (!grabbed)
+                {
+                    // MOVE was switched off again (e.g. tapped twice) before a Keeper was picked up:
+                    // just ask again instead of counting it as a miss
+                    yield return WaitForMoveButton(relocateBtn);
+                    continue;
+                }
+
                 misses++;
                 if (misses >= 2)
                 {
@@ -550,13 +567,19 @@ namespace ArcaneKeepers.Tutorial
                     yield break;
                 }
                 yield return Say(lines.relocateMissed, DogMood.Worried);
-                // wait out the move cooldown so the button works again
-                float wait = 0f;
-                while (!relocateBtn.GetComponent<Button>().interactable && wait < 3f)
-                {
-                    wait += Time.unscaledDeltaTime;
-                    yield return null;
-                }
+                yield return WaitForMoveButton(relocateBtn);
+            }
+        }
+
+        /// <summary>Waits out the move cooldown so the button works again.</summary>
+        IEnumerator WaitForMoveButton(GameObject relocateBtn)
+        {
+            Button b = relocateBtn.GetComponent<Button>();
+            float wait = 0f;
+            while (b && !b.interactable && wait < 3f)
+            {
+                wait += Time.unscaledDeltaTime;
+                yield return null;
             }
         }
 

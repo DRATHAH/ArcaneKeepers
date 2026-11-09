@@ -162,6 +162,9 @@ namespace ArcaneKeepers.Tutorial
         public void SkipTyping()
         {
             skipTyping = true;
+            // the whole line appears at once, so don't let it spill out of a bubble that's still resizing
+            height = heightTarget;
+            ApplySize();
         }
 
         public IEnumerator Close()
