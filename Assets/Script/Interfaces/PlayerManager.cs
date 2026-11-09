@@ -69,7 +69,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    public void SaveToFile()
     {
         if (Inventory.instance != null)
         {

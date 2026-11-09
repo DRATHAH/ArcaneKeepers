@@ -533,7 +533,7 @@ RectTransform:
   m_GameObject: {fileID: 61991698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.864, y: 0.864, z: 1}
+  m_LocalScale: {x: 0.81647056, y: 0.81647056, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1406464471}
@@ -543,7 +543,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 24, y: 763}
+  m_AnchoredPosition: {x: 24, y: 583}
   m_SizeDelta: {x: 800, y: 850}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &110652959
@@ -4153,23 +4153,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   launched: 0
   equippedTowers: []
-  cheatedTowers:
+  unlockedTowers:
   - tower: {fileID: 11400000, guid: fcced0b9a5f78ca46bcd845a619f31e7, type: 2}
     level: 1
-    amount: 1
+    amount: 0
   - tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
     level: 1
-    amount: 500
+    amount: 0
   - tower: {fileID: 11400000, guid: 1d6809c4ec161ef4d8b1336d4fe3762e, type: 2}
     level: 1
-    amount: 1
+    amount: 0
   - tower: {fileID: 11400000, guid: f62c4a6a553c0de41ae6d868dd7a8d65, type: 2}
     level: 1
-    amount: 1
+    amount: 0
   - tower: {fileID: 11400000, guid: a5c984c30c00f5842a8291acdcc5b6a0, type: 2}
     level: 1
-    amount: 1
-  unlockedTowers: []
+    amount: 0
   levelsBeaten: 0
 --- !u!4 &818305011
 Transform:
@@ -4604,7 +4603,7 @@ RectTransform:
   m_GameObject: {fileID: 852359568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.283576, y: 1.283576, z: 1}
+  m_LocalScale: {x: 1.1785715, y: 1.1785715, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2020137521}
@@ -5302,7 +5301,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 474.92313
+  m_PreferredWidth: 436.07144
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -6742,8 +6741,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 332.6, y: 60}
-  m_SizeDelta: {x: -685.2, y: -420}
+  m_AnchoredPosition: {x: 313.58823, y: 60}
+  m_SizeDelta: {x: -647.17645, y: -420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1063089161
 MonoBehaviour:
@@ -12073,7 +12072,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

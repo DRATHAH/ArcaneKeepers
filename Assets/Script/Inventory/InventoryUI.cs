@@ -63,5 +63,7 @@ public class InventoryUI : MonoBehaviour
     private void OnDestroy()
     {
         inventory.onItemChangedCallback -= UpdateUI;
+
+        PlayerManager.instance.SaveToFile();
     }
 }

@@ -78,6 +78,8 @@ public class WinLossManager : MonoBehaviour
         }
         if (winnerCanvas) winnerCanvas.SetActive(true);
         Time.timeScale = 0;
+
+        PlayerManager.instance.SaveToFile();
     }
 
     private void Lose()

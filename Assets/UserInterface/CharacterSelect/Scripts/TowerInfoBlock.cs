@@ -198,6 +198,7 @@ public class TowerInfoBlock : MonoBehaviour
             fx.Land(progress.levelBadge, accent);
         }
         Upgraded?.Invoke(entry);
+        PlayerManager.instance.SaveToFile();
     }
 
     IEnumerator CountUp(TextMeshProUGUI text, int from, int to)

@@ -34,7 +34,6 @@ public class FileManager : MonoBehaviour
     }
     #endregion
 
-    PlayerData data = new PlayerData();
     IDataService DataService = new JsonDataService();
     bool encryptionEnabled = false;
     long saveTime;
@@ -49,6 +48,7 @@ public class FileManager : MonoBehaviour
 
     public void SerializeBlankJson()
     {
+        PlayerData data = new PlayerData();
         PlayerManager manager = PlayerManager.instance;
         long startTime = DateTime.Now.Ticks;
 
@@ -65,6 +65,7 @@ public class FileManager : MonoBehaviour
 
     public void SerializeJson()
     {
+        PlayerData data = new PlayerData();
         PlayerManager manager = PlayerManager.instance;
         long startTime = DateTime.Now.Ticks;
 
