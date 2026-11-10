@@ -39,7 +39,10 @@ public class TowerBase : MonoBehaviour
     public void DoAttack(Attack attackType)
     {
         SoundManager.Instance.PlaySound(tower.tower.attackSoundName);
-        animator.SetTrigger("Attack");
+        if (animator)
+        {
+            animator.SetTrigger("Attack");
+        }
         
         switch (attackType.attackType)
         {
