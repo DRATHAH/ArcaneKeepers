@@ -41,12 +41,6 @@ public static partial class MenuBuilder
             Object.DestroyImmediate(popup.gameObject);
         }
 
-        // The block makes the name column taller: dots move under it and the layout fits the new height
-        foreach (Image dot in screen.lineupDots)
-        {
-            RectTransform rt = dot.rectTransform;
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, IntelDotsY);
-        }
         CharacterSelectLayout layout = screen.GetComponentInChildren<CharacterSelectLayout>(true);
         if (layout)
         {
@@ -111,8 +105,6 @@ public static partial class MenuBuilder
         GameObject root = new GameObject("TowerInfo", typeof(RectTransform));
         root.transform.SetParent(content, false);
         Stretch((RectTransform)root.transform);
-        // Before the dots so the block never draws over them
-        root.transform.SetSiblingIndex(screen.lineupDots[0].transform.GetSiblingIndex());
         TowerInfoBlock block = root.AddComponent<TowerInfoBlock>();
         Transform b = root.transform;
 

@@ -294,7 +294,6 @@ public static partial class MenuBuilder
             Place(dot.rectTransform, new Vector2(0f, 1f), new Vector2(left + 13 + i * 44, IntelDotsY), new Vector2(26, 26));
             dots.Add(dot);
         }
-        screen.lineupDots = dots.ToArray();
 
         foreach (Graphic g in rt.GetComponentsInChildren<Graphic>(true))
         {

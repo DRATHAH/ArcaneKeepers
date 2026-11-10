@@ -40,8 +40,6 @@ public class CharacterSelectScreen : MonoBehaviour
     public Image intelTag;
     public TextMeshProUGUI intelStatus;
     public Image intelGlow;
-    [Tooltip("One dot per keeper under the name, showing where you are in the lineup")]
-    public Image[] lineupDots;
     [Tooltip("Card bar, upgrade, stats and description of the focused tower, under the name")]
     public TowerInfoBlock intelInfo;
 
@@ -469,11 +467,6 @@ public class CharacterSelectScreen : MonoBehaviour
         Color glow = p.accent;
         glow.a = intelGlow.color.a;
         intelGlow.color = glow;
-
-        for (int i = 0; i < lineupDots.Length; i++)
-        {
-            lineupDots[i].color = SlotOf(i) >= 0 ? (Color)new Color32(255, 214, 90, 255) : new Color(1, 1, 1, i == shownIntel ? 1f : 0.35f);
-        }
     }
 
     private void Update()
@@ -499,14 +492,6 @@ public class CharacterSelectScreen : MonoBehaviour
                 : 1 + (0.88f - 1) * Mathf.Exp(-(t - 0.07f) * 11f) * Mathf.Cos((t - 0.07f) * 22f);
         }
         playButton.transform.localScale = new Vector3(p, p, 1);
-
-        // The dot for the keeper in the middle grows; the soft colour glow behind the name breathes
-        for (int i = 0; i < lineupDots.Length; i++)
-        {
-            float target = i == shownIntel ? 1.35f : 1f;
-            Transform dot = lineupDots[i].transform;
-            dot.localScale = Vector3.one * Mathf.Lerp(dot.localScale.x, target, 1 - Mathf.Exp(-dt * 14f));
-        }
         Color g = intelGlow.color;
         g.a = 0.32f + 0.08f * Mathf.Sin(Time.unscaledTime * 1.6f);
         intelGlow.color = g;
