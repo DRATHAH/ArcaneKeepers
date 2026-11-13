@@ -270,7 +270,7 @@ MonoBehaviour:
   smash: 1
   attacking: 0
   anim: {fileID: 5629920517515884411}
-  windupDuration: 2
+  windupDuration: 1.8
   cooldownDuration: 1
   target: {fileID: 0}
 --- !u!114 &5125882521751168966
@@ -286,4 +286,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RootSpawn
   spawnedEnemy: {fileID: 4969344108722984119, guid: 1331c96135e2daa4ca614fe44a2f984d, type: 3}
-  raycastRange: 12
+  raycastRange: 1.5

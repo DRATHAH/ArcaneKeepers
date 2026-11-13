@@ -16,8 +16,7 @@ public class RootSpawn : MonoBehaviour, IAttackAbility
 
     private void SpawnRoot()
     {
-        Debug.DrawRay(transform.position, Vector3.left);
-        if(Physics.Raycast(new Vector3(transform.position.x, 0, transform.position.z), Vector3.left, out RaycastHit hit, raycastRange))
+        if(Physics.Raycast(new Vector3(transform.position.x + 1, 0, transform.position.z), Vector3.left, out RaycastHit hit, raycastRange, 1 << 0))
         {
             if (hit.collider.gameObject.TryGetComponent<Tile>(out Tile t))
             {
@@ -35,8 +34,14 @@ public class RootSpawn : MonoBehaviour, IAttackAbility
             }
             else
             {
+                Debug.Log(hit.collider.gameObject.name);
                 Debug.LogWarning("Something other than a tile hit!");
             }
+        }
+        else
+        {
+            //Debug.DrawLine(new Vector3(transform.position.x, 0, transform.position.z), Vector3.left * raycastRange, Color.red, 5f);
+            Debug.Log("Nothing hit by RootSpawn!");
         }
 
     }

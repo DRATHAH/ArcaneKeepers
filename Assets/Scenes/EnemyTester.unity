@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c96a03bfdf793942935a60decc4e986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  launched: 0
   equippedTowers:
   - tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
     level: 1
@@ -288,8 +289,8 @@ MonoBehaviour:
   - tower: {fileID: 11400000, guid: 1d6809c4ec161ef4d8b1336d4fe3762e, type: 2}
     level: 1
     amount: 1
-  cheatedTowers: []
   unlockedTowers: []
+  levelsBeaten: 0
 --- !u!4 &914370092
 Transform:
   m_ObjectHideFlags: 0
@@ -2634,12 +2635,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
   currentWave: -1
-  incrementTimerBase: 12
+  incrementTimerBase: 60
   maxGracePeriod: 0
   enemiesSpawned: []
   enemiesThisWave: []
   incrementHealthMeter: 0
-  incrementPercent: 0.5
+  incrementPercent: 0.9
   incrementAmount: 0
   winTrigger: {fileID: 828887486275161208, guid: 2bbeab867b06df945834da91a2df7fb4, type: 3}
 --- !u!224 &3644102806029729035

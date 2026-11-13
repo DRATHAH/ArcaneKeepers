@@ -29,6 +29,90 @@ TextureImporter:
   - first:
       213: 2421927845493350491
     second: EntSprites_8
+  - first:
+      213: 706512290720319982
+    second: EntSprites_9
+  - first:
+      213: -4233410958312480157
+    second: EntSprites_10
+  - first:
+      213: 1235218528191850954
+    second: EntSprites_11
+  - first:
+      213: -2033603306902010388
+    second: EntSprites_12
+  - first:
+      213: 6810824305344351046
+    second: EntSprites_13
+  - first:
+      213: 9189820345586804177
+    second: EntSprites_14
+  - first:
+      213: 4492477942060030023
+    second: EntSprites_15
+  - first:
+      213: -9021383817023995791
+    second: EntSprites_16
+  - first:
+      213: 3739105113427090979
+    second: EntSprites_17
+  - first:
+      213: 906623640647784296
+    second: EntSprites_18
+  - first:
+      213: 4554592081418558804
+    second: EntSprites_19
+  - first:
+      213: 2464574625324553581
+    second: EntSprites_20
+  - first:
+      213: 8356863439192142652
+    second: EntSprites_21
+  - first:
+      213: 5904399809529769383
+    second: EntSprites_22
+  - first:
+      213: -5730980046913521938
+    second: EntSprites_23
+  - first:
+      213: -7300044663449465690
+    second: EntSprites_24
+  - first:
+      213: 6061225325768168407
+    second: EntSprites_25
+  - first:
+      213: 6330085864287599605
+    second: EntSprites_26
+  - first:
+      213: -7108304697116416462
+    second: EntSprites_27
+  - first:
+      213: 7370290838806028603
+    second: EntSprites_28
+  - first:
+      213: 7051424487772243599
+    second: EntSprites_29
+  - first:
+      213: 4091041610208357354
+    second: EntSprites_30
+  - first:
+      213: -2389797548974188036
+    second: EntSprites_31
+  - first:
+      213: -2929915709169714294
+    second: EntSprites_32
+  - first:
+      213: -5358600551468862107
+    second: EntSprites_33
+  - first:
+      213: 3543980814640885791
+    second: EntSprites_34
+  - first:
+      213: 8217478249900353893
+    second: EntSprites_35
+  - first:
+      213: -3493153472402259172
+    second: EntSprites_36
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,7 +212,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1536
+        y: 2048
         width: 512
         height: 512
       alignment: 0
@@ -150,7 +234,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 512
-        y: 1536
+        y: 2048
         width: 512
         height: 512
       alignment: 0
@@ -172,7 +256,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1024
-        y: 1536
+        y: 2048
         width: 512
         height: 512
       alignment: 0
@@ -193,8 +277,8 @@ TextureImporter:
       name: EntSprites_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1024
+        x: 1536
+        y: 2048
         width: 512
         height: 512
       alignment: 0
@@ -215,8 +299,8 @@ TextureImporter:
       name: EntSprites_4
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1024
+        x: 2048
+        y: 2048
         width: 512
         height: 512
       alignment: 0
@@ -237,8 +321,8 @@ TextureImporter:
       name: EntSprites_5
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1024
+        x: 0
+        y: 1536
         width: 512
         height: 512
       alignment: 0
@@ -259,8 +343,8 @@ TextureImporter:
       name: EntSprites_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
+        x: 512
+        y: 1536
         width: 512
         height: 512
       alignment: 0
@@ -281,8 +365,8 @@ TextureImporter:
       name: EntSprites_7
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
+        x: 1024
+        y: 1536
         width: 512
         height: 512
       alignment: 0
@@ -303,8 +387,8 @@ TextureImporter:
       name: EntSprites_8
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 512
+        x: 1536
+        y: 1536
         width: 512
         height: 512
       alignment: 0
@@ -321,11 +405,297 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: EntSprites_9
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee905d56f290ec900800000000000000
+      internalID: 706512290720319982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 362e989b927ef35c0800000000000000
+      internalID: -4233410958312480157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac92bd8f4b0642110800000000000000
+      internalID: 1235218528191850954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce5cb0e119037c3e0800000000000000
+      internalID: -2033603306902010388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_13
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64b85a3de98e48e50800000000000000
+      internalID: 6810824305344351046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_14
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d5eb502aecc88f70800000000000000
+      internalID: 9189820345586804177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74814c9d2ec785e30800000000000000
+      internalID: 4492477942060030023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 170c3db373b9dc280800000000000000
+      internalID: -9021383817023995791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_17
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32e1baf3a48f3e330800000000000000
+      internalID: 3739105113427090979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_18
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86758cdc569f49c00800000000000000
+      internalID: 906623640647784296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_19
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d92c5ed59253f30800000000000000
+      internalID: 4554592081418558804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6559e8509de33220800000000000000
+      internalID: 2464574625324553581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EntSprites_21
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c333f79750b89f370800000000000000
+      internalID: 8356863439192142652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: db5a66e0aa2bfc84cbcbcfc0926b106c
+    spriteID: d5153e1a07d408242844a1ef7c6478ae
     internalID: 0
     vertices: []
     indices: 
@@ -339,13 +709,26 @@ TextureImporter:
     nameFileIdTable:
       EntSprites_0: -8771736905531409026
       EntSprites_1: -5276124784739129314
+      EntSprites_10: -4233410958312480157
+      EntSprites_11: 1235218528191850954
+      EntSprites_12: -2033603306902010388
+      EntSprites_13: 6810824305344351046
+      EntSprites_14: 9189820345586804177
+      EntSprites_15: 4492477942060030023
+      EntSprites_16: -9021383817023995791
+      EntSprites_17: 3739105113427090979
+      EntSprites_18: 906623640647784296
+      EntSprites_19: 4554592081418558804
       EntSprites_2: 145859549722779559
+      EntSprites_20: 2464574625324553581
+      EntSprites_21: 8356863439192142652
       EntSprites_3: -5258083939474759603
       EntSprites_4: 6129088486997424121
       EntSprites_5: 5629549067348957297
       EntSprites_6: 1767925940222826731
       EntSprites_7: -6178483560289470737
       EntSprites_8: 2421927845493350491
+      EntSprites_9: 706512290720319982
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
