@@ -87,7 +87,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.44, y: 1.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -239,7 +239,8 @@ MonoBehaviour:
   moveSpeed: 1.35
   moveDuration: 0.75
   maxHopDelay: 1.4
-  pushed: 0
+  windupLength: 0.375
+  pushing: 0
   anim: {fileID: 5629920517515884411}
 --- !u!114 &1388336338512232713
 MonoBehaviour:
@@ -266,8 +267,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
   damageAmount: 20
+  smash: 0
   attacking: 0
   anim: {fileID: 5629920517515884411}
+  windupDuration: 1
+  cooldownDuration: 1
+  target: {fileID: 0}
 --- !u!114 &5766841842181220986
 MonoBehaviour:
   m_ObjectHideFlags: 0
