@@ -2561,7 +2561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   levelWaves:
   - waveEnemies:
-    - {fileID: 4969344108722984119, guid: 30a4024566ec4f74c937ccde96210fa9, type: 3}
+    - {fileID: 4969344108722984119, guid: 1070e421ba4f5464380a77903f7c7587, type: 3}
     wavePosition: 02000000
     spawnDelay:
     - 0
