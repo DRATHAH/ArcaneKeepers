@@ -6,8 +6,8 @@ public class TowerBase : MonoBehaviour
     public TowerEntry tower;
 
     TowerRelocate relocate;
-    float timeSinceAttack = 0;
-    bool canAttack = true;
+    float timeSinceAttack = 0.5f;
+    bool canAttack = false;
 
     Animator animator;
 

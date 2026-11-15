@@ -23,8 +23,7 @@ public class Attack
 
     public static GameObject CreateAttack(GameObject prefab, Vector3 spawnPos, Quaternion tower)
     {
-        GameObject projectile = ObjectPool.pool.Create(prefab, spawnPos, Quaternion.identity);
-        projectile.transform.rotation = tower;
+        GameObject projectile = ObjectPool.pool.Create(prefab, spawnPos, tower);
         return projectile;
     }
 
