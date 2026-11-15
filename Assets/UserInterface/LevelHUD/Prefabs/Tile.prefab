@@ -88,15 +88,15 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -392849056109768441, guid: 57f185a1e6a657546bbc9d1864d84906, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2.8125, y: 2.8125}
+  m_Size: {x: 2.4, y: 2.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
 --- !u!65 &4324386119038827874
@@ -134,11 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   tileObject: {fileID: 0}
   anchorPos: {fileID: 2810349089217691551}
-  floorVariants:
-  - {fileID: -392849056109768441, guid: 57f185a1e6a657546bbc9d1864d84906, type: 3}
-  - {fileID: -7624826291897506060, guid: 5fd3c16ef127a58498e694401e4f3f33, type: 3}
-  - {fileID: -9209669479524918469, guid: be10cbd00dbea4541a39a54341758f5c, type: 3}
-  - {fileID: 6259694572670894063, guid: f5732b135fc3e2440961c2028c085146, type: 3}
+  floorVariants: []
 --- !u!1 &7410456136382979579
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 57f185a1e6a657546bbc9d1864d84906
+guid: 59b5bdb232fb02a40ade02f99ac98b8e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -392849056109768441
-    second: tile_vines_0_0
+      213: 4940942672968537148
+    second: bridge_vine_face_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0, y: 1}
+  spritePixelsToUnits: 110
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tile_vines_0_0
+      name: bridge_vine_face_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 359
-        height: 360
+        x: 2
+        y: 16
+        width: 2606
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 701da386dd15c8af0800000000000000
-      internalID: -392849056109768441
+      spriteID: c34dbddce21c19440800000000000000
+      internalID: 4940942672968537148
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tile_vines_0_0: -392849056109768441
+      bridge_vine_face_0: 4940942672968537148
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

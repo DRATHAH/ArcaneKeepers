@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: 26c114180182b1f48a2e74bc09f94919
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1087594510126609088
+    second: bridge_vine_floor_0
+  - first:
+      213: 3454019687721592064
+    second: bridge_vine_floor_1
+  - first:
+      213: -8808225109348885007
+    second: bridge_vine_floor_2
+  - first:
+      213: -1569396110147569703
+    second: bridge_vine_floor_3
+  - first:
+      213: 7384364420120214025
+    second: bridge_vine_floor_4
+  - first:
+      213: 3536203869852642495
+    second: bridge_vine_floor_5
+  - first:
+      213: -9160438336944552277
+    second: bridge_vine_floor_6
+  - first:
+      213: -9163472738200144584
+    second: bridge_vine_floor_7
+  - first:
+      213: 8531260529347532055
+    second: bridge_vine_floor_8
+  - first:
+      213: 6741754738894149512
+    second: bridge_vine_floor_9
+  - first:
+      213: -7901402568077231810
+    second: bridge_vine_floor_10
+  - first:
+      213: -7372701102980796233
+    second: bridge_vine_floor_11
+  - first:
+      213: 2649155519548302203
+    second: bridge_vine_floor_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0, y: 0}
+  spritePixelsToUnits: 110
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: bridge_vine_floor_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 873
+        width: 416
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04d0d3c2e8618e0f0800000000000000
+      internalID: -1087594510126609088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_1
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 855
+        width: 475
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 005e9d51b942fef20800000000000000
+      internalID: 3454019687721592064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_2
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 795
+        width: 282
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fd55975ee5e2c580800000000000000
+      internalID: -8808225109348885007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_3
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 776
+        width: 403
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d736c68d82683ae0800000000000000
+      internalID: -1569396110147569703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_4
+      rect:
+        serializedVersion: 2
+        x: 2290
+        y: 808
+        width: 306
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a7c49e0588a7660800000000000000
+      internalID: 7384364420120214025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 579
+        width: 121
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbcadeb1fae131130800000000000000
+      internalID: 3536203869852642495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 469
+        width: 203
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba6cc8bddd59fd080800000000000000
+      internalID: -9160438336944552277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 214
+        width: 84
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 835ba92481ec4d080800000000000000
+      internalID: -9163472738200144584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 155
+        width: 131
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 715121a3040256670800000000000000
+      internalID: 8531260529347532055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 351
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 887979637368f8d50800000000000000
+      internalID: 6741754738894149512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_10
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 0
+        width: 434
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e39b56e4a34985290800000000000000
+      internalID: -7901402568077231810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_11
+      rect:
+        serializedVersion: 2
+        x: 1233
+        y: 0
+        width: 421
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b0f2b9b867eea990800000000000000
+      internalID: -7372701102980796233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vine_floor_12
+      rect:
+        serializedVersion: 2
+        x: 1833
+        y: 0
+        width: 476
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b732171c8e0b3c420800000000000000
+      internalID: 2649155519548302203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      bridge_vine_floor_0: -1087594510126609088
+      bridge_vine_floor_1: 3454019687721592064
+      bridge_vine_floor_10: -7901402568077231810
+      bridge_vine_floor_11: -7372701102980796233
+      bridge_vine_floor_12: 2649155519548302203
+      bridge_vine_floor_2: -8808225109348885007
+      bridge_vine_floor_3: -1569396110147569703
+      bridge_vine_floor_4: 7384364420120214025
+      bridge_vine_floor_5: 3536203869852642495
+      bridge_vine_floor_6: -9160438336944552277
+      bridge_vine_floor_7: -9163472738200144584
+      bridge_vine_floor_8: 8531260529347532055
+      bridge_vine_floor_9: 6741754738894149512
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
