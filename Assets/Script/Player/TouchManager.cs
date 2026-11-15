@@ -90,6 +90,10 @@ public class TouchManager : MonoBehaviour
                 OverUI(overObject);
             }
         }
+        else if (hoveringTile != null)
+        {
+            hoveringTile = null;
+        }
     }
 
     public GameObject CheckPhysicalHover(Vector2 touchPos)

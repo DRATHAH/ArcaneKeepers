@@ -26,6 +26,8 @@ public class MoveButton : MonoBehaviour
     [Tooltip("RelocationManager writes the cooldown (1 = just used, 0 = ready) here.")]
     public Slider cooldownSlider;
 
+    RelocationManager rm;
+
     [Header("Pop in (after the 4 tower cards)")]
     public float popInDelay = 0.25f + 4 * 0.12f;
     public float popInDuration = 0.45f;
@@ -74,6 +76,11 @@ public class MoveButton : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        rm = RelocationManager.instance;
+    }
+
     void OnTap()
     {
         pressTime = 0f;
@@ -81,7 +88,6 @@ public class MoveButton : MonoBehaviour
         {
             SoundManager.Instance.PlaySound("ButtonClick");
         }
-        RelocationManager rm = RelocationManager.instance;
         if (rm == null)
         {
             return;
@@ -89,7 +95,7 @@ public class MoveButton : MonoBehaviour
         // Second tap while nobody is picked up = cancel
         if (rm.canRelocate && rm.relocatedObject == null)
         {
-            rm.canRelocate = false;
+            rm.ClearObject(0.1f);
         }
         else
         {
@@ -99,7 +105,6 @@ public class MoveButton : MonoBehaviour
 
     void Update()
     {
-        RelocationManager rm = RelocationManager.instance;
         bool isArmed = rm != null && (rm.canRelocate || rm.relocatedObject != null);
         bool ready = button.interactable;
         float charge = !ready && cooldownSlider ? Mathf.Clamp01(cooldownSlider.value) : 0f;

@@ -40,11 +40,7 @@ public class RelocationManager : MonoBehaviour
     {
         if(canRelocate == true)
         {
-            if (Touch.activeTouches.Count > 0)
-            {
-                       
-            }
-            else if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null)
+            if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null)
             {
                 if (relocatedObject == null)
                 {
@@ -72,11 +68,6 @@ public class RelocationManager : MonoBehaviour
         }
     }
 
-    void RelocateObject()
-    {
-
-    }
-
     public void GrabObject(GameObject grabbedObject)
     {
         relocatedObject = grabbedObject;
@@ -88,6 +79,7 @@ public class RelocationManager : MonoBehaviour
         relocatedObject = null;
         relocateCooldown = maxRelocateCooldown;
         canRelocate = false;
+        TouchManager.instance.hoveringTile = null;
         //busy = false;
     }
 
@@ -96,6 +88,7 @@ public class RelocationManager : MonoBehaviour
         relocatedObject = null;
         relocateCooldown = coolDown;
         canRelocate = false;
+        TouchManager.instance.hoveringTile = null;
     }
 
     public void EnableRelocate()
