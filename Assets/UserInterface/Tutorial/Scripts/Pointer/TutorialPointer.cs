@@ -17,7 +17,11 @@ namespace ArcaneKeepers.Tutorial
         TutorialFx fx;
         RectTransform root;
         RectTransform wand;
+        RectTransform shadow;
+        Image shadowImg;
         Image tipGlow;
+        Image core;           // bright centre on the crystal, flares on taps
+        Image glint;          // four-point star that twinkles on the crystal now and then
         Image ghost;
         CanvasGroup group;
 
@@ -33,9 +37,17 @@ namespace ArcaneKeepers.Tutorial
         float press;          // 0..1, pushes the tip in
         Vector2 lastPos;
         float moteTimer;
+        float appear = 1f;    // 0..1 pop-in when the wand shows up
+        float kick;           // 1 on a tap, decays: recoil + crystal flare
+        float lean;           // degrees, leans into the direction of travel
+        float glintTimer = 1.2f;
+        float glintAge = -1f;
 
         const float TapPeriod = 1.25f;
         const float DragLoop = 3.2f;
+        const float AppearTime = 0.45f;
+        const float GlintTime = 0.5f;
+        static readonly Vector2 ShadowOffset = new Vector2(10f, -14f);
 
         public void Init(TutorialTheme t, TutorialFx effects)
         {
@@ -53,9 +65,16 @@ namespace ArcaneKeepers.Tutorial
 
             Sprite s = theme.wand;
             Vector2 size = s ? new Vector2(s.rect.width, s.rect.height) * 0.82f : new Vector2(105f, 330f);
+            shadowImg = TutorialKit.Img("WandShadow", root, s, TutorialKit.A(theme.ink, 0.22f), size);
+            shadow = shadowImg.rectTransform;
+            shadow.pivot = theme.wandTip;
+
             Image w = TutorialKit.Img("Wand", root, s, Color.white, size);
             wand = w.rectTransform;
             wand.pivot = theme.wandTip;
+
+            core = TutorialKit.Img("CrystalCore", root, theme.softGlow, TutorialKit.A(Color.white, 0.5f), new Vector2(56f, 56f));
+            glint = TutorialKit.Img("Glint", root, theme.sparkle, TutorialKit.A(Color.white, 0f), new Vector2(70f, 70f));
 
             group.alpha = 0f;
         }
@@ -76,6 +95,7 @@ namespace ArcaneKeepers.Tutorial
             if (wasHidden)
             {
                 Snap(target() + RestOffset(target()));
+                appear = 0f;
             }
         }
 
@@ -87,8 +107,13 @@ namespace ArcaneKeepers.Tutorial
             ghost.sprite = ghostSprite;
             ghost.enabled = ghostSprite != null;
             clock = 0f;
+            bool wasHidden = alpha < 0.05f;
             alphaTarget = 1f;
             Snap(from() + RestOffset(from()));
+            if (wasHidden)
+            {
+                appear = 0f;
+            }
         }
 
         public void Hide()
@@ -116,6 +141,13 @@ namespace ArcaneKeepers.Tutorial
             pos = p;
             lastPos = p;
             placed = true;
+            lean = 0f;
+        }
+
+        void Kick()
+        {
+            kick = 1f;
+            glintAge = 0f;
         }
 
         /// <summary>Where the tip rests near a target: a little below-right of it, or below-left near the right edge.</summary>
@@ -161,6 +193,8 @@ namespace ArcaneKeepers.Tutorial
                 {
                     fx.Ripple(t, TutorialKit.A(theme.gold, 0.9f), 24f, 120f, 0.45f);
                     fx.Sparkles(t, theme.gold, 4, 260f, 32f);
+                    fx.Sparkles(t, theme.wandGlow, 3, 190f, 24f);
+                    Kick();
                 }
                 pos = placed ? Vector2.Lerp(pos, target, TutorialKit.Damp(14f)) : target;
             }
@@ -189,6 +223,7 @@ namespace ArcaneKeepers.Tutorial
                     if (Fired(c, pressT + 0.08f, dt))
                     {
                         fx.Ripple(a, TutorialKit.A(theme.gold, 0.9f), 30f, 150f, 0.45f);
+                        Kick();
                     }
                 }
                 else if (c < moveEnd)
@@ -214,6 +249,8 @@ namespace ArcaneKeepers.Tutorial
                     {
                         fx.Ripple(b, TutorialKit.A(theme.gold, 1f), 40f, 190f, 0.5f);
                         fx.Sparkles(b, theme.gold, 7, 380f, 40f);
+                        fx.Flash(b, TutorialKit.A(theme.wandGlow, 0.55f), 200f, 0.3f);
+                        Kick();
                     }
                 }
                 else if (c < fadeEnd)
@@ -232,24 +269,95 @@ namespace ArcaneKeepers.Tutorial
                     if (alpha < 0.05f)
                     {
                         Snap(restA);
+                        appear = 0f;
                     }
                 }
                 pos = Vector2.Lerp(pos, target, TutorialKit.Damp(c > moveT && c < moveEnd ? 40f : 16f));
             }
 
-            // tip angle: stick comes from the lower right (or lower left near the right edge)
+            float vdt = Mathf.Max(dt, 0.0001f);
+            Vector2 velocity = (pos - lastPos) / vdt;
+
+            // pop-in: grows from small with an overshoot, twirls upright and rises a touch
             float side = SideFor(pos);
+            if (appear < 1f)
+            {
+                float before = appear;
+                appear = Mathf.Min(1f, appear + Mathf.Min(dt, 1f / 30f) / AppearTime);
+                if (before < 0.35f && appear >= 0.35f)
+                {
+                    fx.Flash(pos, TutorialKit.A(theme.wandGlow, 0.6f), 170f, 0.3f);
+                    fx.Sparkles(pos, theme.wandGlow, 5, 240f, 26f);
+                    glintAge = 0f;
+                }
+            }
+            float pop = Mathf.LerpUnclamped(0.35f, 1f, TutorialKit.EaseOutBack(appear, 2.2f));
+            float twirl = (1f - TutorialKit.EaseOut(appear)) * -55f * side;
+            Vector2 rise = new Vector2(0f, (1f - TutorialKit.EaseOut(appear)) * -40f);
+
+            // lean into the direction of travel, as if a hand were carrying it
+            float leanTarget = Mathf.Clamp(-velocity.x * 0.01f, -12f, 12f);
+            lean = Mathf.Lerp(lean, leanTarget, TutorialKit.Damp(8f));
+
+            // tap recoil: a quick springy wobble that dies out
+            kick = Mathf.MoveTowards(kick, 0f, dt * 2.6f);
+            float wobble = Mathf.Sin((1f - kick) * Mathf.PI * 3f) * kick * 0.07f;
+
+            // tip angle: stick comes from the lower right (or lower left near the right edge)
             float targetAngle = side > 0f ? 28f : -28f;
             angle = Mathf.Lerp(angle, targetAngle - press * 6f * side, TutorialKit.Damp(10f));
-            wand.anchoredPosition = pos;
-            wand.localEulerAngles = new Vector3(0f, 0f, angle);
-            float squeeze = 1f - press * 0.08f;
+            float finalAngle = angle + lean + twirl;
+            Vector2 drawPos = pos + rise;
+            float squeeze = (1f - press * 0.08f + wobble) * pop;
+
+            wand.anchoredPosition = drawPos;
+            wand.localEulerAngles = new Vector3(0f, 0f, finalAngle);
             wand.localScale = new Vector3(squeeze, squeeze, 1f);
 
-            float glow = 0.55f + Mathf.Sin(Time.unscaledTime * 5f) * 0.15f + press * 0.3f;
-            tipGlow.rectTransform.anchoredPosition = pos;
+            // soft drop shadow so the wand reads over a busy board; it tightens as the tip presses in
+            shadow.anchoredPosition = drawPos + ShadowOffset * (1f - press * 0.45f);
+            shadow.localEulerAngles = wand.localEulerAngles;
+            shadow.localScale = wand.localScale;
+            shadowImg.color = TutorialKit.A(theme.ink, 0.22f + press * 0.08f);
+
+            float glow = 0.55f + Mathf.Sin(Time.unscaledTime * 5f) * 0.15f + press * 0.3f + kick * 0.3f;
+            tipGlow.rectTransform.anchoredPosition = drawPos;
             tipGlow.color = TutorialKit.A(theme.wandGlow, glow);
-            tipGlow.rectTransform.localScale = Vector3.one * (0.9f + press * 0.3f);
+            tipGlow.rectTransform.localScale = Vector3.one * ((0.9f + press * 0.3f + kick * 0.35f) * pop);
+
+            // lit crystal centre: steady, flares white on taps
+            core.rectTransform.anchoredPosition = drawPos;
+            core.color = TutorialKit.A(Color.white, 0.45f + kick * 0.5f);
+            core.rectTransform.localScale = Vector3.one * ((1f + kick * 0.9f) * pop);
+
+            // a little star glints on the crystal every couple of seconds (and on every tap)
+            glintTimer -= dt;
+            if (glintTimer <= 0f)
+            {
+                glintTimer = UnityEngine.Random.Range(1.8f, 3f);
+                if (glintAge < 0f)
+                {
+                    glintAge = 0f;
+                }
+            }
+            if (glintAge >= 0f)
+            {
+                glintAge += dt;
+                float g = glintAge / GlintTime;
+                if (g >= 1f)
+                {
+                    glintAge = -1f;
+                    glint.color = TutorialKit.A(Color.white, 0f);
+                }
+                else
+                {
+                    float bell = Mathf.Sin(g * Mathf.PI);
+                    glint.rectTransform.anchoredPosition = drawPos + new Vector2(7f, 9f);
+                    glint.rectTransform.localEulerAngles = new Vector3(0f, 0f, g * 90f);
+                    glint.rectTransform.localScale = Vector3.one * (bell * 1.1f);
+                    glint.color = TutorialKit.A(Color.white, bell);
+                }
+            }
 
             ghost.rectTransform.anchoredPosition = ghostPos + new Vector2(0f, 10f);
             ghost.rectTransform.localScale = Vector3.one * ghostScale;
@@ -257,7 +365,7 @@ namespace ArcaneKeepers.Tutorial
             ghost.transform.SetAsFirstSibling();
 
             // sparkle trail while the wand travels
-            float speed = (pos - lastPos).magnitude / Mathf.Max(dt, 0.0001f);
+            float speed = velocity.magnitude;
             moteTimer -= dt;
             if (speed > 250f && moteTimer <= 0f && group.alpha > 0.5f)
             {
