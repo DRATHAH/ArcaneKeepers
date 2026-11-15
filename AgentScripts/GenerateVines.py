@@ -514,17 +514,36 @@ def wall(path, z0, z1, heights, bottom=-0.25, ppu=110, seed=31):
     finish(img, path, shadow=(3, 4, 3, 0.5))
 
 
+#   python AgentScripts/GenerateVines.py <root>            DemoLevel art -> Sprites/Vines/
+#   python AgentScripts/GenerateVines.py <root> Level2     Level2 art   -> Sprites/Vines/Level2/
+# Every level has the same bridge/castle/grid geometry, so a level variant keeps the same sizes,
+# style and density; only the seeds change (different leaf layout, climber paths and heights) so the
+# levels don't look copy-pasted.
+LEVEL_VARIANTS = {
+    # seed offset, wall climber heights (near, frame, far): same ranges as DemoLevel, reshuffled
+    "Level2": (100, [3.4, 4.2, 2.8], [4.4, 3.0], [3.8, 3.1]),
+    "Level3": (200, [2.9, 3.8, 4.3], [4.7, 3.6], [3.2, 4.0]),
+}
+
 if __name__ == "__main__":
     root = sys.argv[1]
     sp = os.path.join(root, "Assets", "Sprites")
-    # DemoLevel placement grid: 10x5 cells of 2 units, lower-left corner at (-9.16, -5.04)
-    floor(os.path.join(sp, "Vines", "bridge_vine_floor.png"), grid=(-9.16, -5.04, 10, 5, 2.0))
-    face(os.path.join(sp, "Vines", "bridge_vine_face.png"))
-    back(os.path.join(sp, "Vines", "bridge_vine_back.png"))
-    leg(os.path.join(sp, "Vines", "bridge_vine_leg.png"))
+    level = sys.argv[2] if len(sys.argv) > 2 else None
+    if level:
+        off, h_near, h_frame, h_far = LEVEL_VARIANTS[level]
+        out = os.path.join(sp, "Vines", level)
+    else:
+        off, h_near, h_frame, h_far = 0, [4.4, 2.6, 3.6], [5.0, 3.3], [3.0, 4.0]
+        out = os.path.join(sp, "Vines")
+    os.makedirs(out, exist_ok=True)
+    # placement grid (same in every level): 10x5 cells of 2 units, lower-left corner at (-9.16, -5.04)
+    floor(os.path.join(out, "bridge_vine_floor.png"), grid=(-9.16, -5.04, 10, 5, 2.0), seed=21 + off)
+    face(os.path.join(out, "bridge_vine_face.png"), seed=7 + off)
+    back(os.path.join(out, "bridge_vine_back.png"), seed=11 + off)
+    leg(os.path.join(out, "bridge_vine_leg.png"), seed=3 + off)
     # castle wall either side of the gate (outer face x=-9.7: near jamb z -7.5..-4.9, far 5.2..7.7)
-    wall(os.path.join(sp, "Vines", "castle_vine_wall_near.png"), -7.5, -4.9, [4.4, 2.6, 3.6], seed=31)
+    wall(os.path.join(out, "castle_vine_wall_near.png"), -7.5, -4.9, h_near, seed=31 + off)
     # the 45-degree chamfer of the door frame right of the gate ((-10.55, z 4.36) -> (-9.72, z 5.19),
     # 1.17 wide, faces the camera): the most visible stone beside the door
-    wall(os.path.join(sp, "Vines", "castle_vine_frame_far.png"), 0.0, 1.17, [5.0, 3.3], seed=41)
-    wall(os.path.join(sp, "Vines", "castle_vine_wall_far.png"), 5.2, 7.7, [3.0, 4.0], seed=37)
+    wall(os.path.join(out, "castle_vine_frame_far.png"), 0.0, 1.17, h_frame, seed=41 + off)
+    wall(os.path.join(out, "castle_vine_wall_far.png"), 5.2, 7.7, h_far, seed=37 + off)
