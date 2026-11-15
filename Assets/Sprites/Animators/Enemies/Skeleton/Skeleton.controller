@@ -324,6 +324,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: ArmorType
     m_EventTreshold: 1
+  - m_ConditionMode: 3
+    m_ConditionEvent: Health
+    m_EventTreshold: 0.001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8678884843531325944}
   m_Solo: 0
@@ -3391,7 +3394,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: Health
-    m_EventTreshold: 0.1
+    m_EventTreshold: 0.001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8754459790109888263}
   m_Solo: 0
@@ -6600,6 +6603,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: ArmorType
     m_EventTreshold: 2
+  - m_ConditionMode: 3
+    m_ConditionEvent: Health
+    m_EventTreshold: 0.001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3528402408421496881}
   m_Solo: 0
