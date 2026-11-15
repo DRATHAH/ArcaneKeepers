@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7399796802848726128}
   - component: {fileID: 927582091657740693}
-  - component: {fileID: 4003382173008768241}
   m_Layer: 0
   m_Name: SpriteRenderer
   m_TagString: Untagged
@@ -93,28 +92,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!95 &4003382173008768241
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685512691530030272}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 31955200980fb394a97e319dc79ed623, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3601683227217436569
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +107,7 @@ GameObject:
   - component: {fileID: -4204625905506754157}
   - component: {fileID: 507032523565395887}
   - component: {fileID: 284430827769508813}
+  - component: {fileID: 5056880080281462945}
   m_Layer: 0
   m_Name: ArcherTower
   m_TagString: Tower
@@ -216,9 +194,6 @@ MonoBehaviour:
     tower: {fileID: 11400000, guid: 92c1e939ee5e56e45a8dd000c2b63c1b, type: 2}
     level: 1
     amount: 1
-  lanes: 
-  farLimit: 5
-  attackSoundName: 
 --- !u!65 &507032523565395887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -267,3 +242,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &5056880080281462945
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601683227217436569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31955200980fb394a97e319dc79ed623, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
