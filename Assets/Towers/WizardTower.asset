@@ -20,16 +20,16 @@ MonoBehaviour:
   attackSoundName: FireArrow
   closeAttack:
     attackType: 0
-    damage: 50
-    attackRate: 3
+    damage: 55
+    attackRate: 2.2
     special: 0
     range: 10
     lanes: 
     attackPrefab: {fileID: 6909232196714440273, guid: c15d1b01dbe434c458633d7505cdb811, type: 3}
   farAttack:
     attackType: 0
-    damage: 50
-    attackRate: 5
+    damage: 90
+    attackRate: 5.5
     special: 0
     range: 3
     lanes: 0000000001000000ffffffff

@@ -20,16 +20,16 @@ MonoBehaviour:
   attackSoundName: HealPool
   closeAttack:
     attackType: 1
-    damage: 100
-    attackRate: 2
+    damage: 3
+    attackRate: 3
     special: 0
     range: 5.5
     lanes: 
     attackPrefab: {fileID: 3456134524809666570, guid: 509ab590ce0019041acf7643855e53d7, type: 3}
   farAttack:
     attackType: 1
-    damage: 50
-    attackRate: 2
+    damage: 110
+    attackRate: 3.5
     special: 1
     range: 1
     lanes: 0000000001000000fffffffffeffffff02000000
