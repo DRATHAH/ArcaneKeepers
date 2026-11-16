@@ -20,8 +20,8 @@ MonoBehaviour:
   attackSoundName: 
   closeAttack:
     attackType: 1
-    damage: 100
-    attackRate: 1
+    damage: 80
+    attackRate: 2.5
     special: 1
     range: 1
     lanes: 

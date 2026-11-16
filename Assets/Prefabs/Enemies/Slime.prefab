@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253dd9cca107fe544941efecf757c82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 200
+  maxHealth: 260
   currentHealth: 0
   maxArmorHealth: 0
   currentArmorHealth: 0
@@ -236,9 +236,9 @@ MonoBehaviour:
   livingStatus: 0
   maxMoveDelay: 0.5
   moveDelay: 0
-  moveSpeed: 1.35
+  moveSpeed: 2.025
   moveDuration: 0.75
-  maxHopDelay: 1.4
+  maxHopDelay: 0.4
   windupLength: 0.375
   pushing: 0
   anim: {fileID: 5629920517515884411}
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920f6710458d0634681e058e2706cdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
-  damageAmount: 20
+  damageAmount: 40
   smash: 0
   attacking: 0
   anim: {fileID: 5629920517515884411}

@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TPDamage
   damageAmount: 50
-  maxhitCount: 3
+  maxhitCount: 2
   objectsHit: []
   armorPiercing: 0
 --- !u!95 &8468702964807437179
