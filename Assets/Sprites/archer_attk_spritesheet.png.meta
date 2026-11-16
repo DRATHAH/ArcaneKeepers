@@ -156,12 +156,12 @@ TextureImporter:
       name: archer_attk_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 3
-        width: 256
-        height: 252
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.32850388, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: archer_attk_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 401
-        y: 1
-        width: 328
-        height: 254
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 400
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,12 +200,12 @@ TextureImporter:
       name: archer_attk_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 802
-        y: 1
-        width: 394
-        height: 254
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 800
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -223,11 +223,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1200
-        y: 3
-        width: 233
-        height: 250
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -244,12 +244,12 @@ TextureImporter:
       name: archer_attk_spritesheet_4
       rect:
         serializedVersion: 2
-        x: 1599
-        y: 1
-        width: 230
-        height: 254
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1600
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -267,11 +267,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2000
-        y: 1
-        width: 231
-        height: 254
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -289,11 +289,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 3
-        width: 232
-        height: 250
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -311,11 +311,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2800
-        y: 3
-        width: 232
-        height: 250
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -333,11 +333,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3200
-        y: 3
-        width: 256
-        height: 252
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -354,12 +354,12 @@ TextureImporter:
       name: archer_attk_spritesheet_9
       rect:
         serializedVersion: 2
-        x: 3603
-        y: 3
-        width: 254
-        height: 252
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 3600
+        y: 0
+        width: 400
+        height: 256
+      alignment: 9
+      pivot: {x: 0.3285039, y: 0.516}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -386,7 +386,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":10.0,"y":1.0},"gridSpriteSize":{"x":400.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       archer_attk_spritesheet_0: 3274474116462373278
       archer_attk_spritesheet_1: -1511742266764620759
