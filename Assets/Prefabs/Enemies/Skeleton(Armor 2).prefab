@@ -235,8 +235,8 @@ MonoBehaviour:
   livingStatus: 0
   maxMoveDelay: 0.5
   moveDelay: 0
-  moveSpeed: 0.21
-  pushed: 0
+  moveSpeed: 0.525
+  pushing: 0
   anim: {fileID: 8503317876602545871}
 --- !u!114 &919609050729263091
 MonoBehaviour:
@@ -262,9 +262,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920f6710458d0634681e058e2706cdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
-  damageAmount: 20
+  damageAmount: 30
+  smash: 0
   attacking: 0
   anim: {fileID: 8503317876602545871}
+  windupDuration: 1
+  cooldownDuration: 1
+  target: {fileID: 0}
 --- !u!1 &4569744680277013110
 GameObject:
   m_ObjectHideFlags: 0

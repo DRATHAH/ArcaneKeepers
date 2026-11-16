@@ -20,16 +20,16 @@ MonoBehaviour:
   attackSoundName: Arrow
   closeAttack:
     attackType: 0
-    damage: 100
-    attackRate: 4
+    damage: 240
+    attackRate: 3.2
     special: 0
     range: 10
     lanes: 
     attackPrefab: {fileID: 854351085200040795, guid: abf456973521d114696619d64d104907, type: 3}
   farAttack:
     attackType: 0
-    damage: 30
-    attackRate: 2
+    damage: 35
+    attackRate: 0.8
     special: 0
     range: 10
     lanes: 
