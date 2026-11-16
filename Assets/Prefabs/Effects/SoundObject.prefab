@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1056747706514359785}
   - component: {fileID: 6924368143479878664}
   - component: {fileID: 7116752211874814418}
+  - component: {fileID: 2832436601391811246}
   m_Layer: 0
   m_Name: SoundObject
   m_TagString: Untagged
@@ -144,3 +145,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundObject
   pitchVar: 0.1
   sound: {fileID: 6924368143479878664}
+--- !u!114 &2832436601391811246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065167290980725948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927a89f0c1a0777408c9feb7cba80657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioChannel
+  channel: 1
