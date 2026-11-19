@@ -7,6 +7,8 @@ public class EnemyDamage : DamageBase
     [Tooltip("How much damage this enemy does.")]
     [SerializeField] private float damageAmount;
 
+    private float damageMultiplier = 0;
+
     [Tooltip("Does the enemy do a big burst of damage as opposed to constant damage?")]
     [SerializeField] private bool smash;
     
@@ -35,7 +37,6 @@ public class EnemyDamage : DamageBase
             Debug.LogWarning("This enemy has no movement!");
         }
     }
-
     private void OnTriggerStay(Collider hit)
     {
         if (hit.tag == "Tower")
@@ -75,7 +76,7 @@ public class EnemyDamage : DamageBase
 
     private void StandardAttack(GameObject victim)
     {
-        Attack(damageAmount * Time.deltaTime, victim);
+        Attack(damageAmount * (1 + damageMultiplier) * Time.deltaTime, victim);
         anim.SetBool("Attacking", true);
         enemyMove.PauseMovement();
         //Debug.Log(damageAmount * Time.deltaTime);
@@ -90,7 +91,7 @@ public class EnemyDamage : DamageBase
         anim.SetBool("Smash", true);
         if(target != null)
         {
-            Attack(damageAmount, target);
+            Attack(damageAmount * (1 + damageMultiplier), target);
         }
         if(this.gameObject.TryGetComponent<IAttackAbility>(out IAttackAbility attackAbility))
         {

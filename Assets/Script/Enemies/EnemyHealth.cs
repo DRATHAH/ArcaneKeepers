@@ -16,6 +16,8 @@ public class EnemyHealth : HealthBase
     [SerializeField] private float maxArmorHealth = 0;
     [SerializeField]private float currentArmorHealth; //current armor health this enemy has
 
+    private float healthMultiplier = 0;
+
     private IMovement enemyMovement;
     private ColorFlash damageFlash;
     [SerializeField] private float flashLength = 0.5f;
@@ -42,8 +44,8 @@ public class EnemyHealth : HealthBase
         {
             col.enabled = true;
         }
-        currentHealth = maxHealth;
-        currentArmorHealth = maxArmorHealth;
+        currentHealth = maxHealth * (1 + healthMultiplier);
+        currentArmorHealth = maxArmorHealth * (1 + healthMultiplier);
         AnimUpdate();
     }
 
