@@ -32,13 +32,13 @@ public class EnemyHealth : HealthBase
         col = GetComponent<BoxCollider>();
         damageFlash = GetComponent<ColorFlash>();
         enemyMovement = GetComponent<IMovement>();
-        healthAnim.SetInteger("ArmorType", armorType);
     }
 
     void OnEnable()
     {
+        healthAnim.SetInteger("ArmorType", armorType);
         //Reset health and armor for re-use
-        if(col != null)
+        if (col != null)
         {
             col.enabled = true;
         }
