@@ -38,16 +38,19 @@ public class RelocationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canRelocate == true)
-        {
-            if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null)
-            {
-                if (relocatedObject == null)
-                {
-                    ClearObject(0.1f);
-                }
-            }
-        }
+
+        //Commented out in case we want to re-add this
+        //if(canRelocate == true)
+        //{
+        //    if (TouchManager.instance.hoveringTile && TouchManager.instance.hoveringTile.tileObject == null)
+        //    {
+        //        if (relocatedObject == null)
+        //        {
+        //            Debug.Log("Here");
+        //            ClearObject(0.1f);
+        //        }
+        //    }
+        //}
 
         if (relocateCooldown > 0 && relocatedObject == null)
         {

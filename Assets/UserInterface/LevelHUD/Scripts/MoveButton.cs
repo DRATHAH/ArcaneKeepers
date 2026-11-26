@@ -92,6 +92,7 @@ public class MoveButton : MonoBehaviour
         {
             return;
         }
+
         // Second tap while nobody is picked up = cancel
         if (rm.canRelocate && rm.relocatedObject == null)
         {
